@@ -1,0 +1,65 @@
+﻿@model DoctorAppointment.Models.Doctor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Doctor</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            
+        </dt>
+        <div class="form-group">
+            <dd>
+                <img src="@ViewBag.ImageUrl" alt="Doctor image" />
+            </dd>
+        </div>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>  
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dd class = "col-sm-10">
+            <div class="form-group">
+                <label asp-for="Department" class="control-label fw-bold"></label>
+                <select asp-for="DepartmentId" asp-items="@ViewBag.Departments" style="margin-left:120px"></select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+        </dd>
+        <dd class = "col-sm-10">
+			<div class ="form-group">
+                <label asp-for="HospitalInfo" class="control-label fw-bold "></label>
+                <select asp-for="HospitalInfoId" asp-items="@ViewBag.Hospitals" style="margin-left:120px"></select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+
+        </dd>
+        
+    </dl>
+</div>
+<div>
+    <button class="bg-primary m-2"><a asp-controller="Home" asp-action="Index" class="text-decoration-none text-white">Back Home</a></button>
+</div>

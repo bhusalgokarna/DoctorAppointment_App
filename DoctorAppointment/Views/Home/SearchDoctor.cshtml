@@ -1,0 +1,20 @@
+﻿@model IEnumerable<DoctorAppointment.Models.Doctor>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+    <h4 class="text-decoration-underline ">Search Result:</h4>
+    @foreach (var item in Model)
+    {
+      <div> 
+        <img src="@ViewBag.ImageUrl" alt="ZiekenHuis image" />
+        </div>
+    <div class="fw-bold">@item.Name</div>
+
+    <div class="fw-bold">@item.Gender</div>
+    <div class="fw-bold">@item.Email</div>
+    <div class="fw-bold">@item.Phone</div>
+    }
+    <br>
+<button class="bg-primary "><a asp-controller="Home" asp-action="Index" class="text-decoration-none text-white">Back Home</a></button>

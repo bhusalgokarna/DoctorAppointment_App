@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="text/html; charset=iso-8859-2" http-equiv="Content-Type">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .mySlides {
+            display: none;
+        }
+    </style>
+</head>
+<body >
+    
+<!-- The sidebar -->
+<div class="table ">
+        <div class="sidebar">
+            <br>
+            <br>
+            <br>
+            <a class="nav-link text-light" asp-area="" asp-controller="Department" asp-action="Services">Services</a>
+            <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+            <a href="/Department/Services"><i class="fa fa-fw fa-wrench"></i> Services</a>
+            <a href="/Doctor/DoctorsInDetails"><i class="fa fa-fw fa-user"></i> Doctors</a>                   
+
+            <a href="/Hospital/Index"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+        </div>
+        <h2 class="w3-center">Hospital's Medical Department</h2>
+
+        <div class="w3-content w3-section" style="max-width:500px">
+            <img class="mySlides" src="/images/BirPharmacy.jpeg" style="width:100%">
+            <img class="mySlides" src="/images/ICU Unit.jpg" style="width:100%">
+            <img class="mySlides" src="/images/pharmacy.jpg" style="width:100%">
+            <img class="mySlides" src="/images/suffering.jpeg" style="width:100%">
+            <img class="mySlides" src="/images/eme.jpg" style="width:100%">
+        </div>
+        
+        <script>
+            var myIndex = 0;
+            carousel();
+
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) { myIndex = 1 }
+                x[myIndex - 1].style.display = "block";
+                setTimeout(carousel, 2000); // Change image every 2 seconds
+            }
+        </script>
+
+        <div class="col text-center" style="margin-left:50px">
+            <div>
+                <br>
+
+                Bir Hospital, a public governmental hospital, is one of the busiest medical centers in Nepal,
+                with 24/7 emergency services available, including MRI availability. On the infrastructure and
+                essential equipment assessment, Bir Hospital received a score of 2.00 out of 3.00, and 2.24 out
+                of 3 on diagnostic services. Notably, the emergency room (ER) did not have a designated triage
+                area or waiting area, nor a designated resuscitation room. Electronic charting was not available.
+                The National Trauma Center (NTC) is a public governmental hospital and the only trauma center in Nepal,
+                with 32 beds for general emergency care and 6 beds for acute resuscitations, and a 24/7 availability
+                of the ER. Emergency overnight MRIs were done at the adjacent Bir Hospital. On the infrastructure and
+                essential equipment and diagnostic services assessment, NTC received a 2.57 and 2.56 out of 3.00, respectively.
+                Limited availability of adequate isolation rooms and hand washing facilities was reported. Point-of-care
+                ultrasound was readily available in the ER.
+            </div>
+            <br>
+        </div>        
+    </div>
+</body>
+</html>
+
+

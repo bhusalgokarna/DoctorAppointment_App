@@ -1,0 +1,37 @@
+﻿@model IEnumerable<DoctorAppointment.Models.Department>
+
+    @{
+        ViewData["Title"] = "Services";
+    }
+    <html>
+<body class="servisBody">
+         <div class="align-items-center">
+           <h1>Services available in our Hospital are:</h1>
+
+            @foreach (var item in Model)
+            {
+             <br>
+             <div class="m-5 w-50 d-inline">
+                <button class="bg-info w-25 h-25 text-center" style="margin:5px">
+                    <a asp-controller="Department" asp-action="Details"
+                       asp-route-id="@item.Id" style="color:white" />@item.Name
+                </button>
+            </div>
+            }
+           <br>
+           <br>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="Department" asp-action="Index">Back to List</a>
+        }
+        else
+        {
+            <button class="bg-primary"><a asp-controller="Home" asp-action="Index" style="text-decoration:none" class="text-light">Back to Home</a></button>
+            <label class="bg-light text-danger m-5 fw-bold">Department at moment : @Model.Count()</label>
+        }
+
+          
+          </div>
+        </body>
+     </html>
+    

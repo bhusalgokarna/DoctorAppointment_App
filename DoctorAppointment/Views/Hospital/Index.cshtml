@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DoctorAppointment.Models.HospitalInfo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@foreach (var item in Model)
+{
+    <div class="fw-bold">
+        @item.Name
+    </div>
+    <div class="form-group">
+        <dd>
+            <img src="@ViewBag.ImageUrl" alt="ZiekenHuis image" />
+        </dd>
+    </div>
+    <div>
+        <a asp-route-id="@item.AddressId"
+           style="color:darkblue" class=" text-decoration-none" />@item.Address.StreetName, @item.Address.City</div>
+       <div> <a asp-route-id="@item.AddressId"
+           style="color:darkblue" class=" text-decoration-none" />@item.Address.PostCode, @item.Address.Country    
+    </div>
+    <div>
+        @foreach (var con in item.Contacts)
+        {
+            <div>
+           <a asp-route-id="@con.Id"
+           style="color:darkblue" class=" text-decoration-none" />@con.Email 
+           </div>
+            <div>
+                <a asp-route-id="@con.Id"
+                   style="color:darkblue" class=" text-decoration-none" />@con.Phone
+            </div>
+            
+        }
+    </div>
+    <div>
+        @ViewBag.Email
+    </div>
+    <div>
+        @ViewBag.Phone
+    </div>
+}

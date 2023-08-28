@@ -1,0 +1,45 @@
+﻿@model DoctorAppointment.Models.Department
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Department</h4>
+    <hr />
+    <dl class="row">
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>*@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HospitalInfoId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HospitalInfo.Name)
+        </dd>       
+        @*<dt class="col-sm-2">
+
+        </dt>
+        <div class="form-group">
+            <dd>
+                <img src="@ViewBag.ImageUrl" alt="Doctor image" />
+            </dd>
+        </div>*@
+    </dl>
+    <label>Service is avilable for 24/4</label>
+</div>
+<div>
+    <button class="bg-primary"><a asp-controller="Home" asp-action="Index" style="text-decoration:none" class="text-light">Back to Home</a></button>
+
+</div>
