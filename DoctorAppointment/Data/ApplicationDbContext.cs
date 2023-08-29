@@ -39,15 +39,23 @@ namespace DoctorAppointment.Data
                   .HasOne(a => a.Department)
                   .WithMany(p => p.Doctors)
                   .OnDelete(DeleteBehavior.NoAction);
-            
-                
+			builder.Entity<Appointment>()
+				  .HasOne(a => a.DateSlot)
+				  .WithMany(p => p.Appointments)
+				  .OnDelete(DeleteBehavior.NoAction);
 
-            base.OnModelCreating(builder);
+			builder.Entity<Appointment>()
+				  .HasOne(a => a.TimeSlot)
+				  .WithMany(p => p.Appointments)
+				  .OnDelete(DeleteBehavior.NoAction);
+			base.OnModelCreating(builder);
             SeedRecords.SeedAddress(builder);
             SeedRecords.SeedDepartment(builder);
             SeedRecords.SeedHospital(builder);
             SeedRecords.SeedDoctor(builder);
             SeedRecords.SeedPatient(builder);
+            SeedRecords.SeedDate(builder);
+            SeedRecords.SeedTime(builder);
         }
     }   
 }

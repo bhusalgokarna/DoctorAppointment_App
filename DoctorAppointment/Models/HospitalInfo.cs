@@ -22,7 +22,9 @@ namespace DoctorAppointment.Models
         public ICollection<Contact> Contacts { get; set; }
         public ICollection<Doctor>Doctors { get; set; }
         public ICollection<Patient> Patients { get; set; }
-        public ICollection<Department> Departments { get; set; }      
+        public ICollection<Department> Departments { get; set; }   
+        
+        
 
     }
 }

@@ -6,5 +6,6 @@
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
         public String AvailAbleTime { get; set; }
+        public ICollection<Appointment> Appointments { get; set; }
     }
 }

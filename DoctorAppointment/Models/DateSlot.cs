@@ -13,13 +13,9 @@ namespace DoctorAppointment.Models
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
         public string AvailableDay { get; set; }
+		public ICollection<Appointment> Appointments { get; set; }
 
-    }
+
+	}
 }
-namespace DoctorAppointment.Models
-{
-    public enum Status
-    {
-        Available, Panding, Conform
-    }
-}
+

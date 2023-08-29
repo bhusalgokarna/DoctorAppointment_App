@@ -69,6 +69,9 @@ namespace DoctorAppointment.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("DateSlotId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -77,20 +80,21 @@ namespace DoctorAppointment.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("TimeSlotId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DateSlotId");
 
                     b.HasIndex("DoctorId");
 
                     b.HasIndex("PatientId");
+
+                    b.HasIndex("TimeSlotId");
 
                     b.ToTable("Appointments");
                 });
@@ -121,6 +125,150 @@ namespace DoctorAppointment.Migrations
                     b.HasIndex("HospitalId");
 
                     b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("DoctorAppointment.Models.DateSlot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AvailableDay")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("DateSlots");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvailableDay = "18.09.2023",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvailableDay = "18.09.2023",
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AvailableDay = "18.09.2023",
+                            DoctorId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AvailableDay = "18.09.2023",
+                            DoctorId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AvailableDay = "18.09.2023",
+                            DoctorId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AvailableDay = "19.09.2023",
+                            DoctorId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AvailableDay = "19.09.2023",
+                            DoctorId = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AvailableDay = "19.09.2023",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AvailableDay = "20.09.2023",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AvailableDay = "19.09.2023",
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AvailableDay = "18.09.2023",
+                            DoctorId = 3
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AvailableDay = "19.09.2023",
+                            DoctorId = 4
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AvailableDay = "19.09.2023",
+                            DoctorId = 5
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AvailableDay = "20.09.2023",
+                            DoctorId = 6
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AvailableDay = "20.09.2023",
+                            DoctorId = 7
+                        },
+                        new
+                        {
+                            Id = 16,
+                            AvailableDay = "18.09.2023",
+                            DoctorId = 8
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AvailableDay = "18.09.2023",
+                            DoctorId = 8
+                        },
+                        new
+                        {
+                            Id = 18,
+                            AvailableDay = "18.09.2023",
+                            DoctorId = 9
+                        },
+                        new
+                        {
+                            Id = 19,
+                            AvailableDay = "20.09.2023",
+                            DoctorId = 9
+                        },
+                        new
+                        {
+                            Id = 20,
+                            AvailableDay = "21.09.2023",
+                            DoctorId = 6
+                        });
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.Department", b =>
@@ -396,11 +544,14 @@ namespace DoctorAppointment.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DoctorId")
+                    b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
                     b.Property<int>("Gender")
                         .HasMaxLength(20)
+                        .HasColumnType("int");
+
+                    b.Property<int>("HospilInfoId")
                         .HasColumnType("int");
 
                     b.Property<int?>("HospitalInfoId")
@@ -433,7 +584,9 @@ namespace DoctorAppointment.Migrations
                             Address = "Bhddhanager 24,Kathmandu,Nepal",
                             DOB = new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 6,
+                            DoctorId = 1,
                             Gender = 0,
+                            HospilInfoId = 1,
                             Name = "Gokarna",
                             Nationality = "Nepalese"
                         },
@@ -443,7 +596,9 @@ namespace DoctorAppointment.Migrations
                             Address = "MaitiGhar 124,Kathmandu,Nepal",
                             DOB = new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 4,
+                            DoctorId = 2,
                             Gender = 0,
+                            HospilInfoId = 1,
                             Name = "DGSon",
                             Nationality = "Nepalese"
                         },
@@ -453,9 +608,431 @@ namespace DoctorAppointment.Migrations
                             Address = "Sinamangal 68,Kathmandu,Nepal",
                             DOB = new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
+                            DoctorId = 3,
                             Gender = 0,
+                            HospilInfoId = 1,
                             Name = "Paula",
                             Nationality = "Belgium"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Sinamangal 68,Kathmandu,Nepal",
+                            DOB = new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 3,
+                            DoctorId = 4,
+                            Gender = 0,
+                            HospilInfoId = 1,
+                            Name = "Paula",
+                            Nationality = "Belgium"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "MaitiGhar 124,Kathmandu,Nepal",
+                            DOB = new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 4,
+                            DoctorId = 5,
+                            Gender = 0,
+                            HospilInfoId = 1,
+                            Name = "DGSon",
+                            Nationality = "Nepalese"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "Bhddhanager 24,Kathmandu,Nepal",
+                            DOB = new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 6,
+                            DoctorId = 6,
+                            Gender = 0,
+                            HospilInfoId = 1,
+                            Name = "Gokarna",
+                            Nationality = "Nepalese"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Address = "NieuweStraat 120, Gent,Belgium",
+                            DOB = new DateTime(1965, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 4,
+                            DoctorId = 7,
+                            Gender = 0,
+                            HospilInfoId = 1,
+                            Name = "Kenan",
+                            Nationality = "Belgie"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Address = "Donderlieuw 121,Belgium",
+                            DOB = new DateTime(1994, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 3,
+                            DoctorId = 8,
+                            Gender = 1,
+                            HospilInfoId = 1,
+                            Name = "Anu",
+                            Nationality = "Indian"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Address = "GroteMarkt 220, Brussel,Belgium",
+                            DOB = new DateTime(1980, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 3,
+                            DoctorId = 9,
+                            Gender = 1,
+                            HospilInfoId = 1,
+                            Name = "Sabrina",
+                            Nationality = "Belgie"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Address = "GentSeesteenweg 120, Gent,Belgium",
+                            DOB = new DateTime(1985, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 4,
+                            DoctorId = 1,
+                            Gender = 0,
+                            HospilInfoId = 1,
+                            Name = "Rufat",
+                            Nationality = "Azerbizan"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Address = "Mechanlenlaan 85, Mechelen,Belgium",
+                            DOB = new DateTime(1999, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 2,
+                            DoctorId = 2,
+                            Gender = 0,
+                            HospilInfoId = 1,
+                            Name = "Jonas",
+                            Nationality = "Belgie"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Address = "Grotelaan 45, Brussels,Belgium",
+                            DOB = new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 2,
+                            DoctorId = 3,
+                            Gender = 0,
+                            HospilInfoId = 1,
+                            Name = "Ahmed",
+                            Nationality = "Belgie"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Address = "Zuidstation 36, Brussels,Belgium",
+                            DOB = new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 1,
+                            DoctorId = 4,
+                            Gender = 0,
+                            HospilInfoId = 1,
+                            Name = "Arijs",
+                            Nationality = "Belgie"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Address = "Tournailaan 45, Tournai,Belgium",
+                            DOB = new DateTime(1991, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 5,
+                            DoctorId = 5,
+                            Gender = 1,
+                            HospilInfoId = 1,
+                            Name = "Madalina",
+                            Nationality = "Romania"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Address = "Leuvenlaan 45, Leuven,Belgium",
+                            DOB = new DateTime(1999, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 2,
+                            DoctorId = 6,
+                            Gender = 0,
+                            HospilInfoId = 1,
+                            Name = "Fida",
+                            Nationality = "Turkia"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Address = "Molenbeeklaan 150, Brussels,Belgium",
+                            DOB = new DateTime(1997, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 2,
+                            DoctorId = 7,
+                            Gender = 0,
+                            HospilInfoId = 1,
+                            Name = "Mohamad",
+                            Nationality = "Marrokko"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Address = "Oplinter 102, Tienen,Belgium",
+                            DOB = new DateTime(2008, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 3,
+                            DoctorId = 8,
+                            Gender = 1,
+                            HospilInfoId = 1,
+                            Name = "Amanda",
+                            Nationality = "Belgie"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Address = "DiestSesteenweg 111, Diest,Belgium",
+                            DOB = new DateTime(2012, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartmentId = 5,
+                            DoctorId = 9,
+                            Gender = 1,
+                            HospilInfoId = 1,
+                            Name = "Rolis",
+                            Nationality = "Belgie"
+                        });
+                });
+
+            modelBuilder.Entity("DoctorAppointment.Models.TimeSlot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AvailAbleTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("TimeSlots");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvailAbleTime = "9 AM",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvailAbleTime = "10 AM",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AvailAbleTime = "11 AM",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AvailAbleTime = "12 AM",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AvailAbleTime = "13 PM",
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AvailAbleTime = "14 PM",
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AvailAbleTime = "15 PM",
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AvailAbleTime = "16 PM",
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AvailAbleTime = "17 PM",
+                            DoctorId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AvailAbleTime = "18 PM",
+                            DoctorId = 3
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AvailAbleTime = "19 PM",
+                            DoctorId = 3
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AvailAbleTime = "20 PM",
+                            DoctorId = 3
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AvailAbleTime = "9 AM",
+                            DoctorId = 4
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AvailAbleTime = "10 AM",
+                            DoctorId = 4
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AvailAbleTime = "11 AM",
+                            DoctorId = 4
+                        },
+                        new
+                        {
+                            Id = 16,
+                            AvailAbleTime = "12 AM",
+                            DoctorId = 4
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AvailAbleTime = "13 PM",
+                            DoctorId = 5
+                        },
+                        new
+                        {
+                            Id = 18,
+                            AvailAbleTime = "14 PM",
+                            DoctorId = 5
+                        },
+                        new
+                        {
+                            Id = 19,
+                            AvailAbleTime = "15 PM",
+                            DoctorId = 5
+                        },
+                        new
+                        {
+                            Id = 20,
+                            AvailAbleTime = "16 PM",
+                            DoctorId = 5
+                        },
+                        new
+                        {
+                            Id = 21,
+                            AvailAbleTime = "17 PM",
+                            DoctorId = 6
+                        },
+                        new
+                        {
+                            Id = 22,
+                            AvailAbleTime = "18 PM",
+                            DoctorId = 6
+                        },
+                        new
+                        {
+                            Id = 23,
+                            AvailAbleTime = "19 PM",
+                            DoctorId = 6
+                        },
+                        new
+                        {
+                            Id = 24,
+                            AvailAbleTime = "20 PM",
+                            DoctorId = 6
+                        },
+                        new
+                        {
+                            Id = 25,
+                            AvailAbleTime = "9 AM",
+                            DoctorId = 7
+                        },
+                        new
+                        {
+                            Id = 26,
+                            AvailAbleTime = "10 AM",
+                            DoctorId = 7
+                        },
+                        new
+                        {
+                            Id = 27,
+                            AvailAbleTime = "11 AM",
+                            DoctorId = 7
+                        },
+                        new
+                        {
+                            Id = 28,
+                            AvailAbleTime = "12 AM",
+                            DoctorId = 7
+                        },
+                        new
+                        {
+                            Id = 29,
+                            AvailAbleTime = "13 PM",
+                            DoctorId = 8
+                        },
+                        new
+                        {
+                            Id = 30,
+                            AvailAbleTime = "14 PM",
+                            DoctorId = 8
+                        },
+                        new
+                        {
+                            Id = 31,
+                            AvailAbleTime = "15 PM",
+                            DoctorId = 8
+                        },
+                        new
+                        {
+                            Id = 32,
+                            AvailAbleTime = "16 PM",
+                            DoctorId = 8
+                        },
+                        new
+                        {
+                            Id = 33,
+                            AvailAbleTime = "17 PM",
+                            DoctorId = 9
+                        },
+                        new
+                        {
+                            Id = 34,
+                            AvailAbleTime = "18 PM",
+                            DoctorId = 9
+                        },
+                        new
+                        {
+                            Id = 35,
+                            AvailAbleTime = "19 PM",
+                            DoctorId = 9
+                        },
+                        new
+                        {
+                            Id = 36,
+                            AvailAbleTime = "20 PM",
+                            DoctorId = 9
                         });
                 });
 
@@ -663,6 +1240,12 @@ namespace DoctorAppointment.Migrations
 
             modelBuilder.Entity("DoctorAppointment.Models.Appointment", b =>
                 {
+                    b.HasOne("DoctorAppointment.Models.DateSlot", "DateSlot")
+                        .WithMany("Appointments")
+                        .HasForeignKey("DateSlotId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("DoctorAppointment.Models.Doctor", "Doctor")
                         .WithMany("Appointment")
                         .HasForeignKey("DoctorId")
@@ -675,9 +1258,19 @@ namespace DoctorAppointment.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("DoctorAppointment.Models.TimeSlot", "TimeSlot")
+                        .WithMany("Appointments")
+                        .HasForeignKey("TimeSlotId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("DateSlot");
+
                     b.Navigation("Doctor");
 
                     b.Navigation("Patient");
+
+                    b.Navigation("TimeSlot");
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.Contact", b =>
@@ -689,6 +1282,17 @@ namespace DoctorAppointment.Migrations
                         .IsRequired();
 
                     b.Navigation("Hospital");
+                });
+
+            modelBuilder.Entity("DoctorAppointment.Models.DateSlot", b =>
+                {
+                    b.HasOne("DoctorAppointment.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.Department", b =>
@@ -740,15 +1344,30 @@ namespace DoctorAppointment.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DoctorAppointment.Models.Doctor", null)
+                    b.HasOne("DoctorAppointment.Models.Doctor", "Doctor")
                         .WithMany("Patients")
-                        .HasForeignKey("DoctorId");
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DoctorAppointment.Models.HospitalInfo", null)
                         .WithMany("Patients")
                         .HasForeignKey("HospitalInfoId");
 
                     b.Navigation("Department");
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("DoctorAppointment.Models.TimeSlot", b =>
+                {
+                    b.HasOne("DoctorAppointment.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -802,6 +1421,11 @@ namespace DoctorAppointment.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DoctorAppointment.Models.DateSlot", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
             modelBuilder.Entity("DoctorAppointment.Models.Department", b =>
                 {
                     b.Navigation("Doctors");
@@ -826,6 +1450,11 @@ namespace DoctorAppointment.Migrations
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.Patient", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("DoctorAppointment.Models.TimeSlot", b =>
                 {
                     b.Navigation("Appointments");
                 });

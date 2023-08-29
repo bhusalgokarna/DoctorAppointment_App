@@ -7,23 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoctorAppointment.Data;
 using DoctorAppointment.Models;
+using Hospital.Repository.Interfaces;
 
 namespace DoctorAppointment.Controllers
 {
     public class PatientsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public PatientsController(ApplicationDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        public PatientsController(ApplicationDbContext context,IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
-        // GET: Patients
+      //  GET: Patients
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Patients.Include(p => p.Department);
-            return View(await applicationDbContext.ToListAsync());
+            //var applicationDbContext = _context.Patients.Include(p => p.Department);
+            //return View(await applicationDbContext.ToListAsync());
+            return View();
         }
 
         // GET: Patients/Details/5
@@ -155,14 +158,14 @@ namespace DoctorAppointment.Controllers
             {
                 _context.Patients.Remove(patient);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PatientExists(int id)
         {
-          return (_context.Patients?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Patients?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
