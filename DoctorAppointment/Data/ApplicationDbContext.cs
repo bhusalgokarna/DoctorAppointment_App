@@ -1,5 +1,4 @@
 ﻿using DoctorAppointment.Models;
-using Hospital.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
@@ -13,6 +12,7 @@ namespace DoctorAppointment.Data
         {
         }
         public DbSet<HospitalInfo> HospitalInfo { get; set;}
+        public DbSet<Genre> Genres { get; set; }
         public DbSet<Doctor>Doctors { get; set;}
         public DbSet<Patient> Patients { get; set;}
         public DbSet<Appointment> Appointments { get; set;}
@@ -21,6 +21,7 @@ namespace DoctorAppointment.Data
         public DbSet<Contact>Contacts { get; set;}
         public DbSet<DateSlot> DateSlots { get; set;}
         public DbSet<TimeSlot> TimeSlots { get; set;}
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Doctor>()
@@ -48,14 +49,25 @@ namespace DoctorAppointment.Data
 				  .HasOne(a => a.TimeSlot)
 				  .WithMany(p => p.Appointments)
 				  .OnDelete(DeleteBehavior.NoAction);
-			base.OnModelCreating(builder);
+            builder.Entity<Patient>()
+                  .HasOne(a => a.Genre)
+                  .WithMany(p => p.Patients)
+                  .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Doctor>()
+                 .HasOne(a => a.Genre)
+                 .WithMany(p => p.Doctors)
+                 .OnDelete(DeleteBehavior.NoAction);
+
+            base.OnModelCreating(builder);
             SeedRecords.SeedAddress(builder);
+            SeedRecords.SeedGenre(builder);
             SeedRecords.SeedDepartment(builder);
             SeedRecords.SeedHospital(builder);
             SeedRecords.SeedDoctor(builder);
             SeedRecords.SeedPatient(builder);
             SeedRecords.SeedDate(builder);
             SeedRecords.SeedTime(builder);
+            
         }
     }   
 }

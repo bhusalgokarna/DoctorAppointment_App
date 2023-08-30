@@ -2,8 +2,8 @@
     GetDoctor();
     $('#Doctor').change(function () {
         var id = $(this).val();
-        $('#DateSlot').empty();
-        $('#DateSlot').append('<Option>--Available Dates are--</Option>');
+        //$('#DateSlot').empty();
+        //$('#DateSlot').append('<Option>--Available Dates are--</Option>');
         $.ajax({
             url: '/Appointment/DateSlot?id=' +id,
             success: function (result) {
@@ -24,8 +24,8 @@
     });
     $('#Doctor').change(function () {
         var id = $(this).val();
-        $('#Patient').empty();
-        $('#Patient').append('<Option>--Select Patient--</Option>');
+        //$('#Patient').empty();
+        //$('#Patient').append('<Option>--Select Patient--</Option>');
         $.ajax({
             url: '/Appointment/Patient?id=' + id,
             success: function (result) {
@@ -50,8 +50,8 @@ function GetDoctor() {
 function GetTimeSlot() {
     var id = $('#Doctor').val();
     var dateId = $("#DateSlot").val();
-    $('#TimeSlot').empty();
-    $('#TimeSlot').append('<Option>--Select Time From Available TimeSlot--</Option>');
+    //$('#TimeSlot').empty();
+    //$('#TimeSlot').append('<Option>--Select Time From Available TimeSlot--</Option>');
     $.ajax({
         url: '/Appointment/TimeSlot?id=' + id + '&dateId=' + dateId,
         success: function (result) {

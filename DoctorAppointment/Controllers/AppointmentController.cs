@@ -1,5 +1,6 @@
 ﻿using DoctorAppointment.Data;
 using DoctorAppointment.Models;
+using DoctorAppointment.ViewModels;
 using Hospital.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,17 +11,36 @@ namespace DoctorAppointment.Controllers
     public class AppointmentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-       
-        public AppointmentController(IUnitOfWork unitOfWork)
+        private readonly ApplicationDbContext _context;
+        public AppointmentController(IUnitOfWork unitOfWork, ApplicationDbContext context)
         {
-            _unitOfWork = unitOfWork;            
+            _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         //Get All Appointments..
         public async Task<IActionResult> Index()
         {
             var getAllAppointment =await _unitOfWork.GenericRepository<Appointment>().SelectAll<Appointment>();
-            return View(getAllAppointment);
+            var vmList = new List<AppointmentViewModel>();
+            foreach (var appointment in getAllAppointment)
+            {
+                AppointmentViewModel viewModel = new AppointmentViewModel();
+                viewModel.Id = appointment.Id;
+                viewModel.Description = appointment.Description;
+                viewModel.CreatedDate = appointment.CreatedDate;
+                viewModel.DoctorId = appointment.DoctorId;
+                viewModel.PatientId = appointment.PatientId;
+                viewModel.DateSlotId = appointment.DateSlotId;
+                viewModel.TimeSlotId = appointment.TimeSlotId;
+                viewModel.DoctorName = _context.Doctors.Where(x => x.Id == viewModel.DoctorId).First().Name;
+                viewModel.PatientName = _context.Patients.Where(x => x.Id == viewModel.PatientId).First().Name;
+                viewModel.Bookeddate = _context.DateSlots.Where(x => x.Id == viewModel.DateSlotId).First().AvailableDay;
+                viewModel.BookedTime = _context.TimeSlots.Where(x => x.Id == viewModel.TimeSlotId).First().AvailAbleTime;
+                vmList.Add(viewModel);
+            }
+            return View(vmList);
+          
         }
 
         //Create a Appointment..
@@ -29,6 +49,8 @@ namespace DoctorAppointment.Controllers
         {
             return  View();
         }
+
+
 
         //Post Appointment Object...
         [HttpPost]
@@ -47,6 +69,8 @@ namespace DoctorAppointment.Controllers
             }          
         }
 
+
+
         // Get Edit Object...
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -55,18 +79,30 @@ namespace DoctorAppointment.Controllers
             {
                 return NotFound();
             }
-            var getAppointmentById=await _unitOfWork.GenericRepository<Appointment>().SelectById<Appointment>(id);
-            return View(getAppointmentById);
+            
+            AppointmentViewModel viewModel = new AppointmentViewModel();
+           await ReturnViewModel(viewModel, id);
+            
+            return View(viewModel);
         }
 
+        public async Task ReturnViewModel(AppointmentViewModel vm, int id)
+        {
+            var getAppointmentById = await _unitOfWork.GenericRepository<Appointment>().SelectById<Appointment>(id);
+            vm.Description = getAppointmentById.Description;
+            vm.DoctorId = getAppointmentById.DoctorId;
+            vm.PatientId = getAppointmentById.PatientId;
+            vm.DateSlotId = getAppointmentById.DateSlotId;
+            vm.TimeSlotId = getAppointmentById.TimeSlotId;
+            vm.DoctorName = _context.Doctors.Where(x => x.Id == vm.DoctorId).First().Name;
+            vm.PatientName = _context.Patients.Where(x => x.Id == vm.PatientId).First().Name;
+            vm.Bookeddate = _context.DateSlots.Where(x => x.Id == vm.DateSlotId).First().AvailableDay;
+            vm.BookedTime = _context.TimeSlots.Where(x => x.Id == vm.TimeSlotId).First().AvailAbleTime;
+        }
         //Post Edited Object
         [HttpPost]
         public async Task<IActionResult>Edit(Appointment appointment)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
             await _unitOfWork.GenericRepository<Appointment>().UpdateAsync(appointment);
             _unitOfWork.Save();
             return RedirectToAction("Index");
@@ -80,18 +116,15 @@ namespace DoctorAppointment.Controllers
 			{
 				return NotFound();
 			}
-			var getAppointmentById = await _unitOfWork.GenericRepository<Appointment>().SelectById<Appointment>(id);
-			return View(getAppointmentById);
+			AppointmentViewModel vm=new AppointmentViewModel();
+            await ReturnViewModel(vm, id);
+			return View(vm);
 		}
 
 		//Post Edited Object
 		[HttpPost]
 		public async Task<IActionResult> Delete(Appointment appointment)
 		{
-			if (!ModelState.IsValid)
-			{
-				return BadRequest();
-			}
 			await _unitOfWork.GenericRepository<Appointment>().DeleteAsync(appointment);
 			_unitOfWork.Save();
 			return RedirectToAction("Index");

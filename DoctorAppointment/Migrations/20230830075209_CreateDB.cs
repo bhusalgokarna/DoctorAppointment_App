@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DoctorAppointment.Migrations
 {
-    public partial class CreateDb : Migration
+    public partial class CreateDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -62,6 +62,19 @@ namespace DoctorAppointment.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Genres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Gender = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genres", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -239,7 +252,7 @@ namespace DoctorAppointment.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Gender = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    GenreId = table.Column<int>(type: "int", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -254,6 +267,11 @@ namespace DoctorAppointment.Migrations
                         name: "FK_Doctors_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Doctors_Genres_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genres",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Doctors_HospitalInfo_HospitalInfoId",
@@ -289,7 +307,7 @@ namespace DoctorAppointment.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Gender = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    GenreId = table.Column<int>(type: "int", nullable: false),
                     Nationality = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -313,6 +331,11 @@ namespace DoctorAppointment.Migrations
                         principalTable: "Doctors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Patients_Genres_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genres",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Patients_HospitalInfo_HospitalInfoId",
                         column: x => x.HospitalInfoId,
@@ -383,6 +406,16 @@ namespace DoctorAppointment.Migrations
                 values: new object[] { 1, "Sandikharkha", "Nepal", "2123", "MilanChok" });
 
             migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "Id", "Gender" },
+                values: new object[,]
+                {
+                    { 1, "Male" },
+                    { 2, "Female" },
+                    { 3, "Other" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "HospitalInfo",
                 columns: new[] { "Id", "AddressId", "Name", "UrlToPicture" },
                 values: new object[] { 1, 1, "Shandhikharkha Distric Hospital", "Gangalal national heart center.jpeg" });
@@ -402,18 +435,18 @@ namespace DoctorAppointment.Migrations
 
             migrationBuilder.InsertData(
                 table: "Doctors",
-                columns: new[] { "Id", "DOB", "DepartmentId", "Email", "Gender", "HospitalInfoId", "Name", "Phone", "UrlToPicture" },
+                columns: new[] { "Id", "DOB", "DepartmentId", "Email", "GenreId", "HospitalInfoId", "Name", "Phone", "UrlToPicture" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Jasper@gmail.com", 0, 1, "Jasper", "+977-9856325689", "Jasper.jpeg" },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Tiler@gmail.com", 0, 1, "Timerman", "+977-9756325680", "Timerman.jpeg" },
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Umr@outlook.be", 0, 1, "Umer", "+977-9656325254", "Umer.jpeg" },
-                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Sneha@gmail.com", 1, 1, "Sneha", "+977-9875325691", "Sneha.jpeg" },
-                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Kristof@gmail.com", 2, 1, "kristof", "+977-1456325689", "Kristof.jpeg" },
-                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, "Tomer@Yahoomail.com", 0, 1, "Tomar", "+977-9856325689", "Tomer.jpeg" },
-                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "Iveta@gmail.com", 1, 1, "Iveta", "+977-4856325632", "Iveta.jpeg" },
-                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, "Roland@gmail.com", 0, 1, "Roland", "+977-9756325645", "Roland.jpeg" },
-                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, "Amanda@Yahoo.com", 1, 1, "Amanda", "+977-9756325685", "Amanda.jpeg" }
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Jasper@gmail.com", 1, 1, "Jasper", "+977-9856325689", "Jasper.jpeg" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Tiler@gmail.com", 1, 1, "Timerman", "+977-9756325680", "Timerman.jpeg" },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Umr@outlook.be", 1, 1, "Umer", "+977-9656325254", "Umer.jpeg" },
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Sneha@gmail.com", 2, 1, "Sneha", "+977-9875325691", "Sneha.jpeg" },
+                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Kristof@gmail.com", 3, 1, "kristof", "+977-1456325689", "Kristof.jpeg" },
+                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, "Tomer@Yahoomail.com", 1, 1, "Tomar", "+977-9856325689", "Tomer.jpeg" },
+                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "Iveta@gmail.com", 2, 1, "Iveta", "+977-4856325632", "Iveta.jpeg" },
+                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, "Roland@gmail.com", 1, 1, "Roland", "+977-9756325645", "Roland.jpeg" },
+                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, "Amanda@Yahoo.com", 2, 1, "Amanda", "+977-9756325685", "Amanda.jpeg" }
                 });
 
             migrationBuilder.InsertData(
@@ -445,26 +478,26 @@ namespace DoctorAppointment.Migrations
 
             migrationBuilder.InsertData(
                 table: "Patients",
-                columns: new[] { "Id", "Address", "DOB", "DepartmentId", "DoctorId", "Gender", "HospilInfoId", "HospitalInfoId", "Name", "Nationality" },
+                columns: new[] { "Id", "Address", "DOB", "DepartmentId", "DoctorId", "GenreId", "HospilInfoId", "HospitalInfoId", "Name", "Nationality" },
                 values: new object[,]
                 {
-                    { 1, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 1, 0, 1, null, "Gokarna", "Nepalese" },
-                    { 2, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 2, 0, 1, null, "DGSon", "Nepalese" },
-                    { 3, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 0, 1, null, "Paula", "Belgium" },
-                    { 4, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4, 0, 1, null, "Paula", "Belgium" },
-                    { 5, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 5, 0, 1, null, "DGSon", "Nepalese" },
-                    { 6, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 6, 0, 1, null, "Gokarna", "Nepalese" },
-                    { 7, "NieuweStraat 120, Gent,Belgium", new DateTime(1965, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 7, 0, 1, null, "Kenan", "Belgie" },
-                    { 8, "Donderlieuw 121,Belgium", new DateTime(1994, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, 1, 1, null, "Anu", "Indian" },
-                    { 9, "GroteMarkt 220, Brussel,Belgium", new DateTime(1980, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 9, 1, 1, null, "Sabrina", "Belgie" },
-                    { 10, "GentSeesteenweg 120, Gent,Belgium", new DateTime(1985, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 1, 0, 1, null, "Rufat", "Azerbizan" },
-                    { 11, "Mechanlenlaan 85, Mechelen,Belgium", new DateTime(1999, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 0, 1, null, "Jonas", "Belgie" },
-                    { 12, "Grotelaan 45, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 3, 0, 1, null, "Ahmed", "Belgie" },
-                    { 13, "Zuidstation 36, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 4, 0, 1, null, "Arijs", "Belgie" },
-                    { 14, "Tournailaan 45, Tournai,Belgium", new DateTime(1991, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 5, 1, 1, null, "Madalina", "Romania" },
-                    { 15, "Leuvenlaan 45, Leuven,Belgium", new DateTime(1999, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 6, 0, 1, null, "Fida", "Turkia" },
-                    { 16, "Molenbeeklaan 150, Brussels,Belgium", new DateTime(1997, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 7, 0, 1, null, "Mohamad", "Marrokko" },
-                    { 17, "Oplinter 102, Tienen,Belgium", new DateTime(2008, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, 1, 1, null, "Amanda", "Belgie" },
+                    { 1, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 1, 1, 1, null, "Gokarna", "Nepalese" },
+                    { 2, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 2, 1, 1, null, "DGSon", "Nepalese" },
+                    { 3, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 1, 1, null, "Paula", "Belgium" },
+                    { 4, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4, 2, 1, null, "Paula", "Belgium" },
+                    { 5, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 5, 1, 1, null, "DGSon", "Nepalese" },
+                    { 6, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 6, 1, 1, null, "Gokarna", "Nepalese" },
+                    { 7, "NieuweStraat 120, Gent,Belgium", new DateTime(1965, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 7, 1, 1, null, "Kenan", "Belgie" },
+                    { 8, "Donderlieuw 121,Belgium", new DateTime(1994, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, 2, 1, null, "Anu", "Indian" },
+                    { 9, "GroteMarkt 220, Brussel,Belgium", new DateTime(1980, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 9, 2, 1, null, "Sabrina", "Belgie" },
+                    { 10, "GentSeesteenweg 120, Gent,Belgium", new DateTime(1985, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 1, 1, 1, null, "Rufat", "Azerbizan" },
+                    { 11, "Mechanlenlaan 85, Mechelen,Belgium", new DateTime(1999, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 1, 1, null, "Jonas", "Belgie" },
+                    { 12, "Grotelaan 45, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 3, 1, 1, null, "Ahmed", "Belgie" },
+                    { 13, "Zuidstation 36, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 4, 2, 1, null, "Arijs", "Belgie" },
+                    { 14, "Tournailaan 45, Tournai,Belgium", new DateTime(1991, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 5, 2, 1, null, "Madalina", "Romania" },
+                    { 15, "Leuvenlaan 45, Leuven,Belgium", new DateTime(1999, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 6, 1, 1, null, "Fida", "Turkia" },
+                    { 16, "Molenbeeklaan 150, Brussels,Belgium", new DateTime(1997, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 7, 1, 1, null, "Mohamad", "Marrokko" },
+                    { 17, "Oplinter 102, Tienen,Belgium", new DateTime(2008, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, 2, 1, null, "Amanda", "Belgie" },
                     { 18, "DiestSesteenweg 111, Diest,Belgium", new DateTime(2012, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 9, 1, 1, null, "Rolis", "Belgie" }
                 });
 
@@ -598,6 +631,11 @@ namespace DoctorAppointment.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Doctors_GenreId",
+                table: "Doctors",
+                column: "GenreId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Doctors_HospitalInfoId",
                 table: "Doctors",
                 column: "HospitalInfoId");
@@ -616,6 +654,11 @@ namespace DoctorAppointment.Migrations
                 name: "IX_Patients_DoctorId",
                 table: "Patients",
                 column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_GenreId",
+                table: "Patients",
+                column: "GenreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Patients_HospitalInfoId",
@@ -671,6 +714,9 @@ namespace DoctorAppointment.Migrations
 
             migrationBuilder.DropTable(
                 name: "Departments");
+
+            migrationBuilder.DropTable(
+                name: "Genres");
 
             migrationBuilder.DropTable(
                 name: "HospitalInfo");

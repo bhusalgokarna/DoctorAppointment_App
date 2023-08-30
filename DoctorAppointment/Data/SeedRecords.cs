@@ -1,12 +1,29 @@
 ﻿using DoctorAppointment.Models;
 using DoctorAppointment.Repositories.Interfaces;
-using Hospital.Model;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace DoctorAppointment.Data
 {
     public static class SeedRecords
     {
+        public  static void SeedGenre(ModelBuilder model)
+        {
+            model.Entity<Genre>().HasData(
+                new Genre
+                {
+                    Id=1,
+                    Gender="Male"
+                }, new Genre
+                {
+                    Id = 2,
+                    Gender = "Female"
+                }, new Genre
+                {
+                    Id = 3,
+                    Gender = "Other"
+                });
+        } 
         public static void SeedAddress(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Address>().HasData(
@@ -88,7 +105,7 @@ namespace DoctorAppointment.Data
                 {
                     Id = 1,
                     Name = "Jasper",  
-                    Gender = Gender.Male,
+                    GenreId =1,
                     HospitalInfoId = 1,
                     DepartmentId = 2,
                     UrlToPicture = "Jasper.jpeg",
@@ -98,7 +115,7 @@ namespace DoctorAppointment.Data
                 {
                     Id = 2,
                     Name = "Timerman",
-                    Gender = Gender.Male,                    
+                    GenreId = 1,                    
                    HospitalInfoId = 1,                    
                     DepartmentId = 2,
                     UrlToPicture = "Timerman.jpeg",
@@ -108,7 +125,7 @@ namespace DoctorAppointment.Data
                 {
                     Id = 3,
                     Name = "Umer",
-                    Gender= Gender.Male,                  
+                    GenreId = 1,                  
                    HospitalInfoId = 1,                
                     DepartmentId = 1,
                     UrlToPicture = "Umer.jpeg",
@@ -119,7 +136,7 @@ namespace DoctorAppointment.Data
                 {
                     Id = 4,
                     Name = "Sneha",
-                    Gender=Gender.Female,
+                    GenreId = 2,
                     HospitalInfoId = 1,
                     DepartmentId = 3,
                     UrlToPicture = "Sneha.jpeg",
@@ -128,8 +145,8 @@ namespace DoctorAppointment.Data
                 }, new Doctor
                 {
                     Id = 5,
-                    Name = "kristof",                    
-                    Gender=Gender.Other,
+                    Name = "kristof",
+                    GenreId = 3,
                     HospitalInfoId = 1,                   
                     DepartmentId = 3,
                     UrlToPicture = "Kristof.jpeg",
@@ -139,7 +156,7 @@ namespace DoctorAppointment.Data
                 {
                     Id = 6,
                     Name = "Tomar",
-                    Gender=Gender.Male,
+                    GenreId = 1,
                     HospitalInfoId = 1,                    
                     DepartmentId = 4,
                     UrlToPicture = "Tomer.jpeg",
@@ -149,7 +166,7 @@ namespace DoctorAppointment.Data
                 {
                     Id = 7,
                     Name = "Iveta",
-                    Gender=Gender.Female,
+                    GenreId = 2,
                     HospitalInfoId = 1,                    
                     DepartmentId = 5,
                     UrlToPicture = "Iveta.jpeg",
@@ -159,7 +176,7 @@ namespace DoctorAppointment.Data
                 {
                     Id = 8,
                     Name = "Roland",
-                    Gender =Gender.Male,
+                    GenreId = 1,
                     HospitalInfoId = 1,                  
                     DepartmentId = 6,
                     UrlToPicture = "Roland.jpeg",
@@ -169,7 +186,7 @@ namespace DoctorAppointment.Data
                 {
                     Id = 9,
                     Name = "Amanda",
-                    Gender=Gender.Female,
+                    GenreId = 2,
                     HospitalInfoId = 1,                    
                     DepartmentId = 6,
                     UrlToPicture = "Amanda.jpeg",
@@ -479,7 +496,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Nepalese",
 					Address = "Bhddhanager 24,Kathmandu,Nepal",
 					DOB = new DateTime(1985, 06, 25),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 6,
 					DoctorId = 1,
 					HospilInfoId = 1,
@@ -490,7 +507,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Nepalese",
 					Address = "MaitiGhar 124,Kathmandu,Nepal",
 					DOB = new DateTime(2002, 09, 10),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 4,
 					DoctorId = 2,
 					HospilInfoId = 1,
@@ -502,7 +519,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Belgium",
 					Address = "Sinamangal 68,Kathmandu,Nepal",
 					DOB = new DateTime(2018, 04, 14),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 3,
 					DoctorId = 3,
 					HospilInfoId = 1,
@@ -513,7 +530,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Belgium",
 					Address = "Sinamangal 68,Kathmandu,Nepal",
 					DOB = new DateTime(2018, 04, 14),
-					Gender = Gender.Male,
+                    GenreId = 2,
 					DepartmentId = 3,
 					DoctorId = 4,
 					HospilInfoId = 1,
@@ -524,7 +541,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Nepalese",
 					Address = "MaitiGhar 124,Kathmandu,Nepal",
 					DOB = new DateTime(2002, 09, 10),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 4,
 					DoctorId = 5,
 					HospilInfoId = 1,
@@ -536,7 +553,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Nepalese",
 					Address = "Bhddhanager 24,Kathmandu,Nepal",
 					DOB = new DateTime(1985, 06, 25),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 6,
 					DoctorId = 6,
 					HospilInfoId = 1,
@@ -547,7 +564,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Belgie",
 					Address = "NieuweStraat 120, Gent,Belgium",
 					DOB = new DateTime(1965, 04, 25),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 4,
 					DoctorId = 7,
 					HospilInfoId = 1,
@@ -558,7 +575,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Indian",
 					Address = "Donderlieuw 121,Belgium",
 					DOB = new DateTime(1994, 04, 25),
-					Gender = Gender.Female,
+                    GenreId = 2,
 					DepartmentId = 3,
 					DoctorId = 8,
 					HospilInfoId = 1,
@@ -569,7 +586,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Belgie",
 					Address = "GroteMarkt 220, Brussel,Belgium",
 					DOB = new DateTime(1980, 04, 25),
-					Gender = Gender.Female,
+                    GenreId = 2,
 					DepartmentId = 3,
 					DoctorId = 9,
 					HospilInfoId = 1,
@@ -580,7 +597,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Azerbizan",
 					Address = "GentSeesteenweg 120, Gent,Belgium",
 					DOB = new DateTime(1985, 04, 12),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 4,
 					DoctorId = 1,
 					HospilInfoId = 1,
@@ -591,7 +608,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Belgie",
 					Address = "Mechanlenlaan 85, Mechelen,Belgium",
 					DOB = new DateTime(1999, 04, 25),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 2,
 					DoctorId = 2,
 					HospilInfoId = 1,
@@ -602,7 +619,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Belgie",
 					Address = "Grotelaan 45, Brussels,Belgium",
 					DOB = new DateTime(1997, 04, 25),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 2,
 					DoctorId = 3,
 					HospilInfoId = 1,
@@ -613,7 +630,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Belgie",
 					Address = "Zuidstation 36, Brussels,Belgium",
 					DOB = new DateTime(1997, 04, 25),
-					Gender = Gender.Male,
+                    GenreId = 2,
 					DepartmentId = 1,
 					DoctorId = 4,
 					HospilInfoId = 1,
@@ -624,7 +641,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Romania",
 					Address = "Tournailaan 45, Tournai,Belgium",
 					DOB = new DateTime(1991, 04, 25),
-					Gender = Gender.Female,
+                    GenreId = 2,
 					DepartmentId = 5,
 					DoctorId = 5,
 					HospilInfoId = 1,
@@ -635,7 +652,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Turkia",
 					Address = "Leuvenlaan 45, Leuven,Belgium",
 					DOB = new DateTime(1999, 04, 23),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 2,
 					DoctorId = 6,
 					HospilInfoId = 1,
@@ -646,7 +663,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Marrokko",
 					Address = "Molenbeeklaan 150, Brussels,Belgium",
 					DOB = new DateTime(1997, 04, 14),
-					Gender = Gender.Male,
+                    GenreId = 1,
 					DepartmentId = 2,
 					DoctorId = 7,
 					HospilInfoId = 1,
@@ -657,7 +674,7 @@ namespace DoctorAppointment.Data
 					Nationality = "Belgie",
 					Address = "Oplinter 102, Tienen,Belgium",
 					DOB = new DateTime(2008, 09, 25),
-					Gender = Gender.Female,
+                    GenreId = 2,
 					DepartmentId = 3,
 					DoctorId = 8,
 					HospilInfoId = 1,
@@ -668,12 +685,12 @@ namespace DoctorAppointment.Data
 					Nationality = "Belgie",
 					Address = "DiestSesteenweg 111, Diest,Belgium",
 					DOB = new DateTime(2012, 06, 17),
-					Gender = Gender.Female,
+                    GenreId = 1,
 					DepartmentId = 5,
 					DoctorId = 9,
 					HospilInfoId = 1,
 				});
 		}
-
+       
 	}
 }

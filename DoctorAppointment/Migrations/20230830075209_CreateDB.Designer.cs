@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorAppointment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230828131615_CreateDb")]
-    partial class CreateDb
+    [Migration("20230830075209_CreateDB")]
+    partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -352,7 +352,7 @@ namespace DoctorAppointment.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int>("GenreId")
                         .HasMaxLength(20)
                         .HasColumnType("int");
 
@@ -376,6 +376,8 @@ namespace DoctorAppointment.Migrations
 
                     b.HasIndex("DepartmentId");
 
+                    b.HasIndex("GenreId");
+
                     b.HasIndex("HospitalInfoId");
 
                     b.ToTable("Doctors");
@@ -387,7 +389,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
                             Email = "Jasper@gmail.com",
-                            Gender = 0,
+                            GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Jasper",
                             Phone = "+977-9856325689",
@@ -399,7 +401,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
                             Email = "Tiler@gmail.com",
-                            Gender = 0,
+                            GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Timerman",
                             Phone = "+977-9756325680",
@@ -411,7 +413,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 1,
                             Email = "Umr@outlook.be",
-                            Gender = 0,
+                            GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Umer",
                             Phone = "+977-9656325254",
@@ -423,7 +425,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             Email = "Sneha@gmail.com",
-                            Gender = 1,
+                            GenreId = 2,
                             HospitalInfoId = 1,
                             Name = "Sneha",
                             Phone = "+977-9875325691",
@@ -435,7 +437,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             Email = "Kristof@gmail.com",
-                            Gender = 2,
+                            GenreId = 3,
                             HospitalInfoId = 1,
                             Name = "kristof",
                             Phone = "+977-1456325689",
@@ -447,7 +449,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 4,
                             Email = "Tomer@Yahoomail.com",
-                            Gender = 0,
+                            GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Tomar",
                             Phone = "+977-9856325689",
@@ -459,7 +461,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 5,
                             Email = "Iveta@gmail.com",
-                            Gender = 1,
+                            GenreId = 2,
                             HospitalInfoId = 1,
                             Name = "Iveta",
                             Phone = "+977-4856325632",
@@ -471,7 +473,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 6,
                             Email = "Roland@gmail.com",
-                            Gender = 0,
+                            GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Roland",
                             Phone = "+977-9756325645",
@@ -483,11 +485,46 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 6,
                             Email = "Amanda@Yahoo.com",
-                            Gender = 1,
+                            GenreId = 2,
                             HospitalInfoId = 1,
                             Name = "Amanda",
                             Phone = "+977-9756325685",
                             UrlToPicture = "Amanda.jpeg"
+                        });
+                });
+
+            modelBuilder.Entity("DoctorAppointment.Models.Genre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Gender = "Male"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Gender = "Female"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Gender = "Other"
                         });
                 });
 
@@ -549,8 +586,7 @@ namespace DoctorAppointment.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Gender")
-                        .HasMaxLength(20)
+                    b.Property<int>("GenreId")
                         .HasColumnType("int");
 
                     b.Property<int>("HospilInfoId")
@@ -575,6 +611,8 @@ namespace DoctorAppointment.Migrations
 
                     b.HasIndex("DoctorId");
 
+                    b.HasIndex("GenreId");
+
                     b.HasIndex("HospitalInfoId");
 
                     b.ToTable("Patients");
@@ -587,7 +625,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 6,
                             DoctorId = 1,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "Gokarna",
                             Nationality = "Nepalese"
@@ -599,7 +637,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 4,
                             DoctorId = 2,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "DGSon",
                             Nationality = "Nepalese"
@@ -611,7 +649,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             DoctorId = 3,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "Paula",
                             Nationality = "Belgium"
@@ -623,7 +661,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             DoctorId = 4,
-                            Gender = 0,
+                            GenreId = 2,
                             HospilInfoId = 1,
                             Name = "Paula",
                             Nationality = "Belgium"
@@ -635,7 +673,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 4,
                             DoctorId = 5,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "DGSon",
                             Nationality = "Nepalese"
@@ -647,7 +685,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 6,
                             DoctorId = 6,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "Gokarna",
                             Nationality = "Nepalese"
@@ -659,7 +697,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1965, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 4,
                             DoctorId = 7,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "Kenan",
                             Nationality = "Belgie"
@@ -671,7 +709,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1994, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             DoctorId = 8,
-                            Gender = 1,
+                            GenreId = 2,
                             HospilInfoId = 1,
                             Name = "Anu",
                             Nationality = "Indian"
@@ -683,7 +721,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1980, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             DoctorId = 9,
-                            Gender = 1,
+                            GenreId = 2,
                             HospilInfoId = 1,
                             Name = "Sabrina",
                             Nationality = "Belgie"
@@ -695,7 +733,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1985, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 4,
                             DoctorId = 1,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "Rufat",
                             Nationality = "Azerbizan"
@@ -707,7 +745,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1999, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
                             DoctorId = 2,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "Jonas",
                             Nationality = "Belgie"
@@ -719,7 +757,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
                             DoctorId = 3,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "Ahmed",
                             Nationality = "Belgie"
@@ -731,7 +769,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 1,
                             DoctorId = 4,
-                            Gender = 0,
+                            GenreId = 2,
                             HospilInfoId = 1,
                             Name = "Arijs",
                             Nationality = "Belgie"
@@ -743,7 +781,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1991, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 5,
                             DoctorId = 5,
-                            Gender = 1,
+                            GenreId = 2,
                             HospilInfoId = 1,
                             Name = "Madalina",
                             Nationality = "Romania"
@@ -755,7 +793,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1999, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
                             DoctorId = 6,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "Fida",
                             Nationality = "Turkia"
@@ -767,7 +805,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1997, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
                             DoctorId = 7,
-                            Gender = 0,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "Mohamad",
                             Nationality = "Marrokko"
@@ -779,7 +817,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2008, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             DoctorId = 8,
-                            Gender = 1,
+                            GenreId = 2,
                             HospilInfoId = 1,
                             Name = "Amanda",
                             Nationality = "Belgie"
@@ -791,7 +829,7 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2012, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 5,
                             DoctorId = 9,
-                            Gender = 1,
+                            GenreId = 1,
                             HospilInfoId = 1,
                             Name = "Rolis",
                             Nationality = "Belgie"
@@ -1316,6 +1354,12 @@ namespace DoctorAppointment.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("DoctorAppointment.Models.Genre", "Genre")
+                        .WithMany("Doctors")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("DoctorAppointment.Models.HospitalInfo", "HospitalInfo")
                         .WithMany("Doctors")
                         .HasForeignKey("HospitalInfoId")
@@ -1323,6 +1367,8 @@ namespace DoctorAppointment.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
+
+                    b.Navigation("Genre");
 
                     b.Navigation("HospitalInfo");
                 });
@@ -1352,6 +1398,12 @@ namespace DoctorAppointment.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DoctorAppointment.Models.Genre", "Genre")
+                        .WithMany("Patients")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("DoctorAppointment.Models.HospitalInfo", null)
                         .WithMany("Patients")
                         .HasForeignKey("HospitalInfoId");
@@ -1359,6 +1411,8 @@ namespace DoctorAppointment.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("Doctor");
+
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.TimeSlot", b =>
@@ -1436,6 +1490,13 @@ namespace DoctorAppointment.Migrations
             modelBuilder.Entity("DoctorAppointment.Models.Doctor", b =>
                 {
                     b.Navigation("Appointment");
+
+                    b.Navigation("Patients");
+                });
+
+            modelBuilder.Entity("DoctorAppointment.Models.Genre", b =>
+                {
+                    b.Navigation("Doctors");
 
                     b.Navigation("Patients");
                 });

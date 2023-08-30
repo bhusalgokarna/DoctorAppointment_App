@@ -1,18 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Patient_Doctor_Appointment_App.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using DoctorAppointment.Models;
 
-namespace Patient_Doctor_Appointment_App.ViewModels
+
+namespace DoctorAppointment.ViewModels
 {
     public class AppointmentViewModel
     {
         public int Id { get; set; }
+
+        public DateTime CreatedDate = DateTime.Now;
+        [MaxLength(200)]
+        public string Description { get; set; }
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
         public int DateSlotId { get; set; }
-        [NotMapped]
         public DateSlot DateSlot { get; set; }
         public int TimeSlotId { get; set; }
-        [NotMapped]
         public TimeSlot TimeSlot { get; set; }
         public int PatientId { get; set; }
         public Patient Patient { get; set; }

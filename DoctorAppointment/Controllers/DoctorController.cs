@@ -1,6 +1,6 @@
 ﻿using DoctorAppointment.Models;
 using DoctorAppointment.Repositories.Interfaces;
-using Hospital.Model;
+
 using Hospital.Repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,7 +46,7 @@ namespace DoctorAppointment.Controllers
             ViewBag.ImageUrl = _imageHelper.GetImageUrl(doctor.UrlToPicture);
             return View(doctor);
         }
-        [Authorize(Roles ="admin")]
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -121,7 +121,7 @@ namespace DoctorAppointment.Controllers
         {
             ViewBag.Departments = new SelectList(await _unitOfWork.GenericRepository<Department>().SelectAll<Department>(), "Id", "Name");
             ViewBag.Hospitals = new SelectList(await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectAll<Models.HospitalInfo>(), "Id", "Name");
-
+            ViewBag.Genders = new SelectList(await _unitOfWork.GenericRepository<Genre>().SelectAll<Genre>(), "Id", "Gender");
         }
     }
 }

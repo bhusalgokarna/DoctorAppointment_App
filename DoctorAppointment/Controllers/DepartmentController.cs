@@ -35,10 +35,10 @@ namespace DoctorAppointment.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public  IActionResult Create()
         {
-            IEnumerable<Department>dep=await _unitOfWork.GenericRepository<Department>().SelectAll<Department>();
-            return View(dep);
+           // IEnumerable<Department>dep=await _unitOfWork.GenericRepository<Department>().SelectAll<Department>();
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(Department department)
@@ -54,17 +54,16 @@ namespace DoctorAppointment.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-
-            var vD = await _unitOfWork.GenericRepository<Doctor>().SelectById<Doctor>(id);
-           // await ReturnViewBag();
+            await ViewBagReturn();
+            var vD = await _unitOfWork.GenericRepository<Department>().SelectById<Department>(id);     
             return View(vD);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Doctor doctor, IFormFile file)
+        public async Task<IActionResult> Edit(Department dM )
         {
-            if (doctor != null)
+            if (dM != null)
             {
-                await _unitOfWork.GenericRepository<Doctor>().UpdateAsync(doctor);
+                await _unitOfWork.GenericRepository<Doctor>().UpdateAsync(dM);
                 _unitOfWork.Save();
             }
             return RedirectToAction(nameof(Index));
@@ -79,8 +78,9 @@ namespace DoctorAppointment.Controllers
             return View(dep);
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(Department department, IFormFile file)
+        public async Task<IActionResult> Delete(Department department)
         {
+            await ViewBagReturn();
             if (department != null)
             {
                 await _unitOfWork.GenericRepository<Department>().DeleteAsync(department);
@@ -101,6 +101,11 @@ namespace DoctorAppointment.Controllers
             //    ViewBag.ImageUrl=_imageHelper.GetImageUrl(doctor.UrlToPicture);
             //}
             return View(selectedDep);
+        }
+
+       public async Task ViewBagReturn()
+        {
+            ViewBag.Hospital = new SelectList(await _unitOfWork.GenericRepository<HospitalInfo>().SelectAll<HospitalInfo>(), "Id", "Name");
         }
     }
 }

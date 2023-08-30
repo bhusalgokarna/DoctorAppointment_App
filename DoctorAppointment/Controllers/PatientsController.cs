@@ -24,9 +24,9 @@ namespace DoctorAppointment.Controllers
       //  GET: Patients
         public async Task<IActionResult> Index()
         {
-            //var applicationDbContext = _context.Patients.Include(p => p.Department);
-            //return View(await applicationDbContext.ToListAsync());
-            return View();
+            var applicationDbContext = _context.Patients.Include(p => p.Department);
+            return View(await applicationDbContext.ToListAsync());
+            //return View();
         }
 
         // GET: Patients/Details/5

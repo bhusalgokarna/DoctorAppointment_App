@@ -1,4 +1,4 @@
-﻿using Hospital.Model;
+﻿
 using System.ComponentModel.DataAnnotations;
 
 namespace DoctorAppointment.Models
@@ -8,8 +8,9 @@ namespace DoctorAppointment.Models
         public int Id { get; set; }
         [MaxLength(100)]
         public string Name { get; set; }
+        public int GenreId { get; set; }
         [MaxLength(20)]
-        public Gender Gender { get; set; }
+        public Genre Genre { get; set; }
         [MaxLength(50)]
         public string Nationality { get; set; }
         [MaxLength(150)]

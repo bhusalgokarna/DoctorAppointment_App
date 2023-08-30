@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DoctorAppointment.Models.Appointment>
+﻿@model IEnumerable<DoctorAppointment.ViewModels.AppointmentViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -27,6 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Patient)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -37,17 +40,20 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateSlotId)
+                @Html.DisplayFor(modelItem => item.Bookeddate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TimeSlotId)
+                @Html.DisplayFor(modelItem => item.BookedTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Doctor.Name)
+                @Html.DisplayFor(modelItem => item.DoctorName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PatientId)
+                @Html.DisplayFor(modelItem => item.PatientName)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

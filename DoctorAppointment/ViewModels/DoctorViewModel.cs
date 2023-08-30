@@ -1,32 +1,32 @@
-﻿
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using DoctorAppointment.Models;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection;
 
-namespace DoctorAppointment.Models
+namespace DoctorAppointment.ViewModels
 {
-    public class Doctor
+    public enum Gender
+    {
+        Male, Female, Other
+    }
+    public class DoctorViewModel
     {
         public int Id { get; set; }
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
         [MaxLength(20)]
-
-        public int GenreId { get; set; }
-        public Genre Genre { get; set; }
+        public Gender Gender { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public DateTime DOB { get; set; }
         public string UrlToPicture { get; set; }
         public int DepartmentId { get; set; }
-        public Department Department { get; set; }        
+        public Department Department { get; set; }
         public int HospitalInfoId { get; set; }
         public HospitalInfo HospitalInfo { get; set; }
         public ICollection<Appointment> Appointment { get; set; }
-        public ICollection<Patient> Patients { get; set; }          
-       
+        public ICollection<Patient> Patients { get; set; }
+        public string DepartmentName { get; set; }
+        public string HospitalName { get; set; }
+        
     }
 }
-
