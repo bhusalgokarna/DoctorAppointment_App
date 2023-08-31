@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DoctorAppointment.styles.css" asp-append-version="true" />
+
+
 </head>
 <body >
     <header>      
@@ -24,23 +26,15 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                       
-                            @if (!User.IsInRole("Admin"))
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
                             {
-                                <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                                </li>
-                            }
-                            else{
-                            <li class="nav-item">
+                           @* <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                            </li>
+                            </li>*@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Hospital" asp-action="Index">Hospital</a>
                             </li>
@@ -56,6 +50,21 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Appointment" asp-action="Index">Appointment</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Address" asp-action="Index">Address</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
+                            </li>
+                            }
+                     else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                                </li>
                             }                                               
                              
                         
@@ -67,7 +76,7 @@
                        </li>
                         
                     </ul>
-                    <button class="bg-primary" style="border-radius:15%"> <a class="nav-link text-light" asp-area="" asp-controller="Appointments" asp-action="Create">Make an Appointment</a></button>
+                    <button class="bg-primary" style="border-radius:15%"> <a class="nav-link text-light" asp-area="" asp-controller="Appointment" asp-action="Create">Make an Appointment</a></button>
 
 				    <partial class=" bg-dark " name="_LoginPartial" style="color:coral" />
                 </div>

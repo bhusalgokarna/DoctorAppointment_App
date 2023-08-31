@@ -11,12 +11,18 @@
     <h4>Doctor</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+       @* <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Id)
-        </dd>
+        </dd>*@
+        <div class="form-group">
+            <dd>
+                <img src="@ViewBag.ImageUrl" alt="Doctor image" />
+            </dd>
+        </div>
+        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -27,31 +33,25 @@
             @Html.DisplayNameFor(model => model.Genre)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GenreId)
+            @Html.DisplayFor(model => model.Genre.Gender)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DOB)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DOB)
-        </dd>
+        </dd>      
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UrlToPicture)
+            @Html.DisplayNameFor(model => model.Department)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UrlToPicture)
+            @Html.DisplayFor(model => model.Department.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DepartmentId)
+            @Html.DisplayNameFor(model => model.HospitalInfo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DepartmentId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HospitalInfoId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HospitalInfoId)
+            @Html.DisplayFor(model => model.HospitalInfo.Name)
         </dd>
     </dl>
     

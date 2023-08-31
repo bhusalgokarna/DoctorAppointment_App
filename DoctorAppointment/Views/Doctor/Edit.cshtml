@@ -12,11 +12,11 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+           @* <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>
                 <input asp-for="Id" class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -24,7 +24,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Genre" class="control-label"></label>
-                <input asp-for="GenreId" class="form-control" />
+                <select asp-for="GenreId" class="form-control" asp-items="ViewBag.Genders">
+                </select>
                 <span asp-validation-for="GenreId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,20 +34,24 @@
                 <span asp-validation-for="DOB" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UrlToPicture" class="control-label"></label>
-                <input asp-for="UrlToPicture" class="form-control" />
-                <span asp-validation-for="UrlToPicture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DepartmentId" class="control-label"></label>
-                <input asp-for="DepartmentId" class="form-control" />
+                <label asp-for="Department" class="control-label"></label>
+                <select asp-for="DepartmentId" class="form-control" asp-items="@ViewBag.Departments"></select>
                 <span asp-validation-for="DepartmentId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HospitalInfoId" class="control-label"></label>
-                <input asp-for="HospitalInfoId" class="form-control" />
+                <label asp-for="HospitalInfo" class="control-label"></label>
+                <select asp-for="HospitalInfoId" class="form-control" asp-items="@ViewBag.Hospitals"></select>
                 <span asp-validation-for="HospitalInfoId" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <input type="file" id="file" name="file" accept="image/*" />
+
+                <span asp-validation-for="UrlToPicture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <img src="@ViewBag.ImageUrl" alt="Hospital image" />
+            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

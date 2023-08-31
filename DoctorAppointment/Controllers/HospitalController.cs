@@ -18,30 +18,49 @@ namespace DoctorAppointment.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.Adres = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "City");
-            var hospital = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectAll<Models.HospitalInfo>();
-            ViewBag.Street = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "StreetName");
-            ViewBag.City = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "City");
-            ViewBag.PostCode = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "PostCode");
-            ViewBag.Country = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "Country");
-            //var hospital = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectAll<Models.HospitalInfo>();
-            foreach (var item in hospital)
-            {
-                if (item?.UrlToPicture != null)
+            IEnumerable<HospitalInfo> hospitals = await _unitOfWork.GenericRepository<HospitalInfo>().SelectAll<HospitalInfo>();
+            return View(hospitals);
+        }
+
+		public async Task<IActionResult> HospitalContact()
+		{
+			ViewBag.Adres = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "City");
+			var hospital = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectAll<Models.HospitalInfo>();
+			ViewBag.Street = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "StreetName");
+			ViewBag.City = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "City");
+			ViewBag.PostCode = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "PostCode");
+			ViewBag.Country = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "Country");
+			//var hospital = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectAll<Models.HospitalInfo>();
+			foreach (var item in hospital)
+			{
+				if (item?.UrlToPicture != null)
+				{
+					string imageUrl = _imageHelper.GetImageUrl(item.UrlToPicture);
+					ViewBag.ImageUrl = imageUrl;
+				}
+				item.Contacts = _unitOfWork.GenericRepository<Contact>().SelectAll<Contact>()
+                    .Result.Where(h => h.HospitalId == item.Id).ToList();
+				if (item.Contacts == null)
+				{
+					item.Contacts = new List<Contact>();
+				}
+                item.Doctors=_unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>()
+                    .Result.Where(h=>h.HospitalInfoId== item.Id).ToList();  
+                if (item.Doctors == null)
                 {
-                    string imageUrl = _imageHelper.GetImageUrl(item.UrlToPicture);
-                    ViewBag.ImageUrl = imageUrl;
+                    item.Doctors = new List<Doctor>();
                 }
-                item.Contacts = _unitOfWork.GenericRepository<Contact>().SelectAll<Contact>().Result.Where(h=>h.HospitalId==item.Id).ToList();
-                if (item.Contacts==null)
+                item.Departments = _unitOfWork.GenericRepository<Department>().SelectAll<Department>()
+                   .Result.Where(h => h.HospitalInfoId == item.Id).ToList();
+                if (item.Departments == null)
                 {
-                    item.Contacts = new List<Contact>();
+                    item.Departments = new List<Department>();
                 }
             }
 
-            return View(hospital);
-        }
-        public async Task<IActionResult> Contacts()
+			return View(hospital);
+		}
+		public async Task<IActionResult> Contacts()
         {
             ViewBag.Street = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "StreetName");
             ViewBag.City = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "City");

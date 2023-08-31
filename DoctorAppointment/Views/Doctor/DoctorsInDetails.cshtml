@@ -19,48 +19,57 @@
     <link href="~/css/site.css" rel="stylesheet">
   </head>
 
- <body >
-         <h1 class="text-danger m-5">Doctors_Details</h1>
-         <div class=" row">
-             <div class="col-3 m-2 text-decoration-underline fw-bold">Doctor Name</div>
-        <div class="col-3 text-decoration-underline fw-bold">Department Name</div>
-
-         </div>
-   <div>
-    @foreach (var item in Model)
-    {
-        
-
-        <div class="m-2 w-100 d-block">           
-			<button class="bg-dark bg-opacity-50 w-25 h-25 text-center" style="margin:5px"><a asp-action="Details" asp-route-id="@item.Id" 
-                style="color:white" />@item.Name------></button>
-              
-                    <a asp-route-id="@item.DepartmentId"
-                     style="color:darkblue" class=" text-decoration-none"/>@item.Department.Name
-               
-
-        </div>
-            @*<div class="form-group">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => item.Department)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => item.Department.Name)
-                </dd>
-            </div>*@
-    }
-   </div>
+<body>
+	<div class=" text-center"><h1 class="text-danger m-5">Doctors_Details</h1></div>
+	
+	<table class="table m-2">
+         <thead>
+             <tr>
+             <th>
+               Doctor Name
+             </th>
+             <th>
+				Department Name
+             </th>
+            </tr>
+         </thead>
+         <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="col-3">
+                        <button class="bg-info bg-opacity-75 text-center">
+                            <a asp-action="Details" asp-route-id="@item.Id"
+                               class="text-danger fw-bold text-decoration-none">@item.Name <span class="text-black">Click here to Check in Details</span></a>
+                        </button>
+                    </td>
+                    <td class="col-3">
+                        <button class="bg-primary">
+                            <a asp-controller="Department" asp-action="Details" asp-route-id="@item.DepartmentId"
+                               class="text-decoration-none text-white fw-bold">@item.Department.Name</a>
+                        </button>
+                    </td>
+                    <td class="col-2">
+                        <button class="bg-primary  text-center">
+                            <a asp-controller="Appointment" asp-action="Create" asp-route-id="@item.Id"
+                               class="text-light fw-bold text-decoration-none">Make an Applintment</a>
+                        </button>
+                </tr>               
+            }
+         </tbody>
+     </table>   
    <br>
+   <div class="text-end">
    @if (User.IsInRole("Admin"))
     {
         <a asp-controller="Doctor" asp-action="Index" class="text-decoration-none fw-bold">Back to List</a>
     }
     else
     {
-        <button class="bg-primary m-5"><a asp-controller="Home" asp-action="Index" class="text-decoration-none text-white">Back Home</a></button>
+        <button style="background-color:orange" class="align-content-md-end"><a asp-controller="Home" asp-action="Index" class="text-decoration-none text-black ">Back Home</a></button>
 
-    }
-    
+    }  
+  </div>
 </body>
 </html>
 

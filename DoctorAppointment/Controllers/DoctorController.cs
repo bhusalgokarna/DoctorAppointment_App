@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
 
 namespace DoctorAppointment.Controllers
-{
+{   
     public class DoctorController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -18,27 +18,28 @@ namespace DoctorAppointment.Controllers
             _unitOfWork = unitOfWork;
             _imageHelper = imageHelper;
         }
-        public async Task<IActionResult> Index()
-        {
-           await ReturnViewBag();
-            var allDoctor=await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
-            return View(allDoctor);
-        }
 
 		public async Task<IActionResult> DoctorsInDetails()
 		{
-            await ReturnViewBag();
+			await ReturnViewBag();
 			var allDoctor = await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
-            foreach (var item in allDoctor)
-            {
-                if (item?.UrlToPicture != null)
-                {
-                    string imageUrl = _imageHelper.GetImageUrl(item.UrlToPicture);
-                    ViewBag.ImageUrl = imageUrl;
-                }
-            }
-            return View(allDoctor);
+			foreach (var item in allDoctor)
+			{
+				if (item?.UrlToPicture != null)
+				{
+					string imageUrl = _imageHelper.GetImageUrl(item.UrlToPicture);
+					ViewBag.ImageUrl = imageUrl;
+				}
+			}
+			return View(allDoctor);
 		}
+		[Authorize(Roles = "Doctor")]
+		public async Task<IActionResult> Index()
+        {
+            await ReturnViewBag();
+            var allDoctor=await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
+            return View(allDoctor);
+        }		
 		public async Task<IActionResult> Details(int id)
         {
             var doctor = await _unitOfWork.GenericRepository<Doctor>().SelectById<Doctor>(id);

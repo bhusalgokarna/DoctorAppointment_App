@@ -28,7 +28,7 @@
             @Html.DisplayNameFor(model => model.Genre)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GenreId)
+            @Html.DisplayFor(model => model.Genre.Gender)
         </dd>  
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
@@ -42,20 +42,17 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Phone)
         </dd>
-        <dd class = "col-sm-10">
-            <div class="form-group">
-                <label asp-for="Department" class="control-label fw-bold"></label>
-                <select asp-for="DepartmentId" asp-items="@ViewBag.Departments" style="margin-left:120px"></select>
-                <span asp-validation-for="DepartmentId" class="text-danger"></span>
-            </div>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Department.Name)
         </dd>
-        <dd class = "col-sm-10">
-			<div class ="form-group">
-                <label asp-for="HospitalInfo" class="control-label fw-bold "></label>
-                <select asp-for="HospitalInfoId" asp-items="@ViewBag.Hospitals" style="margin-left:120px"></select>
-                <span asp-validation-for="DepartmentId" class="text-danger"></span>
-            </div>
-
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HospitalInfo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HospitalInfo.Name)
         </dd>
         
     </dl>

@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="text/html; charset=iso-8859-2" http-equiv="Content-Type">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     <style>
         .mySlides {
             display: none;
@@ -18,16 +20,16 @@
     
 <!-- The sidebar -->
 <div class="table ">
-        <div class="sidebar">
+        <div class="sidebar" style="width:25%">
             <br>
             <br>
             <br>
             <a class="nav-link text-light" asp-area="" asp-controller="Department" asp-action="Services">Services</a>
-            <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+            <a href="/Home/Index"><i class="bi bi-house-check-fill"></i> Home</a>
+            <a href="/Home/About"><i class="bi bi-indent"></i> About </a>
             <a href="/Department/Services"><i class="fa fa-fw fa-wrench"></i> Services</a>
             <a href="/Doctor/DoctorsInDetails"><i class="fa fa-fw fa-user"></i> Doctors</a>                   
-
-            <a href="/Hospital/Index"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+            <a href="/Hospital/HospitalContact"><i class="fa fa-fw fa-envelope"></i> Contact</a>
         </div>
         <h2 class="w3-center">Hospital's Medical Department</h2>
 

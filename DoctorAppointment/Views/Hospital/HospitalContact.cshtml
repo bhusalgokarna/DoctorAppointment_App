@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DoctorAppointment.Models.HospitalInfo>
+
+<div class="text-center text-black fw-bold">Our Hospital</div>
+<div><img style="height:300px;width:100%;margin:50px" src="@ViewBag.ImageUrl" alt="ZiekenHuis image" /></div>
+<table class="table">
+    <thead>
+        <tr>
+            <td>Hospital Name</td>
+            <td> Address</td>
+            <td> Phone Nr.</td>
+			<td> E-Mail</td>
+			<td> Our Doctors</td>
+           
+			<td> Our Departments</td>
+           
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+			<td>@item.Name</td>
+            <td>@item.Address.StreetName,@item.Address.City,@item.Address.PostCode, @item.Address.Country</td>
+            
+                @foreach (var con in item.Contacts)
+                {
+                <td>@con.Phone</td>
+				<td>@con.Email</td>
+                }
+                <td>
+            @foreach (var doc in item.Doctors)
+            {
+                    <div class="border-3 bg-black m-2 text-center" style="border-radius:100%">
+						<a asp-controller="Doctor" asp-action="Details" asp-route-id="@doc.Id"
+						    class=" text-decoration-none text-white" />@doc.Name
+					</div>               
+            }
+               </td>
+               <td>
+                   @foreach (var dep in item.Departments)
+                {
+                    <div class ="border-3 m-2 text-center" style="background-color:lightcoral;border-radius:100%">
+                        <a asp-controller="Department" asp-action="Details" asp-route-id="@dep.Id"
+                            class=" text-decoration-none text-white text-center m-2" />@dep.Name
+                    </div>
+                }
+               </td>
+           
+        </tr>
+
+    }
+</table>
+
+
