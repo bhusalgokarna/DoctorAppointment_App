@@ -1,43 +1,28 @@
-﻿$(document).ready(function () {     
+﻿$(document).ready(function () {
     GetDoctor();
 
     $('#Doctor').change(function () {
         var id = $(this).val();
         $('#DateSlot').empty();
-        //$('#DateSlot').append('<Option>--Available Dates are--</Option>');
+
         $.ajax({
             url: '/Appointment/DateSlot?id=' + id,
             success: function (result) {
-                //console.log(result);
-                $.each(result, function (data) {
-                    //console.log(data);
+                $('#DateSlot').empty(); // Leeg het DateSlot-element
+
+                $.each(result, function (i, data) {
                     $('#DateSlot').append("<Option value=" + data.id + '>' + data.availableDay + "</Option>");
                 });
-                $('#DateSlot').change(function () {
-                    GetTimeSlot();
-                });
+
+                // Roep GetTimeSlot() aan na het succesvol voltooien van het AJAX-verzoek
+                GetTimeSlot();
             }
         });
+
+        // Voeg hier eventuele andere code toe
     });
-    $('#Doctor').change(function () {
-        GetTimeSlot();
-    });
-    //$('#DateSlote').change(function () {
-    //    GetTimeSlot();
-    //});
-    $('#Doctor').change(function () {
-        var id = $(this).val();
-        //$('#Patient').empty();
-        //$('#Patient').append('<Option>--Select Patient--</Option>');
-        $.ajax({
-            url: '/Appointment/Patient?id=' + id,
-            success: function (result) {
-                $.each(result, function (i, data) {
-                    $('#Patient').append('<Option value=' + data.id + '>' + data.name + '</Option>');
-                });
-            }
-        });
-    });
+
+    // Hier kun je andere event handlers toevoegen of eventuele andere initialisatie uitvoeren
 });
 
 function GetDoctor() {
@@ -45,16 +30,17 @@ function GetDoctor() {
         url: '/Appointment/Doctor',
         success: function (result) {
             $.each(result, function (i, data) {
-                $('#Doctor').append('<Option value=' + data.id +'>' + data.name + '</Option>');
+                $('#Doctor').append('<Option value=' + data.id + '>' + data.name + '</Option>');
             });
         }
     });
 }
+
 function GetTimeSlot() {
     var id = $('#Doctor').val();
     var dateId = $("#DateSlot").val();
-    //$('#TimeSlot').empty();
-    //$('#TimeSlot').append('<Option>--Select Time From Available TimeSlot--</Option>');
+    $('#TimeSlot').empty();
+
     $.ajax({
         url: '/Appointment/TimeSlot?id=' + id + '&dateId=' + dateId,
         success: function (result) {
@@ -65,3 +51,6 @@ function GetTimeSlot() {
     });
 }
 
+function test() {
+    alert("changed called");
+}
