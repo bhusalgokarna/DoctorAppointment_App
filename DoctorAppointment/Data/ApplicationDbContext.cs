@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
+using DoctorAppointment.ViewModels;
 
 namespace DoctorAppointment.Data
 {
@@ -69,5 +70,7 @@ namespace DoctorAppointment.Data
             SeedRecords.SeedTime(builder);
             
         }
+        
+        public DbSet<DoctorAppointment.ViewModels.AppointmentViewModel>? AppointmentViewModel { get; set; }
     }   
 }

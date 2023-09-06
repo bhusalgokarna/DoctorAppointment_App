@@ -11,10 +11,13 @@
         <img src="@ViewBag.ImageUrl" alt="ZiekenHuis image" />
         </div>
     <div class="fw-bold">@item.Name</div>
-
     <div class="fw-bold">@item.Genre</div>
     <div class="fw-bold">@item.Email</div>
     <div class="fw-bold">@item.Phone</div>
     }
     <br>
-<button class="bg-primary "><a asp-controller="Home" asp-action="Index" class="text-decoration-none text-white">Back Home</a></button>
+   <div class="d-flex">
+    <button class="bg-primary "><a asp-controller="Appointment" asp-action="Create" class="text-decoration-none text-white">Make An Appointment</a></button>
+    <button class="bg-primary "><a asp-controller="Home" asp-action="Index" class="text-decoration-none text-white">Back Home</a></button>
+   </div>
+   

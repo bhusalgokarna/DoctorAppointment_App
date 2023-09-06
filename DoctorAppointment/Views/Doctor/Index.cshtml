@@ -4,13 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Doctor List</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+    
+
 <table class="table">
-    <thead>
+    <thead class="bg-dark bg-opacity-75 text-white">
         <tr>
            @* <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -33,12 +33,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.HospitalInfo)
             </th>
-            <th></th>
+            <th>                
+            </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="bg-black bg-opacity-25">
 @foreach (var item in Model) {
-        <tr>
+        <tr class="m-1">
             @*<td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>*@
@@ -62,10 +63,17 @@
             </td>
                 <td>
                     <button class="bg-primary"><a asp-action="Edit" asp-route-id="@item.Id" style="color:white" />Edit</button>
-                    <button class="bg-info"><a asp-action="Details" asp-route-id="@item.Id" style="color:white" />Details</button>
+                    <button style="background-color:forestgreen"><a asp-action="Details" asp-route-id="@item.Id" style="color:white" />Details</button>
                     <button class="bg-danger"><a asp-action="Delete" asp-route-id="@item.Id" style="color:white" />Delete</button>
                 </td>
         </tr>
 }
     </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <button class="float-end+" style="background-color:forestgreen"><a asp-action="Create" class="text-white fw-bold text-decoration-none">Add New Doctor</a></button>
+            </td>
+        </tr>
+    </tfoot>
 </table>

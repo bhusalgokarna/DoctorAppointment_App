@@ -37,13 +37,23 @@ namespace DoctorAppointment.Models.Controllers
 
             ViewBag.adress = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "StreetName");          
             var doctor = await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
-            var searchedDoctor = doctor.Where(s => s.Name == searchItem).ToList();
-            foreach (var item in searchedDoctor)
+            var searchedDoctor = doctor.Where(s => s.Name == searchItem);         
+            if (ModelState.IsValid)
             {
+            foreach (var item in searchedDoctor)
+                {
                 ViewBag.ImageUrl = _imageHelper.GetImageUrl(item.UrlToPicture);
+                }
+                return View(searchedDoctor);
+            }
+            else
+            {
+              return NotFound();
             }
             
-            return View(searchedDoctor);
+
+            
+
         }
         public IActionResult Privacy()
         {

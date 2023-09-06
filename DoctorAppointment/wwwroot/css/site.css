@@ -19,7 +19,7 @@ body {
 }
 /* Style the sidebar - fixed full height */
 .sidebar {
-    height: 100%;
+    height: 83%;
     width: 160px;
     position: fixed;
     z-index: 1;
@@ -32,10 +32,10 @@ body {
 
     /* Style sidebar links */
     .sidebar a {
-        padding: 6px 8px 6px 16px;
+        padding: 6px 8px 6px 8px;
         text-decoration: none;
         font-size: 20px;
-        color: #818181;
+        color: black;
         display: block;
     }
 
@@ -60,7 +60,12 @@ body {
             font-size: 18px;
         }
 }
+.appMessage{
+    background-image:url(/images/DoctorTemplet.jpeg);
+    width:100%
+    
+}
 
-.servisBody{
-    background-image:src('~/images/Gangalal national heart center.jpeg')
+.test{
+    background-color: red;
 }

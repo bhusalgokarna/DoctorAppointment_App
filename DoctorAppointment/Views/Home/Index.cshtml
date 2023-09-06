@@ -16,31 +16,28 @@
         }
     </style>
 </head>
-<body >
+<body class="bg-white bg-opacity-50">
     
 <!-- The sidebar -->
-<div class="table ">
-        <div class="sidebar" style="width:25%">
-            <br>
-            <br>
-            <br>
-            <a class="nav-link text-light" asp-area="" asp-controller="Department" asp-action="Services">Services</a>
-            <a href="/Home/Index"><i class="bi bi-house-check-fill"></i> Home</a>
-            <a href="/Home/About"><i class="bi bi-indent"></i> About </a>
-            <a href="/Department/Services"><i class="fa fa-fw fa-wrench"></i> Services</a>
-            <a href="/Doctor/DoctorsInDetails"><i class="fa fa-fw fa-user"></i> Doctors</a>                   
-            <a href="/Hospital/HospitalContact"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+<div >
+		<div class="sidebar" style="width:13%;margin-top:70px;;background-color:forestgreen">                   
+            <a href="/Home/Index"class="m-1"><i class="bi bi-house-check-fill"></i> Home</a>          
+            <a href="/Department/Services" class="m-1"><i class="fa fa-fw fa-wrench"></i>Services</a>
+            <a href="/Doctor/DoctorsInDetails" class="m-1"><i class="fa fa-fw fa-user"></i>Doctors</a>
+            <a href="/Hospital/HospitalContact" class="m-1"><i class="fa fa-fw fa-envelope"></i>Contact</a>
+            <a href="/Home/About" class="m-1"> <i class="bi bi-indent"></i> About Us</a>
+           
         </div>
-        <h2 class="w3-center">Hospital's Medical Department</h2>
-
-        <div class="w3-content w3-section" style="max-width:500px">
-            <img class="mySlides" src="/images/BirPharmacy.jpeg" style="width:100%">
-            <img class="mySlides" src="/images/ICU Unit.jpg" style="width:100%">
-            <img class="mySlides" src="/images/pharmacy.jpg" style="width:100%">
-            <img class="mySlides" src="/images/suffering.jpeg" style="width:100%">
-            <img class="mySlides" src="/images/eme.jpg" style="width:100%">
-        </div>
-        
+		<div class="float-end"> <img src="/images/Iveta.jpeg" style="height:300px;margin-left:5%" /></div>
+        <div class=" text-center"style="margin-top:20%;margin-left:10%"> <h1>Welcome! 24/7 Doctor Appointment Service</h1></div>
+       @* <h2 class="text-capitalize text-center fw-bold">Sandhikharkha Distric Hospital</h2>          
+            <div class="w3-content w3-section" style="width:400px;background-color:black;padding:10px">
+            <img class="mySlides" src="/images/BirPharmacy.jpeg" style="width:100%;padding:5Px">
+            <img class="mySlides" src="/images/ICU Unit.jpg" style="width:100%;padding:5Px">
+            <img class="mySlides" src="/images/pharmacy.jpg" style="width:100%;padding:5Px">
+            <img class="mySlides" src="/images/suffering.jpeg" style="width:100%;padding:5Px">
+            <img class="mySlides" src="/images/eme.jpg" style="width:100%;padding:5Px">
+            </div>       
         <script>
             var myIndex = 0;
             carousel();
@@ -57,25 +54,26 @@
                 setTimeout(carousel, 2000); // Change image every 2 seconds
             }
         </script>
+        <div class="d-flex"style="margin-left:100px" >
+               <br>
+            <div class="m-2">
+				Bir Hospital, a public governmental hospital, is one of the busiest medical centers in Nepal,
+				with 24/7 emergency services available, including MRI availability. On the infrastructure and
+				essential equipment assessment, Bir Hospital received a score of 2.00 out of 3.00, and 2.24 out
+				of 3 on diagnostic services. Notably, the emergency room (ER) did not have a designated triage
+				area or waiting area, nor a designated resuscitation room. Electronic charting was not available.
+			</div>
 
-        <div class="col text-center" style="margin-left:50px">
-            <div>
-                <br>
-
-                Bir Hospital, a public governmental hospital, is one of the busiest medical centers in Nepal,
-                with 24/7 emergency services available, including MRI availability. On the infrastructure and
-                essential equipment assessment, Bir Hospital received a score of 2.00 out of 3.00, and 2.24 out
-                of 3 on diagnostic services. Notably, the emergency room (ER) did not have a designated triage
-                area or waiting area, nor a designated resuscitation room. Electronic charting was not available.
-                The National Trauma Center (NTC) is a public governmental hospital and the only trauma center in Nepal,
-                with 32 beds for general emergency care and 6 beds for acute resuscitations, and a 24/7 availability
-                of the ER. Emergency overnight MRIs were done at the adjacent Bir Hospital. On the infrastructure and
-                essential equipment and diagnostic services assessment, NTC received a 2.57 and 2.56 out of 3.00, respectively.
-                Limited availability of adequate isolation rooms and hand washing facilities was reported. Point-of-care
-                ultrasound was readily available in the ER.
-            </div>
-            <br>
-        </div>        
+            <div class="m-2">
+				The National Trauma Center (NTC) is a public governmental hospital and the only trauma center in Nepal,
+				with 32 beds for general emergency care and 6 beds for acute resuscitations, and a 24/7 availability
+				of the ER. Emergency overnight MRIs were done at the adjacent Bir Hospital. On the infrastructure and
+				essential equipment and diagnostic services assessment, NTC received a 2.57 and 2.56 out of 3.00, respectively.
+				Limited availability of adequate isolation rooms and hand washing facilities was reported. Point-of-care
+				ultrasound was readily available in the ER.
+			</div>
+                         
+        </div>        *@
     </div>
 </body>
 </html>

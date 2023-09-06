@@ -2,6 +2,7 @@
 using DoctorAppointment.Models;
 using DoctorAppointment.ViewModels;
 using Hospital.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace DoctorAppointment.Controllers
         }
 
         //Get All Appointments..
+        [Authorize(Roles ="Admin,Doctor")]
         public async Task<IActionResult> Index()
         {
             var getAllAppointment =await _unitOfWork.GenericRepository<Appointment>().SelectAll<Appointment>();
@@ -50,17 +52,18 @@ namespace DoctorAppointment.Controllers
             return  View();
         }
 
-
-
         //Post Appointment Object...
         [HttpPost]
         public async Task<IActionResult> Create(Appointment appointment)
-        {
-            ViewBag.Doctor = new SelectList(await _unitOfWork.GenericRepository<Appointment>().SelectAll<Appointment>(), "Id", "Name");
+        {                      
             try
             {
                 await _unitOfWork.GenericRepository<Appointment>().CreateAsync(appointment);
                 _unitOfWork.Save();
+                if (!User.IsInRole("Admin") || User.IsInRole("Doctor"))
+                {
+                    return RedirectToAction(nameof(ReturnMessage));
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -68,21 +71,22 @@ namespace DoctorAppointment.Controllers
                 return View();
             }          
         }
-
+        public IActionResult ReturnMessage()
+        {
+            return View();
+        }
 
 
         // Get Edit Object...
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
-        {
+        {          
             if(id==0)
             {
                 return NotFound();
             }
-            
             AppointmentViewModel viewModel = new AppointmentViewModel();
-           await ReturnViewModel(viewModel, id);
-            
+            await ReturnViewModel(viewModel, id);
             return View(viewModel);
         }
 
@@ -101,9 +105,9 @@ namespace DoctorAppointment.Controllers
         }
         //Post Edited Object
         [HttpPost]
-        public async Task<IActionResult>Edit(Appointment appointment)
-        {
-            await _unitOfWork.GenericRepository<Appointment>().UpdateAsync(appointment);
+        public async Task<IActionResult>Edit(Appointment app)
+        {                       
+            await _unitOfWork.GenericRepository<Appointment>().UpdateAsync(app);
             _unitOfWork.Save();
             return RedirectToAction("Index");
         }
@@ -130,8 +134,22 @@ namespace DoctorAppointment.Controllers
 			return RedirectToAction("Index");
 		}
 
-		//All Doctors for dropdown....
-		public async Task<JsonResult> Doctor()
+
+        // Get Detail Of appointment//
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            AppointmentViewModel vm = new AppointmentViewModel();
+            await ReturnViewModel(vm, id);
+            return View(vm);
+        }
+
+        //All Doctors for dropdown....
+        public async Task<JsonResult> Doctor()
         {
           
             var doc= await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
@@ -143,7 +161,7 @@ namespace DoctorAppointment.Controllers
         {
             //var ds = _context.DateSlots.Where(x => x.DoctorId == id).ToList();
             var ds = await _unitOfWork.GenericRepository<DateSlot>().SelectAll<DateSlot>();
-            var date= ds.Where(x=>x.DoctorId==id).ToList();           
+            var date= ds.Where(x=>x.DoctorId==id).ToList();     
             return new JsonResult(date);
         }
 

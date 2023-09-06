@@ -1,37 +1,54 @@
 ﻿@model IEnumerable<DoctorAppointment.Models.Department>
 
-    @{
-        ViewData["Title"] = "Services";
-    }
-    <html>
-<body class="servisBody">
-         <div class="align-items-center">
-           <h1>Services available in our Hospital are:</h1>
+ <html>
+<body class="bg-dark bg-opacity-25">
+         <div>
+			 <img style="width:700px;height:250px;margin-left:20%;border-radius:100%" src="/images/Service.jpg"/>        
+           </div>
+	<div>
+		@if (User.IsInRole("Admin"))
+		{
+			<a asp-controller="Department" asp-action="Index">Back to List</a>
+		}
+		else
+		{
+			<button class=" float-end" style="background-color:forestgreen"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none ">Back To Home Page</a></button>
+		}
+	</div>
+	<br>
+	<table class="table align-content-center">
+			  <thead class="bg-dark bg-opacity-75 text-light">
+				  <tr>
+					  <th>
+						  Department
+					  </th>
+					  <th></th>
+					  <th>
+						  Doctor In Duty
+					  </th>
+				  </tr>
+			  </thead>
+			  <tbody>
+			@foreach (var item in Model)
+			{
+				<tr class="fw-bold bg-dark bg-opacity-50">
+					<td>
+						<a class="text-decoration-none" asp-controller="Department" asp-action="Details"
+						   asp-route-id="@item.Id" style="color:white" />@item.Name
+					</td>
+					<td class="m-1"></td>
+					<td class="text-white">
+						@foreach (var doc in item.Doctors)
+						{
+							<p>Dr. @doc.Name</p>
+															
+						}
+					</td>
+				  </tr>
+			}
+			  </tbody>
+		  </table>
 
-            @foreach (var item in Model)
-            {
-             <br>
-             <div class="m-5 w-50 d-inline">
-                <button class="bg-info w-25 h-25 text-center" style="margin:5px">
-                    <a asp-controller="Department" asp-action="Details"
-                       asp-route-id="@item.Id" style="color:white" />@item.Name
-                </button>
-            </div>
-            }
-           <br>
-           <br>
-        @if (User.IsInRole("Admin"))
-        {
-            <a asp-controller="Department" asp-action="Index">Back to List</a>
-        }
-        else
-        {
-            <button class="bg-primary"><a asp-controller="Home" asp-action="Index" style="text-decoration:none" class="text-light">Back to Home</a></button>
-            <label class="bg-light text-danger m-5 fw-bold">Department at moment : @Model.Count()</label>
-        }
-
-          
-          </div>
-        </body>
+</body>
      </html>
     

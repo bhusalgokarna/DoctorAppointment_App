@@ -26,13 +26,18 @@ namespace DoctorAppointment.Controllers
         public async Task<IActionResult> Services()
         {
             var allDepartment = await _unitOfWork.GenericRepository<Department>().SelectAll<Department>();
-            return View(allDepartment);
-        }
-        public async Task<IActionResult> Acc()
-        {
-            var allDepartment = await _unitOfWork.GenericRepository<Department>().SelectAll<Department>();
-            return View(allDepartment);
-        }
+            foreach (var item in allDepartment)
+            {
+				item.Doctors = _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>()
+					.Result.Where(h => h.DepartmentId == item.Id).ToList();
+				if (item.Doctors == null)
+				{
+					item.Doctors = new List<Doctor>();
+				}
+			}
+			
+			return View(allDepartment);
+        }      
 
         [HttpGet]
         public  IActionResult Create()

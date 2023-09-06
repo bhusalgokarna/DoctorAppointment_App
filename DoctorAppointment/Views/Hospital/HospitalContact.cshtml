@@ -1,56 +1,53 @@
 ﻿@model IEnumerable<DoctorAppointment.Models.HospitalInfo>
-
-<div class="text-center text-black fw-bold">Our Hospital</div>
-<div><img style="height:300px;width:100%;margin:50px" src="@ViewBag.ImageUrl" alt="ZiekenHuis image" /></div>
-<table class="table">
-    <thead>
-        <tr>
-            <td>Hospital Name</td>
-            <td> Address</td>
-            <td> Phone Nr.</td>
-			<td> E-Mail</td>
-			<td> Our Doctors</td>
-           
-			<td> Our Departments</td>
-           
-        </tr>
-    </thead>
-    <tbody>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/css/bootstraptheme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body class="bg-dark bg-opacity-25">
+    <div class="text-center text-black fw-bold "><h1> <i class="bi bi-h-circle-fill" style="color:blue"></i> Shandhikharkha Distric Hospital</h1> </div>
         
-    </tbody>
+   
+<div><img style="height:300px;width:70%;margin:20px;margin-left:200Px;border-radius:100%" src="@ViewBag.ImageUrl" alt="ZiekenHuis image" /></div>
+<table class="table" >
+    <thead class="bg-black bg-opacity-50 text-light" >
+        <tr class="fw-bold">
+            <td class="text-center"> Address</td>
+                <td class="text-center"> Phone Nr.</td>
+                <td class="text-center"> E-Mail</td>
+            </tr>
+    </thead>
+    <tbody class="bg-light bg-opacity-75">   
     @foreach (var item in Model)
     {
-        <tr>
-			<td>@item.Name</td>
-            <td>@item.Address.StreetName,@item.Address.City,@item.Address.PostCode, @item.Address.Country</td>
-            
+        <tr class="text-dark fw-bold">            
+                <td class="col-4" ><i class="bi bi-geo-alt" style="color:black"></i> @item.Address.StreetName, @item.Address.City, @item.Address.PostCode, @item.Address.Country</td>
+                    <td class="col-4 text-center">
                 @foreach (var con in item.Contacts)
                 {
-                <td>@con.Phone</td>
-				<td>@con.Email</td>
-                }
-                <td>
-            @foreach (var doc in item.Doctors)
-            {
-                    <div class="border-3 bg-black m-2 text-center" style="border-radius:100%">
-						<a asp-controller="Doctor" asp-action="Details" asp-route-id="@doc.Id"
-						    class=" text-decoration-none text-white" />@doc.Name
-					</div>               
-            }
-               </td>
-               <td>
-                   @foreach (var dep in item.Departments)
-                {
-                    <div class ="border-3 m-2 text-center" style="background-color:lightcoral;border-radius:100%">
-                        <a asp-controller="Department" asp-action="Details" asp-route-id="@dep.Id"
-                            class=" text-decoration-none text-white text-center m-2" />@dep.Name
-                    </div>
-                }
-               </td>
+					<div><i class="bi bi-telephone-x" style="color:forestgreen"></i> @con.Phone</div>
+					}
+                    </td>
+
+                    <td class="col-4 text-center">
+                    @foreach (var con in item.Contacts)
+                    {
+                    <div><i class="bi bi-envelope-at" style="color:midnightblue"></i> @con.Email</div>
+                    }
+                    </td>
+                    
            
         </tr>
 
     }
-</table>
+        </tbody>
+	</table>
+    <button class="bg-primary float-end"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none ">Back To Home Page</a></button>
+</body>
+</html>
 
 

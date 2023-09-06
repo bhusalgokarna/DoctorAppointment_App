@@ -10,66 +10,53 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:
                                                                   300,300i,400,400i,500,500i,600,600i,700,700i|
                                                                   Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
                                                                   rel="stylesheet">
-    <!-- Template Main CSS File -->
     <link href="~/css/site.css" rel="stylesheet">
   </head>
 
-<body>
-	<div class=" text-center"><h1 class="text-danger m-5">Doctors_Details</h1></div>
-	
-	<table class="table m-2">
-         <thead>
-             <tr>
-             <th>
-               Doctor Name
-             </th>
-             <th>
-				Department Name
-             </th>
-            </tr>
-         </thead>
-         <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td class="col-3">
-                        <button class="bg-info bg-opacity-75 text-center">
-                            <a asp-action="Details" asp-route-id="@item.Id"
-                               class="text-danger fw-bold text-decoration-none">@item.Name <span class="text-black">Click here to Check in Details</span></a>
-                        </button>
-                    </td>
-                    <td class="col-3">
-                        <button class="bg-primary">
-                            <a asp-controller="Department" asp-action="Details" asp-route-id="@item.DepartmentId"
-                               class="text-decoration-none text-white fw-bold">@item.Department.Name</a>
-                        </button>
-                    </td>
-                    <td class="col-2">
-                        <button class="bg-primary  text-center">
-                            <a asp-controller="Appointment" asp-action="Create" asp-route-id="@item.Id"
-                               class="text-light fw-bold text-decoration-none">Make an Applintment</a>
-                        </button>
-                </tr>               
-            }
-         </tbody>
-     </table>   
-   <br>
-   <div class="text-end">
-   @if (User.IsInRole("Admin"))
-    {
-        <a asp-controller="Doctor" asp-action="Index" class="text-decoration-none fw-bold">Back to List</a>
-    }
-    else
-    {
-        <button style="background-color:orange" class="align-content-md-end"><a asp-controller="Home" asp-action="Index" class="text-decoration-none text-black ">Back Home</a></button>
+<body class="bg-dark bg-opacity-25">
+	<div class=" text-center"><h1 class="text-dark m-2">Doctors</h1></div>
+	<div>
+		@if (User.IsInRole("Admin"))
+		{
+			<a asp-controller="Doctor" asp-action="Index" class="text-decoration-none fw-bold">Back to List</a>
+		}
+		else
+		{
+			<button class="float-end" style="background-color:green"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none ">Back To Home Page</a></button>
 
-    }  
-  </div>
+		}
+	</div>
+	<br>
+    <div class="row" style="margin-left:20%">
+        
+			@foreach (var item in Model)
+			{
+                <div class="bg-black m-3 col-5 d-flex">
+					<div class="d-block" >
+						<img src="/images/@item.UrlToPicture"style="width:150px;height:150px;margin-top:15%" />
+				    </div>
+				 <div class=" text-white" style="margin-left:5px">
+					<h3>@item.Name</h3>
+                    <br>
+                    @item.Department.Name
+                    <br>
+                    @item.Email
+                    <br>
+                    @item.Phone
+                    <br>
+                    <br>
+					<button class="text-center bg-opacity-50" style="height:30px;background-color:darkblue">
+						<a asp-controller="Appointment" asp-action="Create" asp-route-id="@item.Id"
+						   class="text-light text-decoration-none">Make an Appointment</a>
+					</button>
+				 </div>
+                </div>              
+			}
+        </div>	 
 </body>
 </html>
 

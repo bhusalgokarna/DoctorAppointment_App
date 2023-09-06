@@ -1,13 +1,16 @@
 ﻿$(document).ready(function () {     
     GetDoctor();
+
     $('#Doctor').change(function () {
         var id = $(this).val();
-        //$('#DateSlot').empty();
+        $('#DateSlot').empty();
         //$('#DateSlot').append('<Option>--Available Dates are--</Option>');
         $.ajax({
-            url: '/Appointment/DateSlot?id=' +id,
+            url: '/Appointment/DateSlot?id=' + id,
             success: function (result) {
-                $.each(result, function (i, data) {
+                //console.log(result);
+                $.each(result, function (data) {
+                    //console.log(data);
                     $('#DateSlot').append("<Option value=" + data.id + '>' + data.availableDay + "</Option>");
                 });
                 $('#DateSlot').change(function () {
@@ -19,9 +22,9 @@
     $('#Doctor').change(function () {
         GetTimeSlot();
     });
-    $('#DateSlote').change(function () {
-        GetTimeSlot();
-    });
+    //$('#DateSlote').change(function () {
+    //    GetTimeSlot();
+    //});
     $('#Doctor').change(function () {
         var id = $(this).val();
         //$('#Patient').empty();
@@ -61,3 +64,4 @@ function GetTimeSlot() {
         }
     });
 }
+

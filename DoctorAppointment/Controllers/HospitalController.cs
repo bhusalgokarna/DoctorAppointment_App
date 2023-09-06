@@ -30,7 +30,7 @@ namespace DoctorAppointment.Controllers
 			ViewBag.City = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "City");
 			ViewBag.PostCode = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "PostCode");
 			ViewBag.Country = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "Country");
-			//var hospital = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectAll<Models.HospitalInfo>();
+			
 			foreach (var item in hospital)
 			{
 				if (item?.UrlToPicture != null)
@@ -59,29 +59,7 @@ namespace DoctorAppointment.Controllers
             }
 
 			return View(hospital);
-		}
-		public async Task<IActionResult> Contacts()
-        {
-            ViewBag.Street = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "StreetName");
-            ViewBag.City = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "City");
-            ViewBag.PostCode = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "PostCode");
-            ViewBag.Country = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "Country");
-            var hospital = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectAll<Models.HospitalInfo>();
-            foreach (var item in hospital)
-            {
-                if (item?.UrlToPicture != null)
-                {
-                    string imageUrl = _imageHelper.GetImageUrl(item.UrlToPicture);
-                    ViewBag.ImageUrl = imageUrl;
-                }
-                foreach (var con in item.Contacts)
-                {
-                    ViewBag.Email = con.Email;
-                    ViewBag.Phone = con.Phone;
-                }
-            }
-            return View(hospital);
-        }
+		}	
         public async Task<IActionResult> Details(int id)
         {
             var hospital = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectById<Models.HospitalInfo>(id);

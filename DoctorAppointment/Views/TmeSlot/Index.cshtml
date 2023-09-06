@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DoctorAppointment.Models.HospitalInfo>
+﻿@model IEnumerable<DoctorAppointment.Models.TimeSlot>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,19 +7,16 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+	<button class ="text-end bg-primary"><a asp-action="Create">Add TimeSlot</a></button>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Doctor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UrlToPicture)
+                @Html.DisplayNameFor(model => model.AvailAbleTime)
             </th>
             <th></th>
         </tr>
@@ -28,13 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Doctor.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UrlToPicture)
+                @Html.DisplayFor(modelItem => item.AvailAbleTime)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

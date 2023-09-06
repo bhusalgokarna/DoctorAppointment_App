@@ -58,9 +58,7 @@ namespace DoctorAppointment.Repositories.Implimentation
                 throw new ArgumentNullException(nameof(entity));
             }
             dbContext.Set<T>().Update(entity);
-            _ = await dbContext.Set<T>().ToListAsync();
-            await dbContext.SaveChangesAsync();
-
+            _ = await dbContext.Set<T>().ToListAsync();            
         }
     }
 }

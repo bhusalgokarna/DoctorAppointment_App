@@ -13,12 +13,12 @@
 	}
 	</style>
 </head>
-<body>
+<body class="bg-black bg-opacity-50">
 	<div>	
-	<h3 style="text-decoration:underline" class="text-center">
-		About Histry</h3>
-
-	<div class="d-flex">
+	<h3  class="text-center">
+		About Us</h3>
+		<button class="bg-primary float-end"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none ">Back To Home Page</a></button>
+	<div class="d-flex">		
 		<div class="w3-content w3-section w-100">
 			<img class="mySlides" src="~/images/Bir1.jpeg" style="width:100%;height:350px">
 			<img class="mySlides" src="/images/Bir2.jpeg" style="width:100% ;height:350px">
@@ -64,35 +64,36 @@
 
 	<div class="bg-dark  bg-opacity-75 text-light d-flex" >
 		<div class="m-5">
-		<h4 class="text-decoration-underline">Our Services</h4>
+		<h4 class="text-decoration-underline text-nowrap">Our Services</h4>
 			<br>
-
 			@foreach (var item in Model)			
 			{
+				int i = item.Id;
 				<div>
-					<a asp-controller="Department" asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-light">> @item.Name</a>
-				</div>			
+					<a asp-controller="Department" asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-warning">@i. @item.Name</a>
+				</div>	
+				
 			}
 			
 		</div>
 		<div class="m-5">
-			<h4 class="text-decoration-underline">Some Useful Links</h4>
+			<h4 class="text-decoration-underline text-info">Some Useful Links</h4>
 			<br>
 				<div>
-				<a href="http://dohs.gov.np/about-us/" alt="Department of Health Services" class="text-decoration-none text-light">> Department of Health Services</a>
+				<a href="http://dohs.gov.np/about-us/" alt="Department of Health Services" class="text-decoration-none text-light">1. Department of Health Services</a>
 				</div>
 				<div>
-				<a href="https://www.nch.com.np/" alt="Department of Health Services" class="text-decoration-none text-light">> National Cancer Center</a>
+				<a href="https://www.nch.com.np/" alt="Department of Health Services" class="text-decoration-none text-light">2. National Cancer Center</a>
 				</div>
 				<div>
-				<a href="https://mohp.gov.np/en/" alt="Department of Health Services" class="text-decoration-none text-light">> Ministry Of Health & Population</a>
+				<a href="https://mohp.gov.np/en/" alt="Department of Health Services" class="text-decoration-none text-light">3. Ministry Of Health & Population</a>
 				</div>
 				<div>
-				<a href="https://www.nationaltraumacenter.gov.np/en" alt="Department of Health Services" class="text-decoration-none text-light">> National Trauma Center</a>
+				<a href="https://www.nationaltraumacenter.gov.np/en" alt="Department of Health Services" class="text-decoration-none text-light">4. National Trauma Center</a>
 				</div>			
 		</div>
 		<div class="m-5">
-			<h4 class="text-decoration-underline">Contact Address</h4>
+			<h4 class="text-decoration-underline text-primary">Contact Address</h4>
 			<br>
 			<div class="d-flex">
 				<img src="/images/LocationLogo.jpeg" style="block-size:30px"/>

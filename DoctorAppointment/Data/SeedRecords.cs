@@ -145,7 +145,7 @@ namespace DoctorAppointment.Data
                 }, new Doctor
                 {
                     Id = 5,
-                    Name = "kristof",
+                    Name = "Kristof",
                     GenreId = 3,
                     HospitalInfoId = 1,                   
                     DepartmentId = 3,
@@ -159,7 +159,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
                     HospitalInfoId = 1,                    
                     DepartmentId = 4,
-                    UrlToPicture = "Tomer.jpeg",
+                    UrlToPicture = "Tomar.jpeg",
                     Email = "Tomer@Yahoomail.com",
                     Phone = "+977-9856325689"
                 }, new Doctor
