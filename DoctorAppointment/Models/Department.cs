@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace DoctorAppointment.Models
 {
+    [Table("Department")]
 	public class Department
 	{
         public int Id { get; set; }

@@ -40,9 +40,10 @@ namespace DoctorAppointment.Controllers
         }      
 
         [HttpGet]
-        public  IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-           // IEnumerable<Department>dep=await _unitOfWork.GenericRepository<Department>().SelectAll<Department>();
+            // IEnumerable<Department>dep=await _unitOfWork.GenericRepository<Department>().SelectAll<Department>();
+            await ViewBagReturn();
             return View();
         }
         [HttpPost]
@@ -79,32 +80,23 @@ namespace DoctorAppointment.Controllers
         {
 
             var dep = await _unitOfWork.GenericRepository<Department>().SelectById<Department>(id);
-            //await ReturnViewBag();
+            await ViewBagReturn();
             return View(dep);
         }
         [HttpPost]
         public async Task<IActionResult> Delete(Department department)
         {
-            await ViewBagReturn();
-            if (department != null)
-            {
-                await _unitOfWork.GenericRepository<Department>().DeleteAsync(department);
-                _unitOfWork.Save();
-            }
+            await ViewBagReturn();          
+            await _unitOfWork.GenericRepository<Department>().DeleteAsync(department);
+            _unitOfWork.Save();           
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            ViewBag.Hospital=new SelectList( await _unitOfWork.GenericRepository<HospitalInfo>().SelectAll<HospitalInfo>(),"Id","Name");
-            var selectedDep = await _unitOfWork.GenericRepository<Department>().SelectById<Department>(id);
-            
-            //var doctors=selectedDep.Doctors;
-            //foreach (var doctor in doctors)
-            //{
-            //    ViewBag.ImageUrl=_imageHelper.GetImageUrl(doctor.UrlToPicture);
-            //}
+            var selectedDep = await _unitOfWork.GenericRepository<Department>().SelectById<Department>(id);    
+            await ViewBagReturn();
             return View(selectedDep);
         }
 

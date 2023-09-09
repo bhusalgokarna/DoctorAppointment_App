@@ -3,13 +3,14 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class ="text-center">
+	<h1 style="color:chocolate">TimeSlot List</h1></div>
 
-<h1>Index</h1>
 
 <p>
-	<button class ="text-end bg-primary"><a asp-action="Create">Add TimeSlot</a></button>
+	<button class ="float-end"style="background-color:green"><a asp-controller="TmeSlot" asp-action="Create" class="text-white text-decoration-none">Add TimeSlot</a></button>
 </p>
-<table class="table">
+<table class="table"style="margin-left:15%">
     <thead>
         <tr>
             <th>
@@ -23,19 +24,19 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
+        <tr class="text-white">
+            <td class="bg-dark bg-opacity-50">
                 @Html.DisplayFor(modelItem => item.Doctor.Name)
             </td>
-            <td>
+            <td class="bg-body opacity-75 m-2">
                 @Html.DisplayFor(modelItem => item.AvailAbleTime)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+                <td>
+                    <button class="bg-primary"><a asp-action="Edit" asp-route-id="@item.Id" style="color:white" />Edit</button>
+                    <button style="background-color:forestgreen"><a asp-action="Details" asp-route-id="@item.Id" style="color:white" />Details</button>
+                    <button class="bg-danger"><a asp-action="Delete" asp-route-id="@item.Id" style="color:white" />Delete</button>
+                </td>
+            </tr>      
 }
     </tbody>
 </table>

@@ -22,7 +22,9 @@
 	<div>
 		@if (User.IsInRole("Admin"))
 		{
-			<a asp-controller="Doctor" asp-action="Index" class="text-decoration-none fw-bold">Back to List</a>
+			<button class="float-end" style="background-color:green"><a asp-controller="Doctor" asp-action="Index" class="text-white text-decoration-none ">Back to List</a>
+			</button>
+
 		}
 		else
 		{

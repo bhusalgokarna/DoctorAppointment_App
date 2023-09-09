@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 style="margin-left:10%">DateSlot List</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button class="float-end" style="background-color:green"><a asp-controller="DateSlots" asp-action="Create" class="text-white text-decoration-none">Add New DateSlot</a></button>
 </p>
-<table class="table">
+<table class="table" style="margin-left:10%">
     <thead>
         <tr>
             <th>
@@ -18,6 +18,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.AvailableDay)
             </th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -30,11 +31,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AvailableDay)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            <td></td>
+                <td >
+                    <button class="bg-primary"><a asp-action="Edit" asp-route-id="@item.Id" style="color:white" />Edit</button>
+                    <button style="background-color:forestgreen"><a asp-action="Details" asp-route-id="@item.Id" style="color:white" />Details</button>
+                    <button class="bg-danger"><a asp-action="Delete" asp-route-id="@item.Id" style="color:white" />Delete</button>
+                </td>
         </tr>
 }
     </tbody>

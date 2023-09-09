@@ -499,7 +499,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 6,
 					DoctorId = 1,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 2,
@@ -510,7 +510,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 4,
 					DoctorId = 2,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 
 				}, new Patient
 				{
@@ -522,7 +522,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 3,
 					DoctorId = 3,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 4,
@@ -533,7 +533,7 @@ namespace DoctorAppointment.Data
                     GenreId = 2,
 					DepartmentId = 3,
 					DoctorId = 4,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 5,
@@ -544,7 +544,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 4,
 					DoctorId = 5,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 
 				}, new Patient
 				{
@@ -556,7 +556,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 6,
 					DoctorId = 6,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 7,
@@ -567,7 +567,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 4,
 					DoctorId = 7,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 8,
@@ -578,7 +578,7 @@ namespace DoctorAppointment.Data
                     GenreId = 2,
 					DepartmentId = 3,
 					DoctorId = 8,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 9,
@@ -589,7 +589,7 @@ namespace DoctorAppointment.Data
                     GenreId = 2,
 					DepartmentId = 3,
 					DoctorId = 9,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 10,
@@ -600,7 +600,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 4,
 					DoctorId = 1,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 11,
@@ -611,7 +611,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 2,
 					DoctorId = 2,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 12,
@@ -622,7 +622,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 2,
 					DoctorId = 3,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 13,
@@ -633,7 +633,7 @@ namespace DoctorAppointment.Data
                     GenreId = 2,
 					DepartmentId = 1,
 					DoctorId = 4,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 14,
@@ -644,7 +644,7 @@ namespace DoctorAppointment.Data
                     GenreId = 2,
 					DepartmentId = 5,
 					DoctorId = 5,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 15,
@@ -655,7 +655,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 2,
 					DoctorId = 6,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 16,
@@ -666,7 +666,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 2,
 					DoctorId = 7,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 17,
@@ -677,7 +677,7 @@ namespace DoctorAppointment.Data
                     GenreId = 2,
 					DepartmentId = 3,
 					DoctorId = 8,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				}, new Patient
 				{
 					Id = 18,
@@ -688,7 +688,7 @@ namespace DoctorAppointment.Data
                     GenreId = 1,
 					DepartmentId = 5,
 					DoctorId = 9,
-					HospilInfoId = 1,
+					HospitalInfoId = 1,
 				});
 		}
        

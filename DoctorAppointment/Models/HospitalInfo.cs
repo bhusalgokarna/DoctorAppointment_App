@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace DoctorAppointment.Models
 {
+    [Table("HospitalInfo")]
 	public class HospitalInfo
 	{
         public int Id { get; set; }

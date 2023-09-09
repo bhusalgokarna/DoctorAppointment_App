@@ -82,10 +82,6 @@ namespace DoctorAppointment.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Address address)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
             await _unitOfWork.GenericRepository<Address>().DeleteAsync(address);
             _unitOfWork.Save();
             return RedirectToAction("Index");

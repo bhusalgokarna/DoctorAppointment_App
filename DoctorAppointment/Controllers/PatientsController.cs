@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DoctorAppointment.Data;
 using DoctorAppointment.Models;
 using Hospital.Repository.Interfaces;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace DoctorAppointment.Controllers
 {
@@ -24,148 +25,92 @@ namespace DoctorAppointment.Controllers
       //  GET: Patients
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Patients.Include(p => p.Department);
-            return View(await applicationDbContext.ToListAsync());
-            //return View();
+            var patient=await _unitOfWork.GenericRepository<Patient>().SelectAll<Patient>();
+            await ReturnViewBag();
+            return View(patient);
         }
 
         // GET: Patients/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null || _context.Patients == null)
+            if (id == 0)
             {
                 return NotFound();
             }
-
-            var patient = await _context.Patients
-                .Include(p => p.Department)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
-
+            var patient = await _unitOfWork.GenericRepository<Patient>().SelectById<Patient>(id);
+            await ReturnViewBag();
             return View(patient);
         }
 
         // GET: Patients/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id");
+            await ReturnViewBag();
             return View();
         }
 
-        // POST: Patients/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Patient/Create      
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Gender,Nationality,Address,DOB,DepartmentId")] Patient patient)
+        public async Task<IActionResult> Create( Patient patient)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(patient);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Name", patient.DepartmentId);
-            return View(patient);
+            await _unitOfWork.GenericRepository<Patient>().CreateAsync(patient);
+            _unitOfWork.Save();
+            return RedirectToAction("Index");   
         }
 
-        // GET: Patients/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Patient/Edit
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null || _context.Patients == null)
+            if (id == 0)
             {
                 return NotFound();
             }
-
-            var patient = await _context.Patients.FindAsync(id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Name", patient.DepartmentId);
+            var patient = await _unitOfWork.GenericRepository<Patient>().SelectById<Patient>(id);
+            await ReturnViewBag();
             return View(patient);
         }
 
-        // POST: Patients/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Patient/Edit
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Gender,Nationality,Address,DOB,DepartmentId")] Patient patient)
+        public async Task<IActionResult> Edit( Patient patient)
         {
-            if (id != patient.Id)
+            await _unitOfWork.GenericRepository<Patient>().UpdateAsync(patient);
+            _unitOfWork.Save();
+            return RedirectToAction("Index");
+        }
+
+        // GET: Patient/Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == 0)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(patient);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PatientExists(patient.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Name", patient.DepartmentId);
+            var patient = await _unitOfWork.GenericRepository<Patient>().SelectById<Patient>(id);
+            await ReturnViewBag();
             return View(patient);
         }
 
-        // GET: Patients/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // POST: Patient/Delete
+        [HttpPost]
+        public async Task<IActionResult> Delete(Patient patient)
         {
-            if (id == null || _context.Patients == null)
-            {
-                return NotFound();
-            }
-
-            var patient = await _context.Patients
-                .Include(p => p.Department)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
-
-            return View(patient);
-        }
-
-        // POST: Patients/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Patients == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Patients'  is null.");
-            }
-            var patient = await _context.Patients.FindAsync(id);
-            if (patient != null)
-            {
-                _context.Patients.Remove(patient);
-            }
-
-            await _context.SaveChangesAsync();
+            await _unitOfWork.GenericRepository<Patient>().DeleteAsync(patient);  
             return RedirectToAction(nameof(Index));
         }
-
-        private bool PatientExists(int id)
+        private async Task ReturnViewBag()
         {
-            return (_context.Patients?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
-    }
+            var patient=await _unitOfWork.GenericRepository<Patient>().SelectAll<Patient>();
+            foreach (var pat in patient)
+            {
+            ViewData["DepartmentId"] = new SelectList(await _unitOfWork.GenericRepository<Department>().SelectAll<Department>(), "Id", "Name", pat.DepartmentId);
+			ViewData["DoctorId"] = new SelectList(await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>(), "Id", "Name", pat.DoctorId);
+			ViewData["GenreId"] = new SelectList(await _unitOfWork.GenericRepository<Genre>().SelectAll<Genre>(), "Id", "Gender", pat.GenreId);
+			ViewData["HospitalInfoId"] = new SelectList(await _unitOfWork.GenericRepository<HospitalInfo>().SelectAll<HospitalInfo>(), "Id", "Name", pat.HospitalInfoId);
+            }
+			
+
+
+		}
+	}
 }

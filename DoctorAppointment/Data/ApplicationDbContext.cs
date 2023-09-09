@@ -58,9 +58,26 @@ namespace DoctorAppointment.Data
                  .HasOne(a => a.Genre)
                  .WithMany(p => p.Doctors)
                  .OnDelete(DeleteBehavior.NoAction);
+          
+            builder.Entity<DateSlot>()
+                  .HasOne(ds => ds.Doctor)
+                  .WithMany(d => d.DateSlots)
+                  .HasForeignKey(ds => ds.DoctorId)
+                  .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<TimeSlot>()
+                 .HasOne(ds => ds.Doctor)
+                 .WithMany(d => d.TimeSlots)
+                 .HasForeignKey(ds => ds.DoctorId)
+                 .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Patient>()
+                .HasOne(a => a.HospitalInfo)
+                .WithMany(p => p.Patients)
+                .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(builder);
             SeedRecords.SeedAddress(builder);
+            SeedRecords.SeedContact(builder);
             SeedRecords.SeedGenre(builder);
             SeedRecords.SeedDepartment(builder);
             SeedRecords.SeedHospital(builder);
@@ -71,6 +88,6 @@ namespace DoctorAppointment.Data
             
         }
         
-        public DbSet<DoctorAppointment.ViewModels.AppointmentViewModel>? AppointmentViewModel { get; set; }
+        //public DbSet<DoctorAppointment.ViewModels.AppointmentViewModel>? AppointmentViewModel { get; set; }
     }   
 }

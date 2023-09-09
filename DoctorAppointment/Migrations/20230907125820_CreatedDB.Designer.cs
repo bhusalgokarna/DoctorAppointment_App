@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorAppointment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230830075209_CreateDB")]
-    partial class CreateDB
+    [Migration("20230907125820_CreatedDB")]
+    partial class CreatedDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,23 +34,27 @@ namespace DoctorAppointment.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PostCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("StreetName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Adress");
 
                     b.HasData(
                         new
@@ -98,7 +102,7 @@ namespace DoctorAppointment.Migrations
 
                     b.HasIndex("TimeSlotId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointment");
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.Contact", b =>
@@ -126,7 +130,7 @@ namespace DoctorAppointment.Migrations
 
                     b.HasIndex("HospitalId");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contact");
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.DateSlot", b =>
@@ -139,7 +143,8 @@ namespace DoctorAppointment.Migrations
 
                     b.Property<string>("AvailableDay")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
@@ -148,7 +153,7 @@ namespace DoctorAppointment.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("DateSlots");
+                    b.ToTable("DateSlot");
 
                     b.HasData(
                         new
@@ -293,7 +298,7 @@ namespace DoctorAppointment.Migrations
 
                     b.HasIndex("HospitalInfoId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Department");
 
                     b.HasData(
                         new
@@ -350,10 +355,10 @@ namespace DoctorAppointment.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("GenreId")
-                        .HasMaxLength(20)
                         .HasColumnType("int");
 
                     b.Property<int>("HospitalInfoId")
@@ -366,7 +371,8 @@ namespace DoctorAppointment.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UrlToPicture")
                         .IsRequired()
@@ -380,7 +386,7 @@ namespace DoctorAppointment.Migrations
 
                     b.HasIndex("HospitalInfoId");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctor");
 
                     b.HasData(
                         new
@@ -439,7 +445,7 @@ namespace DoctorAppointment.Migrations
                             Email = "Kristof@gmail.com",
                             GenreId = 3,
                             HospitalInfoId = 1,
-                            Name = "kristof",
+                            Name = "Kristof",
                             Phone = "+977-1456325689",
                             UrlToPicture = "Kristof.jpeg"
                         },
@@ -453,7 +459,7 @@ namespace DoctorAppointment.Migrations
                             HospitalInfoId = 1,
                             Name = "Tomar",
                             Phone = "+977-9856325689",
-                            UrlToPicture = "Tomer.jpeg"
+                            UrlToPicture = "Tomar.jpeg"
                         },
                         new
                         {
@@ -508,7 +514,7 @@ namespace DoctorAppointment.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genre");
 
                     b.HasData(
                         new
@@ -589,10 +595,7 @@ namespace DoctorAppointment.Migrations
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HospilInfoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HospitalInfoId")
+                    b.Property<int>("HospitalInfoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -615,7 +618,7 @@ namespace DoctorAppointment.Migrations
 
                     b.HasIndex("HospitalInfoId");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patient");
 
                     b.HasData(
                         new
@@ -626,7 +629,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 6,
                             DoctorId = 1,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Gokarna",
                             Nationality = "Nepalese"
                         },
@@ -638,7 +641,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 4,
                             DoctorId = 2,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "DGSon",
                             Nationality = "Nepalese"
                         },
@@ -650,7 +653,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 3,
                             DoctorId = 3,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Paula",
                             Nationality = "Belgium"
                         },
@@ -662,7 +665,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 3,
                             DoctorId = 4,
                             GenreId = 2,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Paula",
                             Nationality = "Belgium"
                         },
@@ -674,7 +677,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 4,
                             DoctorId = 5,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "DGSon",
                             Nationality = "Nepalese"
                         },
@@ -686,7 +689,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 6,
                             DoctorId = 6,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Gokarna",
                             Nationality = "Nepalese"
                         },
@@ -698,7 +701,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 4,
                             DoctorId = 7,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Kenan",
                             Nationality = "Belgie"
                         },
@@ -710,7 +713,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 3,
                             DoctorId = 8,
                             GenreId = 2,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Anu",
                             Nationality = "Indian"
                         },
@@ -722,7 +725,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 3,
                             DoctorId = 9,
                             GenreId = 2,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Sabrina",
                             Nationality = "Belgie"
                         },
@@ -734,7 +737,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 4,
                             DoctorId = 1,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Rufat",
                             Nationality = "Azerbizan"
                         },
@@ -746,7 +749,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 2,
                             DoctorId = 2,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Jonas",
                             Nationality = "Belgie"
                         },
@@ -758,7 +761,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 2,
                             DoctorId = 3,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Ahmed",
                             Nationality = "Belgie"
                         },
@@ -770,7 +773,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 1,
                             DoctorId = 4,
                             GenreId = 2,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Arijs",
                             Nationality = "Belgie"
                         },
@@ -782,7 +785,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 5,
                             DoctorId = 5,
                             GenreId = 2,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Madalina",
                             Nationality = "Romania"
                         },
@@ -794,7 +797,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 2,
                             DoctorId = 6,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Fida",
                             Nationality = "Turkia"
                         },
@@ -806,7 +809,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 2,
                             DoctorId = 7,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Mohamad",
                             Nationality = "Marrokko"
                         },
@@ -818,7 +821,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 3,
                             DoctorId = 8,
                             GenreId = 2,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Amanda",
                             Nationality = "Belgie"
                         },
@@ -830,7 +833,7 @@ namespace DoctorAppointment.Migrations
                             DepartmentId = 5,
                             DoctorId = 9,
                             GenreId = 1,
-                            HospilInfoId = 1,
+                            HospitalInfoId = 1,
                             Name = "Rolis",
                             Nationality = "Belgie"
                         });
@@ -846,7 +849,8 @@ namespace DoctorAppointment.Migrations
 
                     b.Property<string>("AvailAbleTime")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
@@ -855,7 +859,7 @@ namespace DoctorAppointment.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("TimeSlots");
+                    b.ToTable("TimeSlot");
 
                     b.HasData(
                         new
@@ -1327,9 +1331,9 @@ namespace DoctorAppointment.Migrations
             modelBuilder.Entity("DoctorAppointment.Models.DateSlot", b =>
                 {
                     b.HasOne("DoctorAppointment.Models.Doctor", "Doctor")
-                        .WithMany()
+                        .WithMany("DateSlots")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Doctor");
@@ -1404,23 +1408,27 @@ namespace DoctorAppointment.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("DoctorAppointment.Models.HospitalInfo", null)
+                    b.HasOne("DoctorAppointment.Models.HospitalInfo", "HospitalInfo")
                         .WithMany("Patients")
-                        .HasForeignKey("HospitalInfoId");
+                        .HasForeignKey("HospitalInfoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Department");
 
                     b.Navigation("Doctor");
 
                     b.Navigation("Genre");
+
+                    b.Navigation("HospitalInfo");
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.TimeSlot", b =>
                 {
                     b.HasOne("DoctorAppointment.Models.Doctor", "Doctor")
-                        .WithMany()
+                        .WithMany("TimeSlots")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Doctor");
@@ -1491,7 +1499,11 @@ namespace DoctorAppointment.Migrations
                 {
                     b.Navigation("Appointment");
 
+                    b.Navigation("DateSlots");
+
                     b.Navigation("Patients");
+
+                    b.Navigation("TimeSlots");
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.Genre", b =>

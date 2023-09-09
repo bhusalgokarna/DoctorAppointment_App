@@ -1,8 +1,10 @@
 ﻿using DoctorAppointment.Models;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DoctorAppointment.Models
 {
+    [Table("Appointment")]
 	public class Appointment
 	{
         public int Id { get; set; }

@@ -5,24 +5,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DoctorAppointment.Migrations
 {
-    public partial class CreateDB : Migration
+    public partial class CreatedDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Address",
+                name: "Adress",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StreetName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    StreetName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PostCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.PrimaryKey("PK_Adress", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,7 +65,7 @@ namespace DoctorAppointment.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Genres",
+                name: "Genre",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -74,7 +74,7 @@ namespace DoctorAppointment.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genres", x => x.Id);
+                    table.PrimaryKey("PK_Genre", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,9 +91,9 @@ namespace DoctorAppointment.Migrations
                 {
                     table.PrimaryKey("PK_HospitalInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_HospitalInfo_Address_AddressId",
+                        name: "FK_HospitalInfo_Adress_AddressId",
                         column: x => x.AddressId,
-                        principalTable: "Address",
+                        principalTable: "Adress",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -205,7 +205,7 @@ namespace DoctorAppointment.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Contacts",
+                name: "Contact",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -216,9 +216,9 @@ namespace DoctorAppointment.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                    table.PrimaryKey("PK_Contact", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contacts_HospitalInfo_HospitalId",
+                        name: "FK_Contact_HospitalInfo_HospitalId",
                         column: x => x.HospitalId,
                         principalTable: "HospitalInfo",
                         principalColumn: "Id",
@@ -226,7 +226,7 @@ namespace DoctorAppointment.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Departments",
+                name: "Department",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -236,9 +236,9 @@ namespace DoctorAppointment.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Departments", x => x.Id);
+                    table.PrimaryKey("PK_Department", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Departments_HospitalInfo_HospitalInfoId",
+                        name: "FK_Department_HospitalInfo_HospitalInfoId",
                         column: x => x.HospitalInfoId,
                         principalTable: "HospitalInfo",
                         principalColumn: "Id",
@@ -246,15 +246,15 @@ namespace DoctorAppointment.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Doctors",
+                name: "Doctor",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    GenreId = table.Column<int>(type: "int", maxLength: 20, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GenreId = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UrlToPicture = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: false),
@@ -262,46 +262,45 @@ namespace DoctorAppointment.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Doctors", x => x.Id);
+                    table.PrimaryKey("PK_Doctor", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Doctors_Departments_DepartmentId",
+                        name: "FK_Doctor_Department_DepartmentId",
                         column: x => x.DepartmentId,
-                        principalTable: "Departments",
+                        principalTable: "Department",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Doctors_Genres_GenreId",
+                        name: "FK_Doctor_Genre_GenreId",
                         column: x => x.GenreId,
-                        principalTable: "Genres",
+                        principalTable: "Genre",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Doctors_HospitalInfo_HospitalInfoId",
+                        name: "FK_Doctor_HospitalInfo_HospitalInfoId",
                         column: x => x.HospitalInfoId,
                         principalTable: "HospitalInfo",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "DateSlots",
+                name: "DateSlot",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
-                    AvailableDay = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AvailableDay = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DateSlots", x => x.Id);
+                    table.PrimaryKey("PK_DateSlot", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DateSlots_Doctors_DoctorId",
+                        name: "FK_DateSlot_Doctor_DoctorId",
                         column: x => x.DoctorId,
-                        principalTable: "Doctors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Doctor",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Patients",
+                name: "Patient",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -312,59 +311,57 @@ namespace DoctorAppointment.Migrations
                     Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
-                    HospilInfoId = table.Column<int>(type: "int", nullable: false),
-                    DepartmentId = table.Column<int>(type: "int", nullable: false),
-                    HospitalInfoId = table.Column<int>(type: "int", nullable: true)
+                    HospitalInfoId = table.Column<int>(type: "int", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Patients", x => x.Id);
+                    table.PrimaryKey("PK_Patient", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Patients_Departments_DepartmentId",
+                        name: "FK_Patient_Department_DepartmentId",
                         column: x => x.DepartmentId,
-                        principalTable: "Departments",
+                        principalTable: "Department",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Patients_Doctors_DoctorId",
+                        name: "FK_Patient_Doctor_DoctorId",
                         column: x => x.DoctorId,
-                        principalTable: "Doctors",
+                        principalTable: "Doctor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Patients_Genres_GenreId",
+                        name: "FK_Patient_Genre_GenreId",
                         column: x => x.GenreId,
-                        principalTable: "Genres",
+                        principalTable: "Genre",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Patients_HospitalInfo_HospitalInfoId",
+                        name: "FK_Patient_HospitalInfo_HospitalInfoId",
                         column: x => x.HospitalInfoId,
                         principalTable: "HospitalInfo",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "TimeSlots",
+                name: "TimeSlot",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
-                    AvailAbleTime = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AvailAbleTime = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TimeSlots", x => x.Id);
+                    table.PrimaryKey("PK_TimeSlot", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TimeSlots_Doctors_DoctorId",
+                        name: "FK_TimeSlot_Doctor_DoctorId",
                         column: x => x.DoctorId,
-                        principalTable: "Doctors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Doctor",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Appointments",
+                name: "Appointment",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -377,36 +374,36 @@ namespace DoctorAppointment.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Appointments", x => x.Id);
+                    table.PrimaryKey("PK_Appointment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Appointments_DateSlots_DateSlotId",
+                        name: "FK_Appointment_DateSlot_DateSlotId",
                         column: x => x.DateSlotId,
-                        principalTable: "DateSlots",
+                        principalTable: "DateSlot",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Appointments_Doctors_DoctorId",
+                        name: "FK_Appointment_Doctor_DoctorId",
                         column: x => x.DoctorId,
-                        principalTable: "Doctors",
+                        principalTable: "Doctor",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Appointments_Patients_PatientId",
+                        name: "FK_Appointment_Patient_PatientId",
                         column: x => x.PatientId,
-                        principalTable: "Patients",
+                        principalTable: "Patient",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Appointments_TimeSlots_TimeSlotId",
+                        name: "FK_Appointment_TimeSlot_TimeSlotId",
                         column: x => x.TimeSlotId,
-                        principalTable: "TimeSlots",
+                        principalTable: "TimeSlot",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
-                table: "Address",
+                table: "Adress",
                 columns: new[] { "Id", "City", "Country", "PostCode", "StreetName" },
                 values: new object[] { 1, "Sandikharkha", "Nepal", "2123", "MilanChok" });
 
             migrationBuilder.InsertData(
-                table: "Genres",
+                table: "Genre",
                 columns: new[] { "Id", "Gender" },
                 values: new object[,]
                 {
@@ -421,7 +418,7 @@ namespace DoctorAppointment.Migrations
                 values: new object[] { 1, 1, "Shandhikharkha Distric Hospital", "Gangalal national heart center.jpeg" });
 
             migrationBuilder.InsertData(
-                table: "Departments",
+                table: "Department",
                 columns: new[] { "Id", "HospitalInfoId", "Name" },
                 values: new object[,]
                 {
@@ -434,7 +431,7 @@ namespace DoctorAppointment.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Doctors",
+                table: "Doctor",
                 columns: new[] { "Id", "DOB", "DepartmentId", "Email", "GenreId", "HospitalInfoId", "Name", "Phone", "UrlToPicture" },
                 values: new object[,]
                 {
@@ -442,15 +439,15 @@ namespace DoctorAppointment.Migrations
                     { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Tiler@gmail.com", 1, 1, "Timerman", "+977-9756325680", "Timerman.jpeg" },
                     { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Umr@outlook.be", 1, 1, "Umer", "+977-9656325254", "Umer.jpeg" },
                     { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Sneha@gmail.com", 2, 1, "Sneha", "+977-9875325691", "Sneha.jpeg" },
-                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Kristof@gmail.com", 3, 1, "kristof", "+977-1456325689", "Kristof.jpeg" },
-                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, "Tomer@Yahoomail.com", 1, 1, "Tomar", "+977-9856325689", "Tomer.jpeg" },
+                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Kristof@gmail.com", 3, 1, "Kristof", "+977-1456325689", "Kristof.jpeg" },
+                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, "Tomer@Yahoomail.com", 1, 1, "Tomar", "+977-9856325689", "Tomar.jpeg" },
                     { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, "Iveta@gmail.com", 2, 1, "Iveta", "+977-4856325632", "Iveta.jpeg" },
                     { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, "Roland@gmail.com", 1, 1, "Roland", "+977-9756325645", "Roland.jpeg" },
                     { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, "Amanda@Yahoo.com", 2, 1, "Amanda", "+977-9756325685", "Amanda.jpeg" }
                 });
 
             migrationBuilder.InsertData(
-                table: "DateSlots",
+                table: "DateSlot",
                 columns: new[] { "Id", "AvailableDay", "DoctorId" },
                 values: new object[,]
                 {
@@ -477,32 +474,32 @@ namespace DoctorAppointment.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Patients",
-                columns: new[] { "Id", "Address", "DOB", "DepartmentId", "DoctorId", "GenreId", "HospilInfoId", "HospitalInfoId", "Name", "Nationality" },
+                table: "Patient",
+                columns: new[] { "Id", "Address", "DOB", "DepartmentId", "DoctorId", "GenreId", "HospitalInfoId", "Name", "Nationality" },
                 values: new object[,]
                 {
-                    { 1, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 1, 1, 1, null, "Gokarna", "Nepalese" },
-                    { 2, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 2, 1, 1, null, "DGSon", "Nepalese" },
-                    { 3, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 1, 1, null, "Paula", "Belgium" },
-                    { 4, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4, 2, 1, null, "Paula", "Belgium" },
-                    { 5, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 5, 1, 1, null, "DGSon", "Nepalese" },
-                    { 6, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 6, 1, 1, null, "Gokarna", "Nepalese" },
-                    { 7, "NieuweStraat 120, Gent,Belgium", new DateTime(1965, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 7, 1, 1, null, "Kenan", "Belgie" },
-                    { 8, "Donderlieuw 121,Belgium", new DateTime(1994, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, 2, 1, null, "Anu", "Indian" },
-                    { 9, "GroteMarkt 220, Brussel,Belgium", new DateTime(1980, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 9, 2, 1, null, "Sabrina", "Belgie" },
-                    { 10, "GentSeesteenweg 120, Gent,Belgium", new DateTime(1985, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 1, 1, 1, null, "Rufat", "Azerbizan" },
-                    { 11, "Mechanlenlaan 85, Mechelen,Belgium", new DateTime(1999, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 1, 1, null, "Jonas", "Belgie" },
-                    { 12, "Grotelaan 45, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 3, 1, 1, null, "Ahmed", "Belgie" },
-                    { 13, "Zuidstation 36, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 4, 2, 1, null, "Arijs", "Belgie" },
-                    { 14, "Tournailaan 45, Tournai,Belgium", new DateTime(1991, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 5, 2, 1, null, "Madalina", "Romania" },
-                    { 15, "Leuvenlaan 45, Leuven,Belgium", new DateTime(1999, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 6, 1, 1, null, "Fida", "Turkia" },
-                    { 16, "Molenbeeklaan 150, Brussels,Belgium", new DateTime(1997, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 7, 1, 1, null, "Mohamad", "Marrokko" },
-                    { 17, "Oplinter 102, Tienen,Belgium", new DateTime(2008, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, 2, 1, null, "Amanda", "Belgie" },
-                    { 18, "DiestSesteenweg 111, Diest,Belgium", new DateTime(2012, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 9, 1, 1, null, "Rolis", "Belgie" }
+                    { 1, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 1, 1, 1, "Gokarna", "Nepalese" },
+                    { 2, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 2, 1, 1, "DGSon", "Nepalese" },
+                    { 3, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 1, 1, "Paula", "Belgium" },
+                    { 4, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4, 2, 1, "Paula", "Belgium" },
+                    { 5, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 5, 1, 1, "DGSon", "Nepalese" },
+                    { 6, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 6, 1, 1, "Gokarna", "Nepalese" },
+                    { 7, "NieuweStraat 120, Gent,Belgium", new DateTime(1965, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 7, 1, 1, "Kenan", "Belgie" },
+                    { 8, "Donderlieuw 121,Belgium", new DateTime(1994, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, 2, 1, "Anu", "Indian" },
+                    { 9, "GroteMarkt 220, Brussel,Belgium", new DateTime(1980, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 9, 2, 1, "Sabrina", "Belgie" },
+                    { 10, "GentSeesteenweg 120, Gent,Belgium", new DateTime(1985, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 1, 1, 1, "Rufat", "Azerbizan" },
+                    { 11, "Mechanlenlaan 85, Mechelen,Belgium", new DateTime(1999, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 1, 1, "Jonas", "Belgie" },
+                    { 12, "Grotelaan 45, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 3, 1, 1, "Ahmed", "Belgie" },
+                    { 13, "Zuidstation 36, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 4, 2, 1, "Arijs", "Belgie" },
+                    { 14, "Tournailaan 45, Tournai,Belgium", new DateTime(1991, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 5, 2, 1, "Madalina", "Romania" },
+                    { 15, "Leuvenlaan 45, Leuven,Belgium", new DateTime(1999, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 6, 1, 1, "Fida", "Turkia" },
+                    { 16, "Molenbeeklaan 150, Brussels,Belgium", new DateTime(1997, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 7, 1, 1, "Mohamad", "Marrokko" },
+                    { 17, "Oplinter 102, Tienen,Belgium", new DateTime(2008, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, 2, 1, "Amanda", "Belgie" },
+                    { 18, "DiestSesteenweg 111, Diest,Belgium", new DateTime(2012, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 9, 1, 1, "Rolis", "Belgie" }
                 });
 
             migrationBuilder.InsertData(
-                table: "TimeSlots",
+                table: "TimeSlot",
                 columns: new[] { "Id", "AvailAbleTime", "DoctorId" },
                 values: new object[,]
                 {
@@ -513,7 +510,7 @@ namespace DoctorAppointment.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "TimeSlots",
+                table: "TimeSlot",
                 columns: new[] { "Id", "AvailAbleTime", "DoctorId" },
                 values: new object[,]
                 {
@@ -552,23 +549,23 @@ namespace DoctorAppointment.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_DateSlotId",
-                table: "Appointments",
+                name: "IX_Appointment_DateSlotId",
+                table: "Appointment",
                 column: "DateSlotId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_DoctorId",
-                table: "Appointments",
+                name: "IX_Appointment_DoctorId",
+                table: "Appointment",
                 column: "DoctorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_PatientId",
-                table: "Appointments",
+                name: "IX_Appointment_PatientId",
+                table: "Appointment",
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_TimeSlotId",
-                table: "Appointments",
+                name: "IX_Appointment_TimeSlotId",
+                table: "Appointment",
                 column: "TimeSlotId");
 
             migrationBuilder.CreateIndex(
@@ -611,33 +608,33 @@ namespace DoctorAppointment.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contacts_HospitalId",
-                table: "Contacts",
+                name: "IX_Contact_HospitalId",
+                table: "Contact",
                 column: "HospitalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DateSlots_DoctorId",
-                table: "DateSlots",
+                name: "IX_DateSlot_DoctorId",
+                table: "DateSlot",
                 column: "DoctorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Departments_HospitalInfoId",
-                table: "Departments",
+                name: "IX_Department_HospitalInfoId",
+                table: "Department",
                 column: "HospitalInfoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Doctors_DepartmentId",
-                table: "Doctors",
+                name: "IX_Doctor_DepartmentId",
+                table: "Doctor",
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Doctors_GenreId",
-                table: "Doctors",
+                name: "IX_Doctor_GenreId",
+                table: "Doctor",
                 column: "GenreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Doctors_HospitalInfoId",
-                table: "Doctors",
+                name: "IX_Doctor_HospitalInfoId",
+                table: "Doctor",
                 column: "HospitalInfoId");
 
             migrationBuilder.CreateIndex(
@@ -646,35 +643,35 @@ namespace DoctorAppointment.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Patients_DepartmentId",
-                table: "Patients",
+                name: "IX_Patient_DepartmentId",
+                table: "Patient",
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Patients_DoctorId",
-                table: "Patients",
+                name: "IX_Patient_DoctorId",
+                table: "Patient",
                 column: "DoctorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Patients_GenreId",
-                table: "Patients",
+                name: "IX_Patient_GenreId",
+                table: "Patient",
                 column: "GenreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Patients_HospitalInfoId",
-                table: "Patients",
+                name: "IX_Patient_HospitalInfoId",
+                table: "Patient",
                 column: "HospitalInfoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TimeSlots_DoctorId",
-                table: "TimeSlots",
+                name: "IX_TimeSlot_DoctorId",
+                table: "TimeSlot",
                 column: "DoctorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Appointments");
+                name: "Appointment");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -692,16 +689,16 @@ namespace DoctorAppointment.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Contacts");
+                name: "Contact");
 
             migrationBuilder.DropTable(
-                name: "DateSlots");
+                name: "DateSlot");
 
             migrationBuilder.DropTable(
-                name: "Patients");
+                name: "Patient");
 
             migrationBuilder.DropTable(
-                name: "TimeSlots");
+                name: "TimeSlot");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -710,19 +707,19 @@ namespace DoctorAppointment.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Doctors");
+                name: "Doctor");
 
             migrationBuilder.DropTable(
-                name: "Departments");
+                name: "Department");
 
             migrationBuilder.DropTable(
-                name: "Genres");
+                name: "Genre");
 
             migrationBuilder.DropTable(
                 name: "HospitalInfo");
 
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "Adress");
         }
     }
 }

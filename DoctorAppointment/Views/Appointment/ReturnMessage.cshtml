@@ -3,9 +3,26 @@
 	<head>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	</head>
-<body class="bg-body bg-opacity-25">
-	<h3 class="text-center"><i class="bi bi-hand-thumbs-up"></i> Your Appointment has been created Successfully.</h3>
-	<h4 class="text-center">Your Doctor will send you a conformation email</h4>
-	</body>
+<body >
+	<div style=" margin-top:200px">
+		<h3 class="text-center"><i class="bi bi-hand-thumbs-up"></i> Your appointment has been created successfully</h3>
+		<h4 class="text-center">Your Doctor will send you a confirmation e-mail</h4>
+	</div>
+	<div>
+		<img  src="/images/Namaste.jpeg" width="200" style="margin-left:40%"/>
+	</div>
+	<div>
+		@if (User.IsInRole("Doctor") || (User.IsInRole("Admin")))
+		{
+			<button class="bg-primary"><a asp-controller="Appointment" asp-action="Index" class="text-white text-decoration-none">Back to AppointmentList</a></button>
+		}
+		else
+		{
+			<button class="bg-primary float-end"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none">Back to Home Page</a></button>
+
+		}
+	</div>
+	
+</body>
 </html>
 

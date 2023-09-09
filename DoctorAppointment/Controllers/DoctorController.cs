@@ -33,7 +33,7 @@ namespace DoctorAppointment.Controllers
 			}
 			return View(allDoctor);
 		}
-		[Authorize(Roles = "Doctor")]
+		[Authorize(Roles = "Doctor,Admin")]
 		public async Task<IActionResult> Index()
         {
             await ReturnViewBag();

@@ -8,7 +8,8 @@
 	<div>
 		@if (User.IsInRole("Admin"))
 		{
-			<a asp-controller="Department" asp-action="Index">Back to List</a>
+			<button class=" float-end" style="background-color:forestgreen"><a asp-controller="Department" asp-action="Index" class="text-white text-decoration-none ">Back To Department List</a></button>
+
 		}
 		else
 		{

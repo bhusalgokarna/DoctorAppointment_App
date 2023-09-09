@@ -1,8 +1,8 @@
-﻿$(document).ready(function () {
-    GetDoctor();
-
+﻿
+$(document).ready(function () {
     $('#Doctor').change(function () {
         var id = $(this).val();
+        
         $('#DateSlot').empty();
 
         $.ajax({
@@ -14,43 +14,32 @@
                     $('#DateSlot').append("<Option value=" + data.id + '>' + data.availableDay + "</Option>");
                 });
 
-                // Roep GetTimeSlot() aan na het succesvol voltooien van het AJAX-verzoek
-                GetTimeSlot();
+
+                var dateId = $("#DateSlot").val();
+                $('#TimeSlot').empty();         
+                $.ajax({
+                    url: '/Appointment/TimeSlot?id=' + id + '&dateId=' + dateId,
+                    success: function (result) {
+                        $.each(result, function (i, data) {
+                            $('#TimeSlot').append('<Option value=' + data.id + '>' + data.availAbleTime + '</Option>');
+                        });
+                    }
+                });
+                /* GetTimeSlot(); */
             }
         });
+       
+        $('#Patient').empty();
 
-        // Voeg hier eventuele andere code toe
+        $.ajax({
+            url: '/Appointment/Patient?id=' + id,
+            success: function (result) {
+                $.each(result, function (i, data) {
+                    $('#Patient').append('<Option value=' + data.id + '>' + data.name + '</Option>');
+                });
+            }
+        });
     });
-
-    // Hier kun je andere event handlers toevoegen of eventuele andere initialisatie uitvoeren
 });
 
-function GetDoctor() {
-    $.ajax({
-        url: '/Appointment/Doctor',
-        success: function (result) {
-            $.each(result, function (i, data) {
-                $('#Doctor').append('<Option value=' + data.id + '>' + data.name + '</Option>');
-            });
-        }
-    });
-}
 
-function GetTimeSlot() {
-    var id = $('#Doctor').val();
-    var dateId = $("#DateSlot").val();
-    $('#TimeSlot').empty();
-
-    $.ajax({
-        url: '/Appointment/TimeSlot?id=' + id + '&dateId=' + dateId,
-        success: function (result) {
-            $.each(result, function (i, data) {
-                $('#TimeSlot').append('<Option value=' + data.id + '>' + data.availAbleTime + '</Option>');
-            });
-        }
-    });
-}
-
-function test() {
-    alert("changed called");
-}

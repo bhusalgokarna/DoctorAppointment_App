@@ -65,7 +65,14 @@ body {
     width:100%
     
 }
-
-.test{
-    background-color: red;
+.backPic{
+    background-image:url(/images/BigscreenBackground.png)
+}
+.serviceBack {
+    background-image: url(/images/AppBack.jpg);
+    width:90%;
+    height:100%;
+   
+ 
+    
 }

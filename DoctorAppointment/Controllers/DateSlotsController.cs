@@ -25,147 +25,89 @@ namespace DoctorAppointment.Controllers
 		// GET: DateSlots
 		public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.DateSlots.Include(d => d.Doctor);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: DateSlots/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.DateSlots == null)
-            {
-                return NotFound();
-            }
-
-            var dateSlot = await _context.DateSlots
-                .Include(d => d.Doctor)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (dateSlot == null)
-            {
-                return NotFound();
-            }
-
+            var dateSlot = await _unitOfWork.GenericRepository<DateSlot>().SelectAll<DateSlot>();
+            await ReturnViewBag();
             return View(dateSlot);
+		}
+
+		// GET: DateSlots/Details
+		public async Task<IActionResult> Details(int id)
+        {
+            if (id == 0 )
+            {
+                return NotFound();
+            }
+			var dateSlot = await _unitOfWork.GenericRepository<DateSlot>().SelectById<DateSlot>(id);
+            await ReturnViewBag();
+			return View(dateSlot);
         }
 
         // GET: DateSlots/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["DoctorId"] = new SelectList(_context.Doctors, "Id", "Name");
-            return View();
+			await ReturnViewBag();
+			return View();
         }
 
         // POST: DateSlots/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]      
+        public async Task<IActionResult> Create(DateSlot dateSlot)
+        {
+			await _unitOfWork.GenericRepository<DateSlot>().CreateAsync(dateSlot);
+            _unitOfWork.Save();
+			return RedirectToAction(nameof(Index));
+
+		}
+
+        // GET: DateSlots/Edit
+        public async Task<IActionResult> Edit(int id)
+        {
+            var dateSlot = await _unitOfWork.GenericRepository<DateSlot>().SelectById<DateSlot>(id);
+            await ReturnViewBag();
+            return View(dateSlot);
+        }
+
+        // POST: DateSlots/Edit      
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DoctorId,AvailableDay")] DateSlot dateSlot)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(dateSlot);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["DoctorId"] = new SelectList(_context.Doctors, "Id", "Name", dateSlot.DoctorId);
-            return View(dateSlot);
+        public async Task<IActionResult> Edit( DateSlot dateSlot)
+        {			
+				await _unitOfWork.GenericRepository<DateSlot>().UpdateAsync(dateSlot);
+				_unitOfWork.Save();		
+				return RedirectToAction(nameof(Index));
         }
 
-        // GET: DateSlots/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: DateSlots/Delete
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null || _context.DateSlots == null)
+            if (id == 0 )
             {
                 return NotFound();
             }
+			var dateSlot = await _unitOfWork.GenericRepository<DateSlot>().SelectById<DateSlot>(id);
+			await ReturnViewBag();
+			return View(dateSlot);
+		}
 
-            var dateSlot = await _context.DateSlots.FindAsync(id);
-            if (dateSlot == null)
-            {
-                return NotFound();
-            }
-            ViewData["DoctorId"] = new SelectList(_context.Doctors, "Id", "Name", dateSlot.DoctorId);
-            return View(dateSlot);
-        }
-
-        // POST: DateSlots/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DoctorId,AvailableDay")] DateSlot dateSlot)
+        // POST: DateSlots/Delete
+        [HttpPost, ActionName("Delete")]        
+        public async Task<IActionResult> Delete(DateSlot dateSlot)
         {
-            if (id != dateSlot.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(dateSlot);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DateSlotExists(dateSlot.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["DoctorId"] = new SelectList(_context.Doctors, "Id", "Name", dateSlot.DoctorId);
-            return View(dateSlot);
-        }
-
-        // GET: DateSlots/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.DateSlots == null)
-            {
-                return NotFound();
-            }
-
-            var dateSlot = await _context.DateSlots
-                .Include(d => d.Doctor)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (dateSlot == null)
-            {
-                return NotFound();
-            }
-
-            return View(dateSlot);
-        }
-
-        // POST: DateSlots/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.DateSlots == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.DateSlots'  is null.");
-            }
-            var dateSlot = await _context.DateSlots.FindAsync(id);
-            if (dateSlot != null)
-            {
-                _context.DateSlots.Remove(dateSlot);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+			await _unitOfWork.GenericRepository<DateSlot>().DeleteAsync(dateSlot);
+			_unitOfWork.Save();
+			return RedirectToAction(nameof(Index));
+		}
 
         private bool DateSlotExists(int id)
         {
           return (_context.DateSlots?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-    }
+        public async Task ReturnViewBag()
+        {
+            var dateSlot = await _unitOfWork.GenericRepository<DateSlot>().SelectAll<DateSlot>();
+            foreach (var item in dateSlot)
+            {
+                ViewData["DoctorId"] = new SelectList(await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>(), "Id", "Name", item.DoctorId);
+            }
+		}
+	}
 }

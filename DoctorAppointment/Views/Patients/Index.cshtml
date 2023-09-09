@@ -31,6 +31,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Department)
             </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Doctor)
+                </th>
             <th></th>
         </tr>
     </thead>
@@ -41,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GenreId)
+                @Html.DisplayFor(modelItem => item.Genre.Gender)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nationality)
@@ -53,8 +56,11 @@
                 @Html.DisplayFor(modelItem => item.DOB)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Department.Id)
+                @Html.DisplayFor(modelItem => item.Department.Name)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor.Name)
+           </td>
                     <td>
                         <button class="bg-primary"><a asp-action="Edit" asp-route-id="@item.Id" style="color:white" />Edit</button>
                         <button class="bg-info"><a asp-action="Details" asp-route-id="@item.Id" style="color:white" />Details</button>

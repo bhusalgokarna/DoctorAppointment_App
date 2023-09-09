@@ -2,6 +2,7 @@
 using Hospital.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoctorAppointment.Controllers
 {  
@@ -18,15 +19,18 @@ namespace DoctorAppointment.Controllers
         public async Task<IActionResult> Index()
         {
             var time=await _unitOfWork.GenericRepository<TimeSlot>().SelectAll<TimeSlot>();
-           //9 ViewBag.doctor=new SelectList(await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>(),"Id","Name");
+            await ReturnViewBag();
             return View(time);
         }
 
         //Create New TimeSlote.....
-        public IActionResult Create()
+        [HttpGet]
+        public async Task <IActionResult> Create()
         {
-            return View();
+           await ReturnViewBag();
+           return View();
         }
+        [HttpPost]
         public async Task<IActionResult> Create(TimeSlot time)
         {
             await _unitOfWork.GenericRepository<TimeSlot>().CreateAsync(time);
@@ -37,8 +41,9 @@ namespace DoctorAppointment.Controllers
         //Edit TimeSlot.....Get By Id..
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
-        {
+        {  
             var time=await _unitOfWork.GenericRepository<TimeSlot>().SelectById<TimeSlot>(id);
+            await ReturnViewBag();           
             return View(time);
         }
 
@@ -55,8 +60,9 @@ namespace DoctorAppointment.Controllers
         [HttpGet]
 		public async Task<IActionResult> Delete(int id)
 		{
-			var time = await _unitOfWork.GenericRepository<TimeSlot>().SelectById<TimeSlot>(id);
-			return View(time);
+			var time = await _unitOfWork.GenericRepository<TimeSlot>().SelectById<TimeSlot>(id);          
+            await ReturnViewBag();
+            return View(time);
 		}
 
         // Post Edited TimeSlot
@@ -73,7 +79,18 @@ namespace DoctorAppointment.Controllers
         {
 
 			var time = await _unitOfWork.GenericRepository<TimeSlot>().SelectById<TimeSlot>(id);
-			return View(time);
+            await ReturnViewBag();
+            return View(time);
 		}
+
+        public async Task ReturnViewBag()
+        {          
+            var time = await _unitOfWork.GenericRepository<TimeSlot>().SelectAll<TimeSlot>();
+            foreach (var item in time)
+            {
+                ViewData["DoctorId"] = new SelectList(await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>(), "Id", "Name", item.DoctorId);
+
+            }
+        }
 	}
 }

@@ -24,13 +24,8 @@ namespace DoctorAppointment.Controllers
 
 		public async Task<IActionResult> HospitalContact()
 		{
-			ViewBag.Adres = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "City");
-			var hospital = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectAll<Models.HospitalInfo>();
-			ViewBag.Street = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "StreetName");
-			ViewBag.City = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "City");
-			ViewBag.PostCode = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "PostCode");
-			ViewBag.Country = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "Country");
-			
+            await ReturnViewBag();
+			var hospital = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectAll<Models.HospitalInfo>();						
 			foreach (var item in hospital)
 			{
 				if (item?.UrlToPicture != null)
@@ -129,8 +124,11 @@ namespace DoctorAppointment.Controllers
         }
         public async Task ReturnViewBag()
         {
-            ViewBag.Addresses = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "StreetName");
             ViewBag.Contact = new SelectList(await _unitOfWork.GenericRepository<Contact>().SelectAll<Contact>(), "Id", "Phone");
+            ViewBag.Adres = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "City");
+            ViewBag.Street = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "StreetName");
+            ViewBag.PostCode = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "PostCode");
+            ViewBag.Country = new SelectList(await _unitOfWork.GenericRepository<Address>().SelectAll<Address>(), "Id", "Country");
         }
     }
 }

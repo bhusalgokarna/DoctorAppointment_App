@@ -61,11 +61,7 @@ namespace DoctorAppointment.Controllers
         // Post Edited Contact....
         [HttpPost]
         public async Task<IActionResult> Edit(Contact contact)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+        {           
             await _unitOfWork.GenericRepository<Contact>().UpdateAsync(contact);
             _unitOfWork.Save();
             return RedirectToAction("Index");
@@ -88,10 +84,6 @@ namespace DoctorAppointment.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Contact contact)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
             await _unitOfWork.GenericRepository<Contact>().DeleteAsync(contact);
             _unitOfWork.Save();
             return RedirectToAction("Index");
@@ -107,6 +99,7 @@ namespace DoctorAppointment.Controllers
                 return NotFound();
             }
             var contact = await _unitOfWork.GenericRepository<Contact>().SelectById<Contact>(id);
+            await ViewBagReturn();
             return View(contact);
         }
 
