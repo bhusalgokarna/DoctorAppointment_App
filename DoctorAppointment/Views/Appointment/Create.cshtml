@@ -63,7 +63,7 @@
 					<input type="submit" value="Confirm" class="btn btn-primary" style="margin-left:30%;margin-right:10px" />
 					@if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
                     {
-                        <button class="bg-primary float-end"> <a asp-controller="Doctor" asp-action="Index" class="text-decoration-none fw-bold text-white">Back to List</a></button>
+                        <button class="bg-primary float-end"> <a asp-controller="Appointment" asp-action="Index" class="text-decoration-none fw-bold text-white">Back to List</a></button>
                     }
                     else
                     {
