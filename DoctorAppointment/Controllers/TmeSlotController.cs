@@ -1,12 +1,15 @@
 ﻿using DoctorAppointment.Models;
 using Hospital.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace DoctorAppointment.Controllers
-{  
-    public class TmeSlotController : Controller
+{
+	[Authorize(Roles = "Doctor")]
+	public class TmeSlotController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 

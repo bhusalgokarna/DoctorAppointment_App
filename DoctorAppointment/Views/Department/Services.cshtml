@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DoctorAppointment.Models.Department>
 
  <html>
-<body class="bg-dark bg-opacity-25">
+<body class="bg-success bg-opacity-50">
          <div>
 			 <img style="width:700px;height:250px;margin-left:20%;border-radius:100%" src="/images/Service.jpg"/>        
            </div>
@@ -33,6 +33,7 @@
 			@foreach (var item in Model)
 			{
 				<tr class="fw-bold bg-dark bg-opacity-50">
+					
 					<td>
 						<a class="text-decoration-none" asp-controller="Department" asp-action="Details"
 						   asp-route-id="@item.Id" style="color:white" />@item.Name

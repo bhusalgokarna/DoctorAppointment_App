@@ -1,9 +1,11 @@
 ﻿using DoctorAppointment.Models;
 using DoctorAppointment.Repositories.Interfaces;
 using Hospital.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace DoctorAppointment.Controllers
 {
@@ -16,7 +18,9 @@ namespace DoctorAppointment.Controllers
             _unitOfWork = unitOfWork;
             _imageHelper = imageHelper;
         }
-        public async Task<IActionResult> Index()
+		[Authorize(Roles = "Admin,Doctor")]
+
+		public async Task<IActionResult> Index()
         {
             var allDepartment = await _unitOfWork.GenericRepository<Department>().SelectAll<Department>();
             ViewData["HospitalInfo"] = new SelectList(await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectAll<Models.HospitalInfo>(), "Id", "Name");
@@ -37,9 +41,9 @@ namespace DoctorAppointment.Controllers
 			}
 			
 			return View(allDepartment);
-        }      
-
-        [HttpGet]
+        }
+		[Authorize(Roles = "Admin")]
+		[HttpGet]
         public async Task<IActionResult> Create()
         {
             // IEnumerable<Department>dep=await _unitOfWork.GenericRepository<Department>().SelectAll<Department>();
@@ -56,8 +60,8 @@ namespace DoctorAppointment.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        [HttpGet]
+		[Authorize(Roles = "Admin")]
+		[HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             await ViewBagReturn();
@@ -74,8 +78,8 @@ namespace DoctorAppointment.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
-        [HttpGet]
+		[Authorize(Roles = "Admin")]
+		[HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
 
@@ -95,7 +99,15 @@ namespace DoctorAppointment.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var selectedDep = await _unitOfWork.GenericRepository<Department>().SelectById<Department>(id);    
+            var selectedDep = await _unitOfWork.GenericRepository<Department>().SelectById<Department>(id);
+            selectedDep.Doctors = _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>()
+                    .Result.Where(h => h.DepartmentId == selectedDep.Id).ToList();
+
+            if (selectedDep.Doctors == null)
+                {
+                    selectedDep.Doctors = new List<Doctor>();
+                }
+            
             await ViewBagReturn();
             return View(selectedDep);
         }

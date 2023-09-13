@@ -16,9 +16,11 @@ namespace DoctorAppointment.Controllers
             _unitOfWork = unitOfWork;
             _imageHelper = imageHelper;
         }
-        public async Task<IActionResult> Index()
+		[Authorize(Roles = "Admin,Doctor")]
+		public async Task<IActionResult> Index()
         {
             IEnumerable<HospitalInfo> hospitals = await _unitOfWork.GenericRepository<HospitalInfo>().SelectAll<HospitalInfo>();
+            await ReturnViewBag();
             return View(hospitals);
         }
 
@@ -57,7 +59,7 @@ namespace DoctorAppointment.Controllers
 		}	
         public async Task<IActionResult> Details(int id)
         {
-            var hospital = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectById<Models.HospitalInfo>(id);
+            var hospital = await _unitOfWork.GenericRepository<HospitalInfo>().SelectById<HospitalInfo>(id);
             await ReturnViewBag();
             string imageUrl = _imageHelper.GetImageUrl(hospital.UrlToPicture);
             ViewBag.ImageUrl = imageUrl;         
@@ -72,19 +74,19 @@ namespace DoctorAppointment.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Models.HospitalInfo hospital, IFormFile file)
+        public async Task<IActionResult> Create(HospitalInfo hospital, IFormFile file)
         {
             if (hospital!=null)
             {
             string fileName = _imageHelper.StoreImage(file);
             hospital.UrlToPicture = fileName;
-            await _unitOfWork.GenericRepository<Models.HospitalInfo>().CreateAsync<Models.HospitalInfo>(hospital);
+            await _unitOfWork.GenericRepository<HospitalInfo>().CreateAsync<HospitalInfo>(hospital);
             _unitOfWork.Save();
             }
             return RedirectToAction(nameof(Index));
         }
-
-        [HttpGet]
+		[Authorize(Roles = "Admin")]
+		[HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var hospitalToEdit = await _unitOfWork.GenericRepository<Models.HospitalInfo>().SelectById<Models.HospitalInfo>(id);
@@ -106,7 +108,10 @@ namespace DoctorAppointment.Controllers
            
             return RedirectToAction(nameof(Index));
         }
-        [HttpGet]
+
+		[Authorize(Roles = "Admin")]
+
+		[HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
 

@@ -26,7 +26,7 @@ namespace DoctorAppointment.Repositories.Implimentation
                 throw new ArgumentNullException(nameof(entity));
             }
             await dbContext.Set<T>().AddAsync(entity);  //kan lees models van buiten
-            _ = await dbContext.SaveChangesAsync();      //discard (als ik heb geen interesse om de resultat te zien)
+            /*_ = await dbContext.SaveChangesAsync();*/      //discard (als ik heb geen interesse om de resultat te zien)
         }
 
         public async Task DeleteAsync<T>(T entity) where T : class
@@ -58,7 +58,7 @@ namespace DoctorAppointment.Repositories.Implimentation
                 throw new ArgumentNullException(nameof(entity));
             }
             dbContext.Set<T>().Update(entity);
-            _ = await dbContext.Set<T>().ToListAsync();            
+            _ = await dbContext.Set<T>().ToListAsync();
         }
     }
 }

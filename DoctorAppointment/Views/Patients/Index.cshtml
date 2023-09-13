@@ -3,11 +3,14 @@
 @{
     ViewData["Title"] = "Index";
 }
+<html>
+    <body style="background-color:lightseagreen">
 
-<h1>Index</h1>
+   
+<h1 class="text-center">Patient List</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button class="float-end" style="margin-right:10%;background-color:forestgreen"><a asp-action="Create" class="text-light text-decoration-none">Add New Patient</a></button>
 </p>
 <div class="modal-dialog-draggable" role="document">
 <table class="table">
@@ -71,3 +74,5 @@
     </tbody>
 </table>
 </div>
+</body>
+</html>

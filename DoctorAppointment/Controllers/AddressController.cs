@@ -1,10 +1,13 @@
 ﻿using DoctorAppointment.Models;
 using Hospital.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace DoctorAppointment.Controllers
 {
-    public class AddressController : Controller
+	[Authorize(Roles = "Admin")]
+	public class AddressController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 

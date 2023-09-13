@@ -17,7 +17,7 @@
     <link href="~/css/site.css" rel="stylesheet">
   </head>
 
-<body class="bg-dark bg-opacity-25">
+<body>
 	<div class=" text-center"><h1 class="text-dark m-2">Doctors</h1></div>
 	<div>
 		@if (User.IsInRole("Admin"))
@@ -39,10 +39,10 @@
 			{
                 <div class="bg-black m-3 col-5 d-flex">
 					<div class="d-block" >
-						<img src="/images/@item.UrlToPicture"style="width:150px;height:150px;margin-top:15%" />
+						<img src="/images/@item.UrlToPicture"style="width:150px;height:150px;margin-top:15%;border-radius:50%" />
 				    </div>
 				 <div class=" text-white" style="margin-left:5px">
-					<h3>@item.Name</h3>
+					<h3 class="text-danger">@item.Name</h3>
                     <br>
                     @item.Department.Name
                     <br>
@@ -52,8 +52,10 @@
                     <br>
                     <br>
 					<button class="text-center bg-opacity-50" style="height:30px;background-color:darkblue">
-						<a asp-controller="Appointment" asp-action="Create" asp-route-id="@item.Id"
+						<a asp-controller="Appointment" asp-action="Create"
 						   class="text-light text-decoration-none">Make an Appointment</a>
+						
+
 					</button>
 				 </div>
                 </div>              

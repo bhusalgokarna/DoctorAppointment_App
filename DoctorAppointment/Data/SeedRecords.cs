@@ -488,208 +488,244 @@ namespace DoctorAppointment.Data
         }
 		public static void SeedPatient(ModelBuilder model)
 		{
-			model.Entity<Patient>().HasData(
-				new Patient
-				{
-					Id = 1,
-					Name = "Gokarna",
-					Nationality = "Nepalese",
-					Address = "Bhddhanager 24,Kathmandu,Nepal",
-					DOB = new DateTime(1985, 06, 25),
+            model.Entity<Patient>().HasData(
+                new Patient
+                {
+                    Id = 1,
+                    Name = "Gokarna",
+                    Email = "gokarna@outlook.be",
+                    Phone="+977-9846324524",
+                    Nationality = "Nepalese",
+                    Address = "Bhddhanager 24,Kathmandu,Nepal",
+                    DOB = new DateTime(1985, 06, 25),
                     GenreId = 1,
-					DepartmentId = 6,
-					DoctorId = 1,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 2,
-					Name = "DGSon",
-					Nationality = "Nepalese",
-					Address = "MaitiGhar 124,Kathmandu,Nepal",
-					DOB = new DateTime(2002, 09, 10),
+                    DepartmentId = 6,
+                    DoctorId = 1,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 2,
+                    Name = "DGSon",
+                    Email = "dgson@gmail.be",
+                    Phone = "+977-9846324552",
+                    Nationality = "Nepalese",
+                    Address = "MaitiGhar 124,Kathmandu,Nepal",
+                    DOB = new DateTime(2002, 09, 10),
                     GenreId = 1,
-					DepartmentId = 4,
-					DoctorId = 2,
-					HospitalInfoId = 1,
+                    DepartmentId = 4,
+                    DoctorId = 2,
+                    HospitalInfoId = 1,
 
-				}, new Patient
-				{
-					Id = 3,
-					Name = "Paula",
-					Nationality = "Belgium",
-					Address = "Sinamangal 68,Kathmandu,Nepal",
-					DOB = new DateTime(2018, 04, 14),
+                }, new Patient
+                {
+                    Id = 3,
+                    Name = "Paula",
+                    Email = "paula@outlook.be",
+                    Phone = "+977-9856324520",
+                    Nationality = "Belgium",
+                    Address = "Sinamangal 68,Kathmandu,Nepal",
+                    DOB = new DateTime(2018, 04, 14),
                     GenreId = 1,
-					DepartmentId = 3,
-					DoctorId = 3,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 4,
-					Name = "Paula",
-					Nationality = "Belgium",
-					Address = "Sinamangal 68,Kathmandu,Nepal",
-					DOB = new DateTime(2018, 04, 14),
+                    DepartmentId = 3,
+                    DoctorId = 3,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 4,
+                    Name = "Agnese",
+                    Email = "agnese@outlook.be",
+                    Phone = "+977-9846324527",
+                    Nationality = "Belgium",
+                    Address = "Sinamangal 68,Kathmandu,Nepal",
+                    DOB = new DateTime(2018, 04, 14),
                     GenreId = 2,
-					DepartmentId = 3,
-					DoctorId = 4,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 5,
-					Name = "DGSon",
-					Nationality = "Nepalese",
-					Address = "MaitiGhar 124,Kathmandu,Nepal",
-					DOB = new DateTime(2002, 09, 10),
+                    DepartmentId = 3,
+                    DoctorId = 4,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 5,
+                    Name = "DGSon",
+                    Email = "dgson@gmail.be",
+                    Phone = "+977-9846324524",
+                    Nationality = "Nepalese",
+                    Address = "MaitiGhar 124,Kathmandu,Nepal",
+                    DOB = new DateTime(2002, 09, 10),
                     GenreId = 1,
-					DepartmentId = 4,
-					DoctorId = 5,
-					HospitalInfoId = 1,
+                    DepartmentId = 4,
+                    DoctorId = 5,
+                    HospitalInfoId = 1,
 
-				}, new Patient
-				{
-					Id = 6,
-					Name = "Gokarna",
-					Nationality = "Nepalese",
-					Address = "Bhddhanager 24,Kathmandu,Nepal",
-					DOB = new DateTime(1985, 06, 25),
+                }, new Patient
+                {
+                    Id = 6,
+                    Name = "Gokarna",
+                    Email = "gokarna@yahoomail.be",
+                    Phone = "+977-9846324550",
+                    Nationality = "Nepalese",
+                    Address = "Bhddhanager 24,Kathmandu,Nepal",
+                    DOB = new DateTime(1985, 06, 25),
                     GenreId = 1,
-					DepartmentId = 6,
-					DoctorId = 6,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 7,
-					Name = "Kenan",
-					Nationality = "Belgie",
-					Address = "NieuweStraat 120, Gent,Belgium",
-					DOB = new DateTime(1965, 04, 25),
+                    DepartmentId = 6,
+                    DoctorId = 6,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 7,
+                    Name = "Kenan",
+                    Email = "kenan.kurda@outlook.be",
+                    Phone = "+977-98463245456",
+                    Nationality = "Belgie",
+                    Address = "NieuweStraat 120, Gent,Belgium",
+                    DOB = new DateTime(1965, 04, 25),
                     GenreId = 1,
-					DepartmentId = 4,
-					DoctorId = 7,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 8,
-					Name = "Anu",
-					Nationality = "Indian",
-					Address = "Donderlieuw 121,Belgium",
-					DOB = new DateTime(1994, 04, 25),
+                    DepartmentId = 4,
+                    DoctorId = 7,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 8,
+                    Name = "Anu",
+                    Email = "anu@intec.be",
+                    Phone = "+977-9846324658",
+                    Nationality = "Indian",
+                    Address = "Donderlieuw 121,Belgium",
+                    DOB = new DateTime(1994, 04, 25),
                     GenreId = 2,
-					DepartmentId = 3,
-					DoctorId = 8,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 9,
-					Name = "Sabrina",
-					Nationality = "Belgie",
-					Address = "GroteMarkt 220, Brussel,Belgium",
-					DOB = new DateTime(1980, 04, 25),
+                    DepartmentId = 3,
+                    DoctorId = 8,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 9,
+                    Name = "Sabrina",
+                    Email = "sabrina@outlook.be",
+                    Phone = "+977-9846324578",
+                    Nationality = "Belgie",
+                    Address = "GroteMarkt 220, Brussel,Belgium",
+                    DOB = new DateTime(1980, 04, 25),
                     GenreId = 2,
-					DepartmentId = 3,
-					DoctorId = 9,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 10,
-					Name = "Rufat",
-					Nationality = "Azerbizan",
-					Address = "GentSeesteenweg 120, Gent,Belgium",
-					DOB = new DateTime(1985, 04, 12),
+                    DepartmentId = 3,
+                    DoctorId = 9,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 10,
+                    Name = "Rufat",
+                    Email = "rufat@gmail.be",
+                    Phone = "+977-9846324689",
+                    Nationality = "Azerbizan",
+                    Address = "GentSeesteenweg 120, Gent,Belgium",
+                    DOB = new DateTime(1985, 04, 12),
                     GenreId = 1,
-					DepartmentId = 4,
-					DoctorId = 1,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 11,
-					Name = "Jonas",
-					Nationality = "Belgie",
-					Address = "Mechanlenlaan 85, Mechelen,Belgium",
-					DOB = new DateTime(1999, 04, 25),
+                    DepartmentId = 4,
+                    DoctorId = 1,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 11,
+                    Name = "Jonas",
+                    Email = "jonas@outlook.be",
+                    Phone = "+977-9846324510",
+                    Nationality = "Belgie",
+                    Address = "Mechanlenlaan 85, Mechelen,Belgium",
+                    DOB = new DateTime(1999, 04, 25),
                     GenreId = 1,
-					DepartmentId = 2,
-					DoctorId = 2,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 12,
-					Name = "Ahmed",
-					Nationality = "Belgie",
-					Address = "Grotelaan 45, Brussels,Belgium",
-					DOB = new DateTime(1997, 04, 25),
+                    DepartmentId = 2,
+                    DoctorId = 2,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 12,
+                    Name = "Ahmed",
+                    Email = "ahmed@outlook.be",
+                    Phone = "+977-9846324515",
+                    Nationality = "Belgie",
+                    Address = "Grotelaan 45, Brussels,Belgium",
+                    DOB = new DateTime(1997, 04, 25),
                     GenreId = 1,
-					DepartmentId = 2,
-					DoctorId = 3,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 13,
-					Name = "Arijs",
-					Nationality = "Belgie",
-					Address = "Zuidstation 36, Brussels,Belgium",
-					DOB = new DateTime(1997, 04, 25),
+                    DepartmentId = 2,
+                    DoctorId = 3,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 13,
+                    Name = "Arijs",
+                    Email = "arijs@outlook.be",
+                    Phone = "+977-9846324986",
+                    Nationality = "Belgie",
+                    Address = "Zuidstation 36, Brussels,Belgium",
+                    DOB = new DateTime(1997, 04, 25),
                     GenreId = 2,
-					DepartmentId = 1,
-					DoctorId = 4,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 14,
-					Name = "Madalina",
-					Nationality = "Romania",
-					Address = "Tournailaan 45, Tournai,Belgium",
-					DOB = new DateTime(1991, 04, 25),
+                    DepartmentId = 1,
+                    DoctorId = 4,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 14,
+                    Name = "Madalina",
+                    Email = "madalina@outlook.be",
+                    Phone = "+977-9846324524",
+                    Nationality = "Romania",
+                    Address = "Tournailaan 45, Tournai,Belgium",
+                    DOB = new DateTime(1991, 04, 25),
                     GenreId = 2,
-					DepartmentId = 5,
-					DoctorId = 5,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 15,
-					Name = "Fida",
-					Nationality = "Turkia",
-					Address = "Leuvenlaan 45, Leuven,Belgium",
-					DOB = new DateTime(1999, 04, 23),
+                    DepartmentId = 5,
+                    DoctorId = 5,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 15,
+                    Name = "Fida",
+                    Email = "fida@outlook.be",
+                    Phone = "+977-9846324550",
+                    Nationality = "Turkia",
+                    Address = "Leuvenlaan 45, Leuven,Belgium",
+                    DOB = new DateTime(1999, 04, 23),
                     GenreId = 1,
-					DepartmentId = 2,
-					DoctorId = 6,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 16,
-					Name = "Mohamad",
-					Nationality = "Marrokko",
-					Address = "Molenbeeklaan 150, Brussels,Belgium",
-					DOB = new DateTime(1997, 04, 14),
+                    DepartmentId = 2,
+                    DoctorId = 6,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 16,
+                    Name = "Mohamad",
+                    Email = "mohamd@gmail.be",
+                    Phone = "+977-9846324585",
+                    Nationality = "Marrokko",
+                    Address = "Molenbeeklaan 150, Brussels,Belgium",
+                    DOB = new DateTime(1997, 04, 14),
                     GenreId = 1,
-					DepartmentId = 2,
-					DoctorId = 7,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 17,
-					Name = "Amanda",
-					Nationality = "Belgie",
-					Address = "Oplinter 102, Tienen,Belgium",
-					DOB = new DateTime(2008, 09, 25),
+                    DepartmentId = 2,
+                    DoctorId = 7,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 17,
+                    Name = "Amanda",
+                    Email = "amanda@outlook.be",
+                    Phone = "+977-9846324513",
+                    Nationality = "Belgie",
+                    Address = "Oplinter 102, Tienen,Belgium",
+                    DOB = new DateTime(2008, 09, 25),
                     GenreId = 2,
-					DepartmentId = 3,
-					DoctorId = 8,
-					HospitalInfoId = 1,
-				}, new Patient
-				{
-					Id = 18,
-					Name = "Rolis",
-					Nationality = "Belgie",
-					Address = "DiestSesteenweg 111, Diest,Belgium",
-					DOB = new DateTime(2012, 06, 17),
+                    DepartmentId = 3,
+                    DoctorId = 8,
+                    HospitalInfoId = 1,
+                }, new Patient
+                {
+                    Id = 18,
+                    Name = "Rolis",
+                    Email = "roland@outlook.be",
+                    Phone = "+977-9846324534",
+                    Nationality = "Belgie",
+                    Address = "DiestSesteenweg 111, Diest,Belgium",
+                    DOB = new DateTime(2012, 06, 17),
                     GenreId = 1,
-					DepartmentId = 5,
-					DoctorId = 9,
-					HospitalInfoId = 1,
-				});
+                    DepartmentId = 5,
+                    DoctorId = 9,
+                    HospitalInfoId = 1,
+                }) ;
 		}
        
 	}

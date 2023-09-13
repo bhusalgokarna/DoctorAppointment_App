@@ -17,6 +17,7 @@ namespace DoctorAppointment.Models
         public string PostCode { get; set; }
         [MaxLength(100)]
         public string Country { get; set; }
+        public HospitalInfo? HospitalInfo { get; set; }
 
     }
 }

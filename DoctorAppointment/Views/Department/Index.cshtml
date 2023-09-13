@@ -3,14 +3,15 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
+<html>
+ <body class="bg-success bg-opacity-50">
+<h1 class="text-center">Department List</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+		<button class="bg-primary float-end" style="margin-right:10%"><a asp-action="Create"class="text-light text-decoration-none">Add Department</a></button>
+	</p>
+<table class="table fw-bold">
+    <thead class="text-black">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -40,3 +41,5 @@
 }
     </tbody>
 </table>
+</body>
+</html>

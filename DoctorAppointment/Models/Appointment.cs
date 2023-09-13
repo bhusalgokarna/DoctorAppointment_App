@@ -7,6 +7,8 @@ namespace DoctorAppointment.Models
     [Table("Appointment")]
 	public class Appointment
 	{
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         
         public DateTime CreatedDate = DateTime.Now;

@@ -4,10 +4,8 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>Department</h4>
+    <h3> Over Department</h3>
     <hr />
     <dl class="row">
         @*<dt class = "col-sm-2">
@@ -27,7 +25,29 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.HospitalInfo.Name)
-        </dd>       
+        </dd> 
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctors)
+
+        </dt>
+       
+        <dd>
+            <p class="fw-bold text-danger" style="margin-left:17%">@Model.Doctors.Count() Doctor in @Model.Name </p>
+            @foreach (var item in Model.Doctors)
+            {
+				<div class="d-block">
+					<div style="margin-left:17%" class="fw-bold text-success">
+                        
+						Name:  @item.Name<br>
+						E-mail: @item.Email<br>
+						Phone:  @item.Phone
+                        <p>-------------------------------</p>
+					</div>
+				</div>
+				
+
+			}
+        </dd>
         @*<dt class="col-sm-2">
 
         </dt>
@@ -37,7 +57,7 @@
             </dd>
         </div>*@
     </dl>
-    <label>Service is avilable for 24/4</label>
+    <label>Service is avilable for 24/7</label>
 </div>
 <div>
     <button class="bg-primary"><a asp-controller="Home" asp-action="Index" style="text-decoration:none" class="text-light">Back to Home</a></button>

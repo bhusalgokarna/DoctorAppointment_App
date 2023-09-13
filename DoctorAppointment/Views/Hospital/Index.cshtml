@@ -3,11 +3,12 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
+<html>
+    <body class="bg-success bg-opacity-50">
+<h1 class="text-center">Hospital List</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button class="bg-primary float-end" style="margin-right:10%"><a asp-action="Create" class="text-light text-decoration-none">Add Hospital</a></button>
 </p>
 <table class="table">
     <thead>
@@ -30,18 +31,24 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address.Id)
+				<td>
+					@Html.DisplayFor(modelItem => item.Address.StreetName)
+					@Html.DisplayFor(modelItem => item.Address.PostCode)
+					@Html.DisplayFor(modelItem => item.Address.City)
+                    @Html.DisplayFor(modelItem => item.Address.Country)
+                    
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UrlToPicture)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+                <td>
+                    <button class="bg-primary"><a asp-action="Edit" asp-route-id="@item.Id" style="color:white" />Edit</button>
+                    <button class="bg-info"><a asp-action="Details" asp-route-id="@item.Id" style="color:white" />Details</button>
+                    <button class="bg-danger"><a asp-action="Delete" asp-route-id="@item.Id" style="color:white" />Delete</button>
+                </td>
         </tr>
 }
     </tbody>
 </table>
+</body>
+</html>

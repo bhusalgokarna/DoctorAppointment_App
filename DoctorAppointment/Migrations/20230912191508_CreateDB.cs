@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DoctorAppointment.Migrations
 {
-    public partial class CreatedDB : Migration
+    public partial class CreateDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -418,6 +418,11 @@ namespace DoctorAppointment.Migrations
                 values: new object[] { 1, 1, "Shandhikharkha Distric Hospital", "Gangalal national heart center.jpeg" });
 
             migrationBuilder.InsertData(
+                table: "Contact",
+                columns: new[] { "Id", "Email", "HospitalId", "Phone" },
+                values: new object[] { 1, "info@hospital.com.np", 1, "+97718544232565" });
+
+            migrationBuilder.InsertData(
                 table: "Department",
                 columns: new[] { "Id", "HospitalInfoId", "Name" },
                 values: new object[,]
@@ -640,7 +645,8 @@ namespace DoctorAppointment.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_HospitalInfo_AddressId",
                 table: "HospitalInfo",
-                column: "AddressId");
+                column: "AddressId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Patient_DepartmentId",

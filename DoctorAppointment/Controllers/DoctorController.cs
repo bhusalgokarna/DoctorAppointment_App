@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
 
 namespace DoctorAppointment.Controllers
-{   
+{
+   
     public class DoctorController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -39,7 +40,8 @@ namespace DoctorAppointment.Controllers
             await ReturnViewBag();
             var allDoctor=await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
             return View(allDoctor);
-        }		
+        }
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Details(int id)
         {
             var doctor = await _unitOfWork.GenericRepository<Doctor>().SelectById<Doctor>(id);
@@ -67,7 +69,9 @@ namespace DoctorAppointment.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+		[Authorize(Roles = "Admin")]
+
+		public async Task<IActionResult> Edit(int id)
         {
 
             var vD = await _unitOfWork.GenericRepository<Doctor>().SelectById<Doctor>(id);
@@ -92,7 +96,8 @@ namespace DoctorAppointment.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
+		[Authorize(Roles = "Admin")]
+		[HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
 

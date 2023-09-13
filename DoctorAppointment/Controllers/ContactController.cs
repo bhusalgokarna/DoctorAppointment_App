@@ -1,11 +1,15 @@
 ﻿using DoctorAppointment.Models;
 using Hospital.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace DoctorAppointment.Controllers
 {
-    public class ContactController : Controller
+	[Authorize(Roles = "Admin")]
+
+	public class ContactController : Controller
     {
 
         private readonly IUnitOfWork _unitOfWork;

@@ -29,8 +29,7 @@ namespace DoctorAppointment.Controllers
             {
                 AppointmentViewModel viewModel = new AppointmentViewModel();
                 viewModel.Id = appointment.Id;
-                viewModel.Description = appointment.Description;
-                viewModel.CreatedDate = appointment.CreatedDate;
+                viewModel.Description = appointment.Description;              
                 viewModel.DoctorId = appointment.DoctorId;
                 viewModel.PatientId = appointment.PatientId;
                 viewModel.DateSlotId = appointment.DateSlotId;
@@ -47,45 +46,66 @@ namespace DoctorAppointment.Controllers
 
         //Create a Appointment..
         [HttpGet]
-        public async Task<IActionResult> Create(int id )
-        {
+		public async Task<IActionResult> Create()
+		{
+			#region DoctorById
+			//if (id == 0)
+			//{
+			//	// Handle the case when no specific doctor is selected
+			//	var doctors = await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
+			//	ViewBag.Doctors = new SelectList(doctors, "Id", "Name");
+			//}
+			//else
+			//{
+			//	// Get the selected doctor
+			//	var doctor = await _unitOfWork.GenericRepository<Doctor>().SelectById<Doctor>(id);
+			//	ViewBag.Doctor = doctor;
 
-            if (id == 0)
-            {
-				// get all doctors
-				var doctors = await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
-                ViewBag.Doctors = new SelectList(doctors, "Id", "Name");               
-            }
-            else
-            {
-				// get specific doctor
-				var doctor = await _unitOfWork.GenericRepository<Doctor>().SelectById<Doctor>(id);
-				ViewBag.Doctor = (doctor);
+			//	// Load available date and time slots for the selected doctor
+			//	var dateSlots = await LoadAvailableDateSlotsForDoctor(id);
+			//	var timeSlots = await LoadAvailableTimeSlotsForDoctor(id);
 
-			}
+			//	ViewBag.DateSlots = new SelectList(dateSlots, "Id", "AvailableDay");
+			//	ViewBag.TimeSlots = new SelectList(timeSlots, "Id", "AvailAbleTime");
+			//             var patients=_unitOfWork.GenericRepository<Patient>().SelectAll<Patient>().Result.Where(x=>x.DoctorId==id);
+			//             ViewBag.Patients = new SelectList(patients,"Id","Name");
+			//}
+			#endregion
+            var appointment=new Appointment();
+			return View(appointment);
+		}
 
-			return View();
-        }
-        //public async Task<IActionResult> Create()
-        //{
-        //    var doctors=await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
-        //    ViewBag.Doctors = new SelectList(doctors, "Id", "Name");
-        //    return View();
-        //}
+		private async Task<IEnumerable<DateSlot>> LoadAvailableDateSlotsForDoctor(int doctorId)
+		{
+            var dateList=_unitOfWork.GenericRepository<DateSlot>().SelectAll<DateSlot>().Result.Where(x=>x.DoctorId == doctorId);
+            return dateList;
+		}
 
-        //Post Appointment Object...
-        [HttpPost]
+		private async Task<IEnumerable<TimeSlot>> LoadAvailableTimeSlotsForDoctor(int doctorId)
+		{
+			var appointment = await _unitOfWork.GenericRepository<Appointment>().SelectAll<Appointment>();
+			var bookedTime = appointment.Where(x => x.DoctorId == doctorId).Select(t => t.TimeSlotId).ToList();
+			var tds = await _unitOfWork.GenericRepository<TimeSlot>().SelectAll<TimeSlot>();
+			var returnFreeTimeSlot = tds.Where(x => x.DoctorId == doctorId && !bookedTime.Contains(x.Id)).ToList();
+            return returnFreeTimeSlot;
+
+		}
+
+		
+
+		//Post Appointment Object...
+		[HttpPost]
         public async Task<IActionResult> Create(Appointment appointment)
         {                      
             try
             {
                 await _unitOfWork.GenericRepository<Appointment>().CreateAsync(appointment);
                 _unitOfWork.Save();
-                if (!User.IsInRole("Admin") || User.IsInRole("Doctor"))
+                if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
                 {
-                    return RedirectToAction(nameof(ReturnMessage));
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ReturnMessage));
             }
             catch
             {
@@ -100,7 +120,8 @@ namespace DoctorAppointment.Controllers
 
         // Get Edit Object...
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> Edit(int id)
         {          
             if(id==0)
             {
@@ -133,8 +154,9 @@ namespace DoctorAppointment.Controllers
             return RedirectToAction("Index");
         }
 
-        //Get Id To Delete Object...
-        [HttpGet]
+		//Get Id To Delete Object...
+		[Authorize(Roles = "Admin")]
+		[HttpGet]
 		public async Task<IActionResult> Delete(int id)
 		{
 			if (id == 0)
@@ -169,12 +191,12 @@ namespace DoctorAppointment.Controllers
             return View(vm);
         }
 
-        //All Doctors for dropdown....
-        //public async Task<JsonResult> Doctor()
-        //{         
-        //    var doc= await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
-        //    return new JsonResult(doc);
-        //}
+       // All Doctors for dropdown....
+        public async Task<JsonResult> Doctor()
+        {
+            var doc = await _unitOfWork.GenericRepository<Doctor>().SelectAll<Doctor>();
+            return new JsonResult(doc);
+        }
 
         //DateSlot Based on choosen Doctor Id..
         public async Task<JsonResult> DateSlot(int id)
@@ -196,6 +218,7 @@ namespace DoctorAppointment.Controllers
             return new JsonResult(returnFreeTimeSlot);
             
         }
+
         public async Task<JsonResult>Patient(int id)
         {
             var patient = await _unitOfWork.GenericRepository<Patient>().SelectAll<Patient>();

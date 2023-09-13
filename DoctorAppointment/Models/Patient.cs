@@ -10,6 +10,10 @@ namespace DoctorAppointment.Models
         public int Id { get; set; }
         [MaxLength(100)]
         public string Name { get; set; }
+        [MaxLength(100)]
+        public string Email { get; set; }
+        [MaxLength(50)]
+        public string Phone { get; set; }
         public int GenreId { get; set; }
         [MaxLength(20)]
         public Genre Genre { get; set; }

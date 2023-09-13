@@ -129,6 +129,15 @@ namespace DoctorAppointment.Migrations
                     b.HasIndex("HospitalId");
 
                     b.ToTable("Contact");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "info@hospital.com.np",
+                            HospitalId = 1,
+                            Phone = "+97718544232565"
+                        });
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.DateSlot", b =>
@@ -554,7 +563,8 @@ namespace DoctorAppointment.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.ToTable("HospitalInfo");
 
@@ -1378,8 +1388,8 @@ namespace DoctorAppointment.Migrations
             modelBuilder.Entity("DoctorAppointment.Models.HospitalInfo", b =>
                 {
                     b.HasOne("DoctorAppointment.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
+                        .WithOne("HospitalInfo")
+                        .HasForeignKey("DoctorAppointment.Models.HospitalInfo", "AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1481,6 +1491,11 @@ namespace DoctorAppointment.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DoctorAppointment.Models.Address", b =>
+                {
+                    b.Navigation("HospitalInfo");
                 });
 
             modelBuilder.Entity("DoctorAppointment.Models.DateSlot", b =>

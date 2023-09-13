@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using DoctorAppointment.Data;
 using DoctorAppointment.Models;
 using Hospital.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DoctorAppointment.Controllers
 {
+    [Authorize(Roles ="Doctor")]
     public class DateSlotsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

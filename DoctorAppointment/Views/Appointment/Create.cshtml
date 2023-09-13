@@ -13,6 +13,11 @@
     <div class="col-md-6 offset-3">
         <form asp-action="Create" enctype="multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @*<div class="form-group visually-hidden">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
@@ -20,57 +25,119 @@
             </div>
 
 
-            <div class="form-group">
-                <label asp-for="Doctor" class="control-label"></label>
+				<div class="form-group">
+					<label asp-for="Doctor" class="control-label"></label>
+					<select asp-for="DoctorId" class="form-control" id="Doctor">
+						<option>--Select Doctor--</option>
+					</select>
+					<span asp-validation-for="DoctorId" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="DateSlot" class="control-label"></label>
+					<select asp-for="DateSlotId" class="form-control" id="DateSlot">
+						<option>--Select From Available Date--</option>
+					</select>
+					<span asp-validation-for="DateSlotId" class="text-danger"></span>
 
-                @if (ViewBag.Doctors is SelectList)
-                {
-                    <select asp-for="DoctorId" class="form-control" asp-items="@ViewBag.Doctors" id="Doctor">
-                        <option>--Select Doctor--</option>
-                    </select>
-                }              
-                else
-                {
-                    <Select asp-for="DoctorId" class="form-control" id="Doctor">
-                        <option value="@((int)ViewBag.Doctor.Id)">@ViewBag.Doctor.Name</option>
-                    </Select>
-                }
+				</div>
+				<div class="form-group">
+					<label asp-for="TimeSlot" class="control-label"></label>
+					<select asp-for="TimeSlotId" class="form-control" id="TimeSlot">
+						<option>--Select From Available Time--</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label asp-for="Patient" class="control-label"></label>
+					<select asp-for="PatientId" class="form-control" id="Patient">
+						<option>--Select Patient from list--</option>
+					</select>
+				</div>
 
-                <span asp-validation-for="DoctorId" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="DateSlot" class="control-label"></label>
-                <select asp-for="DateSlotId" class="form-control" id="DateSlot">
-                    <option>--Select From Available Date--</option>
-                </select>
-                <span asp-validation-for="DateSlotId" class="text-danger"></span>
+				<div>
+					@* <section>
+					@if (ViewBag.Doctors is SelectList)
+					{
+					<div class="form-group">
+					<label asp-for="Doctor" class="control-label"></label>
+					<select asp-for="DoctorId" class="form-control" id="Doctor">
+					<option>--Select Doctor--</option>
+					</select>
+					<span asp-validation-for="DoctorId" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+					<label asp-for="DateSlot" class="control-label"></label>
+					<select asp-for="DateSlotId" class="form-control" id="DateSlot">
+					<option>--Select From Available Date--</option>
+					</select>
+					<span asp-validation-for="DateSlotId" class="text-danger"></span>
 
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeSlot" class="control-label"></label>
-                <select asp-for="TimeSlotId" class ="form-control" id="TimeSlot">
-                    <option>--Select From Available Time--</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Patient" class="control-label"></label>
-				<select asp-for="PatientId" class="form-control" id="Patient">
-                    <option>--Select Patient from list--</option>
-                </select>
-            </div>
-            <div class="form-group d-flex m-2">
-					<input type="submit" value="Confirm" class="btn btn-primary" style="margin-left:30%;margin-right:10px" />
-					@if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
-                    {
-                        <button class="bg-primary float-end"> <a asp-controller="Appointment" asp-action="Index" class="text-decoration-none fw-bold text-white">Back to List</a></button>
-                    }
-                    else
-                    {
-                        <button class="bg-primary float-end"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none ">Back To Home Page</a></button>
+					</div>
+					<div class="form-group">
+					<label asp-for="TimeSlot" class="control-label"></label>
+					<select asp-for="TimeSlotId" class="form-control" id="TimeSlot">
+					<option>--Select From Available Time--</option>
+					</select>
+					</div>
+					<div class="form-group">
+					<label asp-for="Patient" class="control-label"></label>
+					<select asp-for="PatientId" class="form-control" id="Patient">
+					<option>--Select Patient from list--</option>
+					</select>
+					</div>
+					}
+					else
+					{
 
-                    }
-            </div>
+					<div class="form-group">
+					<label asp-for="Doctor" class="control-label"></label>
+					<input asp-for="DoctorId" class="form-control"name="@ViewBag.Doctor.Name" value="@ViewBag.Doctor.Id" id="Doctor"/>
+					<span asp-validation-for="DoctorId" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+					<label asp-for="DateSlot" class="control-label"></label>
+					<select asp-for="DateSlotId" class="form-control"asp-items="ViewBag.DateSlots" id="DateSlot">
+					<option>--SelectDate--</option>
+					</select>
+					<span asp-validation-for="DateSlotId" class="text-danger"></span>
+
+					</div>
+					<div class="form-group">
+					<label asp-for="TimeSlot" class="control-label"></label>
+					<select asp-for="TimeSlotId" class="form-control"asp-items="ViewBag.TimeSlots" id="TimeSlot">
+					<option>--Select Time--</option>
+					</select>
+					</div>
+					<div class="form-group">
+					<label asp-for="Patient" class="control-label"></label>
+					<select asp-for="PatientId" class="form-control" asp-items="ViewBag.Patients" id="Patient">
+					<option>--Select Patient from list--</option>
+					</select>
+					</div>
+					}
+					</section>*@
+				</div>
+            
+
+           
+				<div class=" d-flex">
+					<div class="form-group d-flex m-2">
+						<input type="submit" value="Confirm" class="btn btn-primary" style="margin-left:30%;margin-right:10px" />
+					</div>
+					<div style="margin-left:50%;margin-top:2%">
+						@if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+						{
+							<button class="bg-primary float-end"> <a asp-controller="Appointment" asp-action="Index" class="text-decoration-none fw-bold text-white">Back to List</a></button>
+						}
+						else
+						{
+							<button class="bg-primary float-end"><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none ">Back To Home Page</a></button>
+
+						}
+					</div>
+				</div>
+           
+               
         </form>
 	</div>
 </div>

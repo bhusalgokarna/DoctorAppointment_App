@@ -3,6 +3,7 @@ using DoctorAppointment.Repositories.Implimentation;
 using DoctorAppointment.Repositories.Interfaces;
 using Hospital.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,5 +31,9 @@ namespace Hospital.Repository.Implementation
 		{
 			_context.SaveChanges();
 		}
-	}
+        public IDbContextTransaction BeginTransaction()
+        {
+            return _context.Database.BeginTransaction();
+        }
+    }
 }

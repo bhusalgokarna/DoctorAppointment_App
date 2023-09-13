@@ -4,17 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<html>
+<body class="bg-success bg-opacity-25">
+    <h1 class="text-center">Appointment List</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <p>
+        <button class="float-end" style="margin-right:10%;background-color:forestgreen"><a asp-action="Create" class="text-light text-decoration-none">Make New Appointment</a></button>
+    </p>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+               Description
             </th>
             <th>
                 Date
@@ -23,13 +25,10 @@
                 Time
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Doctor)
+                Doctor
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Patient)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
+                Patient
             </th>
             <th></th>
         </tr>
@@ -53,17 +52,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PatientName)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+                    <td>
+                        <button class="bg-primary"><a asp-action="Edit" asp-route-id="@item.Id" style="color:white" />Edit</button>
+                        <button class="text-white" style="background-color:darkblue"><a asp-action="Details" asp-route-id="@item.Id" style="color:white" />Details</button>
+                        <button class="bg-danger"><a asp-action="Delete" asp-route-id="@item.Id" style="color:white" />Delete</button>
+                    </td>
         </tr>
             
        
 }
     </tbody>
 </table>
+</body>
+</html>

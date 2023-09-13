@@ -1,4 +1,5 @@
 ﻿using DoctorAppointment.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace Hospital.Repository.Interfaces
 {
 	public interface IUnitOfWork
 	{
-		IGenericRepo GenericRepository<T>() where T : class;
+        IDbContextTransaction BeginTransaction();
+        IGenericRepo GenericRepository<T>() where T : class;
 		void Save();
 	}
 }

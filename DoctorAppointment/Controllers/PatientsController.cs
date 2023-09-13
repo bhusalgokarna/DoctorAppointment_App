@@ -9,6 +9,7 @@ using DoctorAppointment.Data;
 using DoctorAppointment.Models;
 using Hospital.Repository.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DoctorAppointment.Controllers
 {
@@ -22,6 +23,7 @@ namespace DoctorAppointment.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [Authorize(Roles="Admin,Doctor")]
       //  GET: Patients
         public async Task<IActionResult> Index()
         {
@@ -41,9 +43,10 @@ namespace DoctorAppointment.Controllers
             await ReturnViewBag();
             return View(patient);
         }
+		
 
-        // GET: Patients/Create
-        public async Task<IActionResult> Create()
+		// GET: Patients/Create
+		public async Task<IActionResult> Create()
         {
             await ReturnViewBag();
             return View();
@@ -58,8 +61,10 @@ namespace DoctorAppointment.Controllers
             return RedirectToAction("Index");   
         }
 
-        // GET: Patient/Edit
-        public async Task<IActionResult> Edit(int id)
+		[Authorize(Roles = "Admin")]
+
+		// GET: Patient/Edit
+		public async Task<IActionResult> Edit(int id)
         {
             if (id == 0)
             {
@@ -78,9 +83,9 @@ namespace DoctorAppointment.Controllers
             _unitOfWork.Save();
             return RedirectToAction("Index");
         }
-
-        // GET: Patient/Delete
-        public async Task<IActionResult> Delete(int id)
+		[Authorize(Roles = "Admin")]
+		// GET: Patient/Delete
+		public async Task<IActionResult> Delete(int id)
         {
             if (id == 0)
             {
