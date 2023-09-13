@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 <html>
-    <body style="background-color:lightseagreen">
+    <body>
 
    
 <h1 class="text-center">Patient List</h1>
@@ -19,7 +19,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+             <th>
+		    	@Html.DisplayNameFor(model => model.Email)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Phone)
+			</th>
+			<th>
                 @Html.DisplayNameFor(model => model.Genre)
             </th>
             <th>
@@ -30,9 +36,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DOB)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
             </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Doctor)
@@ -46,6 +49,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Genre.Gender)
             </td>
@@ -57,9 +66,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DOB)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Doctor.Name)

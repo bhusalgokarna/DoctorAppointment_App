@@ -600,6 +600,11 @@ namespace DoctorAppointment.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
@@ -612,6 +617,11 @@ namespace DoctorAppointment.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Nationality")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -636,10 +646,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 6,
                             DoctorId = 1,
+                            Email = "gokarna@outlook.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Gokarna",
-                            Nationality = "Nepalese"
+                            Nationality = "Nepalese",
+                            Phone = "+977-9846324524"
                         },
                         new
                         {
@@ -648,10 +660,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 4,
                             DoctorId = 2,
+                            Email = "dgson@gmail.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "DGSon",
-                            Nationality = "Nepalese"
+                            Nationality = "Nepalese",
+                            Phone = "+977-9846324552"
                         },
                         new
                         {
@@ -660,10 +674,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             DoctorId = 3,
+                            Email = "paula@outlook.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Paula",
-                            Nationality = "Belgium"
+                            Nationality = "Belgium",
+                            Phone = "+977-9856324520"
                         },
                         new
                         {
@@ -672,10 +688,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             DoctorId = 4,
+                            Email = "agnese@outlook.be",
                             GenreId = 2,
                             HospitalInfoId = 1,
-                            Name = "Paula",
-                            Nationality = "Belgium"
+                            Name = "Agnese",
+                            Nationality = "Belgium",
+                            Phone = "+977-9846324527"
                         },
                         new
                         {
@@ -684,10 +702,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 4,
                             DoctorId = 5,
+                            Email = "dgson@gmail.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "DGSon",
-                            Nationality = "Nepalese"
+                            Nationality = "Nepalese",
+                            Phone = "+977-9846324524"
                         },
                         new
                         {
@@ -696,10 +716,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 6,
                             DoctorId = 6,
+                            Email = "gokarna@yahoomail.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Gokarna",
-                            Nationality = "Nepalese"
+                            Nationality = "Nepalese",
+                            Phone = "+977-9846324550"
                         },
                         new
                         {
@@ -708,10 +730,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1965, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 4,
                             DoctorId = 7,
+                            Email = "kenan.kurda@outlook.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Kenan",
-                            Nationality = "Belgie"
+                            Nationality = "Belgie",
+                            Phone = "+977-98463245456"
                         },
                         new
                         {
@@ -720,10 +744,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1994, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             DoctorId = 8,
+                            Email = "anu@intec.be",
                             GenreId = 2,
                             HospitalInfoId = 1,
                             Name = "Anu",
-                            Nationality = "Indian"
+                            Nationality = "Indian",
+                            Phone = "+977-9846324658"
                         },
                         new
                         {
@@ -732,10 +758,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1980, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             DoctorId = 9,
+                            Email = "sabrina@outlook.be",
                             GenreId = 2,
                             HospitalInfoId = 1,
                             Name = "Sabrina",
-                            Nationality = "Belgie"
+                            Nationality = "Belgie",
+                            Phone = "+977-9846324578"
                         },
                         new
                         {
@@ -744,10 +772,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1985, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 4,
                             DoctorId = 1,
+                            Email = "rufat@gmail.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Rufat",
-                            Nationality = "Azerbizan"
+                            Nationality = "Azerbizan",
+                            Phone = "+977-9846324689"
                         },
                         new
                         {
@@ -756,10 +786,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1999, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
                             DoctorId = 2,
+                            Email = "jonas@outlook.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Jonas",
-                            Nationality = "Belgie"
+                            Nationality = "Belgie",
+                            Phone = "+977-9846324510"
                         },
                         new
                         {
@@ -768,10 +800,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
                             DoctorId = 3,
+                            Email = "ahmed@outlook.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Ahmed",
-                            Nationality = "Belgie"
+                            Nationality = "Belgie",
+                            Phone = "+977-9846324515"
                         },
                         new
                         {
@@ -780,10 +814,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 1,
                             DoctorId = 4,
+                            Email = "arijs@outlook.be",
                             GenreId = 2,
                             HospitalInfoId = 1,
                             Name = "Arijs",
-                            Nationality = "Belgie"
+                            Nationality = "Belgie",
+                            Phone = "+977-9846324986"
                         },
                         new
                         {
@@ -792,10 +828,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1991, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 5,
                             DoctorId = 5,
+                            Email = "madalina@outlook.be",
                             GenreId = 2,
                             HospitalInfoId = 1,
                             Name = "Madalina",
-                            Nationality = "Romania"
+                            Nationality = "Romania",
+                            Phone = "+977-9846324524"
                         },
                         new
                         {
@@ -804,10 +842,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1999, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
                             DoctorId = 6,
+                            Email = "fida@outlook.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Fida",
-                            Nationality = "Turkia"
+                            Nationality = "Turkia",
+                            Phone = "+977-9846324550"
                         },
                         new
                         {
@@ -816,10 +856,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(1997, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
                             DoctorId = 7,
+                            Email = "mohamd@gmail.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Mohamad",
-                            Nationality = "Marrokko"
+                            Nationality = "Marrokko",
+                            Phone = "+977-9846324585"
                         },
                         new
                         {
@@ -828,10 +870,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2008, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
                             DoctorId = 8,
+                            Email = "amanda@outlook.be",
                             GenreId = 2,
                             HospitalInfoId = 1,
                             Name = "Amanda",
-                            Nationality = "Belgie"
+                            Nationality = "Belgie",
+                            Phone = "+977-9846324513"
                         },
                         new
                         {
@@ -840,10 +884,12 @@ namespace DoctorAppointment.Migrations
                             DOB = new DateTime(2012, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 5,
                             DoctorId = 9,
+                            Email = "roland@outlook.be",
                             GenreId = 1,
                             HospitalInfoId = 1,
                             Name = "Rolis",
-                            Nationality = "Belgie"
+                            Nationality = "Belgie",
+                            Phone = "+977-9846324534"
                         });
                 });
 

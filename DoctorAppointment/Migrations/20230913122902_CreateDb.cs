@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DoctorAppointment.Migrations
 {
-    public partial class CreateDB : Migration
+    public partial class CreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -306,6 +306,8 @@ namespace DoctorAppointment.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     GenreId = table.Column<int>(type: "int", nullable: false),
                     Nationality = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
@@ -480,27 +482,27 @@ namespace DoctorAppointment.Migrations
 
             migrationBuilder.InsertData(
                 table: "Patient",
-                columns: new[] { "Id", "Address", "DOB", "DepartmentId", "DoctorId", "GenreId", "HospitalInfoId", "Name", "Nationality" },
+                columns: new[] { "Id", "Address", "DOB", "DepartmentId", "DoctorId", "Email", "GenreId", "HospitalInfoId", "Name", "Nationality", "Phone" },
                 values: new object[,]
                 {
-                    { 1, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 1, 1, 1, "Gokarna", "Nepalese" },
-                    { 2, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 2, 1, 1, "DGSon", "Nepalese" },
-                    { 3, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 1, 1, "Paula", "Belgium" },
-                    { 4, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4, 2, 1, "Paula", "Belgium" },
-                    { 5, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 5, 1, 1, "DGSon", "Nepalese" },
-                    { 6, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 6, 1, 1, "Gokarna", "Nepalese" },
-                    { 7, "NieuweStraat 120, Gent,Belgium", new DateTime(1965, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 7, 1, 1, "Kenan", "Belgie" },
-                    { 8, "Donderlieuw 121,Belgium", new DateTime(1994, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, 2, 1, "Anu", "Indian" },
-                    { 9, "GroteMarkt 220, Brussel,Belgium", new DateTime(1980, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 9, 2, 1, "Sabrina", "Belgie" },
-                    { 10, "GentSeesteenweg 120, Gent,Belgium", new DateTime(1985, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 1, 1, 1, "Rufat", "Azerbizan" },
-                    { 11, "Mechanlenlaan 85, Mechelen,Belgium", new DateTime(1999, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 1, 1, "Jonas", "Belgie" },
-                    { 12, "Grotelaan 45, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 3, 1, 1, "Ahmed", "Belgie" },
-                    { 13, "Zuidstation 36, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 4, 2, 1, "Arijs", "Belgie" },
-                    { 14, "Tournailaan 45, Tournai,Belgium", new DateTime(1991, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 5, 2, 1, "Madalina", "Romania" },
-                    { 15, "Leuvenlaan 45, Leuven,Belgium", new DateTime(1999, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 6, 1, 1, "Fida", "Turkia" },
-                    { 16, "Molenbeeklaan 150, Brussels,Belgium", new DateTime(1997, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 7, 1, 1, "Mohamad", "Marrokko" },
-                    { 17, "Oplinter 102, Tienen,Belgium", new DateTime(2008, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, 2, 1, "Amanda", "Belgie" },
-                    { 18, "DiestSesteenweg 111, Diest,Belgium", new DateTime(2012, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 9, 1, 1, "Rolis", "Belgie" }
+                    { 1, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 1, "gokarna@outlook.be", 1, 1, "Gokarna", "Nepalese", "+977-9846324524" },
+                    { 2, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 2, "dgson@gmail.be", 1, 1, "DGSon", "Nepalese", "+977-9846324552" },
+                    { 3, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, "paula@outlook.be", 1, 1, "Paula", "Belgium", "+977-9856324520" },
+                    { 4, "Sinamangal 68,Kathmandu,Nepal", new DateTime(2018, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4, "agnese@outlook.be", 2, 1, "Agnese", "Belgium", "+977-9846324527" },
+                    { 5, "MaitiGhar 124,Kathmandu,Nepal", new DateTime(2002, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 5, "dgson@gmail.be", 1, 1, "DGSon", "Nepalese", "+977-9846324524" },
+                    { 6, "Bhddhanager 24,Kathmandu,Nepal", new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 6, "gokarna@yahoomail.be", 1, 1, "Gokarna", "Nepalese", "+977-9846324550" },
+                    { 7, "NieuweStraat 120, Gent,Belgium", new DateTime(1965, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 7, "kenan.kurda@outlook.be", 1, 1, "Kenan", "Belgie", "+977-98463245456" },
+                    { 8, "Donderlieuw 121,Belgium", new DateTime(1994, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, "anu@intec.be", 2, 1, "Anu", "Indian", "+977-9846324658" },
+                    { 9, "GroteMarkt 220, Brussel,Belgium", new DateTime(1980, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 9, "sabrina@outlook.be", 2, 1, "Sabrina", "Belgie", "+977-9846324578" },
+                    { 10, "GentSeesteenweg 120, Gent,Belgium", new DateTime(1985, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 1, "rufat@gmail.be", 1, 1, "Rufat", "Azerbizan", "+977-9846324689" },
+                    { 11, "Mechanlenlaan 85, Mechelen,Belgium", new DateTime(1999, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, "jonas@outlook.be", 1, 1, "Jonas", "Belgie", "+977-9846324510" },
+                    { 12, "Grotelaan 45, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 3, "ahmed@outlook.be", 1, 1, "Ahmed", "Belgie", "+977-9846324515" },
+                    { 13, "Zuidstation 36, Brussels,Belgium", new DateTime(1997, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 4, "arijs@outlook.be", 2, 1, "Arijs", "Belgie", "+977-9846324986" },
+                    { 14, "Tournailaan 45, Tournai,Belgium", new DateTime(1991, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 5, "madalina@outlook.be", 2, 1, "Madalina", "Romania", "+977-9846324524" },
+                    { 15, "Leuvenlaan 45, Leuven,Belgium", new DateTime(1999, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 6, "fida@outlook.be", 1, 1, "Fida", "Turkia", "+977-9846324550" },
+                    { 16, "Molenbeeklaan 150, Brussels,Belgium", new DateTime(1997, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 7, "mohamd@gmail.be", 1, 1, "Mohamad", "Marrokko", "+977-9846324585" },
+                    { 17, "Oplinter 102, Tienen,Belgium", new DateTime(2008, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 8, "amanda@outlook.be", 2, 1, "Amanda", "Belgie", "+977-9846324513" },
+                    { 18, "DiestSesteenweg 111, Diest,Belgium", new DateTime(2012, 6, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 9, "roland@outlook.be", 1, 1, "Rolis", "Belgie", "+977-9846324534" }
                 });
 
             migrationBuilder.InsertData(

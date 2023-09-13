@@ -9,7 +9,7 @@
 <h4>Patient</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 d-flex">
         <form asp-action="Create" enctype="multipart/form-datamethod="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -21,6 +21,16 @@
                 <label asp-for="Genre" class="control-label"></label>
                 <select asp-for="GenreId" class="form-control" asp-items="ViewBag.GenreId"></select>
                 <span asp-validation-for="GenreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Nationality" class="control-label"></label>
